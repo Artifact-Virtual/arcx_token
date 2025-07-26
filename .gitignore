@@ -1,0 +1,52 @@
+# Node
+node_modules/*
+node_modules
+package-lock.json
+npm-debug.log*
+
+# Hardhat/Artifacts
+artifacts/
+cache/
+typechain-types/
+coverage/
+coverage.json
+
+# TypeScript
+*.tsbuildinfo
+
+# VSCode
+.vscode/
+
+# Env
+.env
+.env.*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Misc
+*.tgz
+
+# Build
+/dist/
+
+# IDE
+.idea/
+*.iml
+
+# Test
+*.lcov
+
+# Ignore generated files
+*.sol.js
+*.sol.d.ts
+
+# Ignore output
+out/
+
+# Ignore sdas (accidental file)
+sdas
