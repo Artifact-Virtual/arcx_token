@@ -3,8 +3,6 @@
 
 ## Overview
 
-ARCx ## Development & Security
-
 ### Security-First Approach
 - **Zero Vulnerabilities**: All dependencies verified with `npm audit` showing 0 security issues
 - **Modern Hardhat Stack**: Uses latest @nomicfoundation toolbox for maximum security
