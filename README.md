@@ -96,8 +96,8 @@ All critical cryptographic dependencies (elliptic, secp256k1, cookie) have been 
 
 ### Installation
 ```bash
-git clone <repository-url>
-cd arcx-token
+git clone https://github.com/Artifact-Virtual/arcx_token.git
+cd arcx_token
 npm install
 ```
 
