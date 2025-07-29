@@ -11,8 +11,12 @@ describe("ARCxToken", function () {
     beforeEach(async function () {
         ARCxToken = await ethers.getContractFactory("ARCxToken");
         [owner, addr1, addr2] = await ethers.getSigners();
+        // Constructor: name, symbol, cap, deployer
         arcxToken = await ARCxToken.deploy("ARCx Token", "ARCX", ethers.parseEther("1000000"), owner.address);
         await arcxToken.waitForDeployment();
+        
+        // Mint some tokens to owner for testing
+        await arcxToken.mint(owner.address, ethers.parseEther("1000"));
     });
 
     describe("Deployment", function () {
@@ -38,11 +42,11 @@ describe("ARCxToken", function () {
             expect(addr2Balance).to.equal(50);
         });
 
-        it("Should fail if sender doesn’t have enough tokens", async function () {
+        it("Should fail if sender doesn't have enough tokens", async function () {
             const initialOwnerBalance = await arcxToken.balanceOf(owner.address);
             await expect(
                 arcxToken.connect(addr1).transfer(owner.address, 1)
-            ).to.be.revertedWith("Not enough tokens");
+            ).to.be.revertedWith("ERC20: transfer amount exceeds balance");
 
             // Owner balance shouldn't have changed
             expect(await arcxToken.balanceOf(owner.address)).to.equal(initialOwnerBalance);
