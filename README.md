@@ -1,7 +1,7 @@
 ## ARCx
 > The Smarter Contract
 
-![Live](https://img.shields.io/badge/status-Live-brightgreen?style=for-the-badge&logo=github)
+![Live](https://img.shields.io/badge/Live-Live-0052FF?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMjUgMjUiPjxjaXJjbGUgY3g9IjEyLjUiIGN5
 
 **Contract Address:** [`0xDa1d3752a2227FA2d2ad86Ba1D637d1d33D585ec`](https://basescan.org/address/0xDa1d3752a2227FA2d2ad86Ba1D637d1d33D585ec)
 
