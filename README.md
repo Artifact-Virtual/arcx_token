@@ -1,6 +1,7 @@
 <!-- Badges -->
-<p align="center">
-    <a href="https://github.com/Artifact-Virtual/arcx_token"><img src="https://img.shields.io/badge/Tests-35%20passing-brightgreen?logo=github" alt="Tests Status"></a>
+<p align="center">## Overview
+
+ARCx is a time-bound, non-inflationary ERC20  that bootstraps The Arc Protocol and provides a one-way migration path to FUEL, the protocol's native asset. Built as **The Smarter Contract**, ARCx incorporates advanced role management, comprehensive security auditing, and intelligent deployment automation—representing the next generation of blockchain infrastructure engineered for maximum security, transparency, and operational resilience.  <a href="https://github.com/Artifact-Virtual/arcx_token"><img src="https://img.shields.io/badge/Tests-35%20passing-brightgreen?logo=github" alt="Tests Status"></a>
     <a href="https://github.com/Artifact-Virtual/arcx_token"><img src="https://img.shields.io/github/package-json/v/Artifact-Virtual/arcx_token?label=Version&logo=npm" alt="Version"></a>
     <a href="https://github.com/Artifact-Virtual/arcx_token/blob/main/LICENSE"><img src="https://img.shields.io/github/license/Artifact-Virtual/arcx_token?label=License" alt="License"></a>
     <a href="https://hardhat.org/"><img src="https://img.shields.io/badge/Hardhat-v2.22.16-blue?logo=ethereum" alt="Hardhat"></a>
@@ -9,11 +10,12 @@
     <a href="https://soliditylang.org/"><img src="https://img.shields.io/badge/Solidity-0.8.21-black?logo=solidity" alt="Solidity"></a>
     <a href="#testing--quality-assurance"><img src="https://img.shields.io/badge/Coverage-100%25-brightgreen?logo=codecov" alt="Coverage"></a>
     <a href="#security-model"><img src="https://img.shields.io/badge/Security-0%20vulnerabilities-brightgreen?logo=shield" alt="Security"></a>
+   
 </p>
 
-# ARCx Token
+# ARCx Token: The Smarter Contract
 
-**ARCx** is the foundational, fixed-supply provisioning token for The Arc Protocol—a sovereign blockchain layer engineered for constitutional intelligence and decentralized governance. ARCx is designed for uncompromising security, seamless migration, and robust composability within the EVM ecosystem.
+**ARCx** is the foundational, fixed-supply provisioning token for The Arc Protocol—a sovereign blockchain layer engineered for constitutional intelligence and decentralized governance. ARCx represents the evolution of smart contracts into intelligent, self-governing systems designed for uncompromising security, seamless migration, and robust composability within the EVM ecosystem.
 
 ---
 
