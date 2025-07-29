@@ -1,7 +1,10 @@
-<!-- Badges -->
-<p align="center">## Overview
+## Overview
 
-ARCx is a time-bound, non-inflationary ERC20  that bootstraps The Arc Protocol and provides a one-way migration path to FUEL, the protocol's native asset. Built as **The Smarter Contract**, ARCx incorporates advanced role management, comprehensive security auditing, and intelligent deployment automation—representing the next generation of blockchain infrastructure engineered for maximum security, transparency, and operational resilience.  <a href="https://github.com/Artifact-Virtual/arcx_token"><img src="https://img.shields.io/badge/Tests-35%20passing-brightgreen?logo=github" alt="Tests Status"></a>
+ARCx is a time-bound, non-inflationary ERC20  that bootstraps The Arc Protocol and provides a one-way migration path to FUEL, the protocol's native asset. Built as **The Smarter Contract**, ARCx incorporates advanced role management, comprehensive security auditing, and intelligent deployment automation—representing the next generation of blockchain infrastructure engineered for maximum security, transparency, and operational resilience. 
+
+<!-- Badges -->
+<p align="center">
+    <a href="https://github.com/Artifact-Virtual/arcx_token"><img src="https://img.shields.io/badge/Tests-35%20passing-brightgreen?logo=github" alt="Tests Status"></a>
     <a href="https://github.com/Artifact-Virtual/arcx_token"><img src="https://img.shields.io/github/package-json/v/Artifact-Virtual/arcx_token?label=Version&logo=npm" alt="Version"></a>
     <a href="https://github.com/Artifact-Virtual/arcx_token/blob/main/LICENSE"><img src="https://img.shields.io/github/license/Artifact-Virtual/arcx_token?label=License" alt="License"></a>
     <a href="https://hardhat.org/"><img src="https://img.shields.io/badge/Hardhat-v2.22.16-blue?logo=ethereum" alt="Hardhat"></a>
