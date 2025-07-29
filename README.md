@@ -1,9 +1,45 @@
 ## ARCx
 > The Smarter Contract
 
+### 🚀 LIVE ON BASE MAINNET 🚀
+
+**Contract Address:** [`0xDa1d3752a2227FA2d2ad86Ba1D637d1d33D585ec`](https://basescan.org/address/0xDa1d3752a2227FA2d2ad86Ba1D637d1d33D585ec)
+
+**Verification Status:** ✅ Verified on [BaseScan](https://basescan.org/address/0xDa1d3752a2227FA2d2ad86Ba1D637d1d33D585ec#code) and [Sourcify](https://repo.sourcify.dev/contracts/full_match/8453/0xDa1d3752a2227FA2d2ad86Ba1D637d1d33D585ec/)
+
+**Deployment Details:**
+
+- **Network:** Base Mainnet (Chain ID: 8453)
+- **Deployed:** July 29, 2025
+- **Block Number:** 33,511,728
+- **Transaction Hash:** [`0x13ea418cf30bb88691de06a495838182df6a37b07a0cb3cdb089dce7dcd8a2f7`](https://basescan.org/tx/0x13ea418cf30bb88691de06a495838182df6a37b07a0cb3cdb089dce7dcd8a2f7)
+- **Deployer:** `0x21E914dFBB137F7fEC896F11bC8BAd6BCCDB147B`
+
+### Token Specifications
+
+- **Name:** ARCx
+- **Symbol:** ARCx  
+- **Decimals:** 18
+- **Max Supply:** 100,000,000 ARCx
+- **Current Supply:** 0 ARCx (minting not yet initiated)
+- **Type:** ERC20 with AccessControl, Pausable, and Capped extensions
+
+### Role Configuration
+
+- **DEFAULT_ADMIN_ROLE:** `0x21e914dfbb137f7fec896f11bc8bad6bccdb147b` ✅
+- **MINTER_ROLE:** `0x21e914dfbb137f7fec896f11bc8bad6bccdb147b` ✅
+- **PAUSER_ROLE:** `0x21e914dfbb137f7fec896f11bc8bad6bccdb147b` ✅
+
+### Contract Status
+
+- **Paused:** No ✅
+- **Minting Finalized:** No (ready for token distribution)
+- **Bridge Configured:** Not yet (0x0000000000000000000000000000000000000000)
+- **Total Supply:** 0 ARCx (awaiting initial mint)
+
 ### Overview
 
-ARCx is a time-bound, non-inflationary ERC20  that bootstraps The Arc and Adam Protocol providing a one-way migration path to FUEL, the ARC's native asset. Built as **The Smarter Contract**, ARCx incorporates advanced role management, comprehensive security auditing, and intelligent deployment automation, representing the evolution of smart contracts into intelligent, self-governing systems designed for uncompromising security, seamless migration, and robust composability within the EVM ecosystem.
+ARCx is a time-bound, non-inflationary ERC20 that bootstraps The Arc and Adam Protocol providing a one-way migration path to FUEL, the ARC's native asset. Built as **The Smarter Contract**, ARCx incorporates advanced role management, comprehensive security auditing, and intelligent deployment automation, representing the evolution of smart contracts into intelligent, self-governing systems designed for uncompromising security, seamless migration, and robust composability within the EVM ecosystem.
 
 
 <!-- Badges -->
@@ -24,7 +60,12 @@ ARCx is a time-bound, non-inflationary ERC20  that bootstraps The Arc and Adam P
 
 ## Table of Contents
 
+- [Live Deployment](#-live-on-base-mainnet-)
+- [Token Specifications](#token-specifications)
+- [Role Configuration](#role-configuration)
+- [Contract Status](#contract-status)
 - [Overview](#overview)
+- [Contract Interaction](#-contract-interaction)
 - [Security Model](#security-model)
 - [Architecture](#architecture)
 - [Lifecycle Phases](#lifecycle-phases)
@@ -36,6 +77,43 @@ ARCx is a time-bound, non-inflationary ERC20  that bootstraps The Arc and Adam P
 - [Project Status](#project-status)
 - [License](#license)
 
+
+---
+
+## 🔗 Contract Interaction
+
+### Adding ARCx to Your Wallet
+
+**Network:** Base Mainnet
+**Contract Address:** `0xDa1d3752a2227FA2d2ad86Ba1D637d1d33D585ec`
+**Symbol:** ARCx
+**Decimals:** 18
+
+### Contract Functions
+
+**Public Read Functions:**
+- `name()` → "ARCx"
+- `symbol()` → "ARCx" 
+- `totalSupply()` → Current circulating supply
+- `balanceOf(address)` → Token balance of address
+- `cap()` → Maximum supply (100,000,000 ARCx)
+- `paused()` → Contract pause status
+
+**Admin Functions (Role Required):**
+- `mint(address, amount)` → Mint tokens (MINTER_ROLE)
+- `pause()` / `unpause()` → Emergency controls (PAUSER_ROLE)
+- `finalizeMinting()` → Lock supply permanently (ADMIN_ROLE)
+- `setFuelBridge(address)` → Set migration bridge (ADMIN_ROLE, one-time only)
+
+**Migration Function:**
+- `burnToFuel(uint256)` → Burn ARCx and migrate to FUEL (available after bridge is set)
+
+### Gas Optimization
+
+Deployed on Base for ultra-low transaction costs:
+- **Standard Transfer:** ~$0.01 USD
+- **Token Mint:** ~$0.02 USD
+- **Bridge Migration:** ~$0.03 USD
 
 ---
 

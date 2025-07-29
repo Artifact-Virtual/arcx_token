@@ -4,10 +4,10 @@ import "dotenv/config";
 
 const { 
   ALCHEMY_API_KEY, 
+  INFURA_PROJECT_ID,
   DEPLOYER_PRIVATE_KEY, 
   ETHERSCAN_API_KEY,
   POLYGONSCAN_API_KEY,
-  BASESCAN_API_KEY,
   GAS_PRICE_MAINNET = "20",
   GAS_PRICE_TESTNET = "10",
   REPORT_GAS = "true"
@@ -32,29 +32,29 @@ const config: HardhatUserConfig = {
       },
     },
     // Ethereum Mainnet
-    ...(ALCHEMY_API_KEY && DEPLOYER_PRIVATE_KEY && DEPLOYER_PRIVATE_KEY.length === 64 ? {
+    ...(INFURA_PROJECT_ID && DEPLOYER_PRIVATE_KEY && DEPLOYER_PRIVATE_KEY.length === 64 ? {
       mainnet: {
-        url: `https://eth-mainnet.alchemyapi.io/v2/${ALCHEMY_API_KEY}`,
+        url: `https://mainnet.infura.io/v3/${INFURA_PROJECT_ID}`,
         accounts: [`0x${DEPLOYER_PRIVATE_KEY}`],
         gasPrice: parseInt(GAS_PRICE_MAINNET) * 1000000000, // Convert gwei to wei
         timeout: 60000,
       }
     } : {}),
     // Ethereum Sepolia Testnet
-    ...(ALCHEMY_API_KEY && DEPLOYER_PRIVATE_KEY && DEPLOYER_PRIVATE_KEY.length === 64 ? {
+    ...(INFURA_PROJECT_ID && DEPLOYER_PRIVATE_KEY && DEPLOYER_PRIVATE_KEY.length === 64 ? {
       sepolia: {
-        url: `https://eth-sepolia.alchemyapi.io/v2/${ALCHEMY_API_KEY}`,
+        url: `https://sepolia.infura.io/v3/${INFURA_PROJECT_ID}`,
         accounts: [`0x${DEPLOYER_PRIVATE_KEY}`],
         gasPrice: parseInt(GAS_PRICE_TESTNET) * 1000000000,
         timeout: 60000,
       }
     } : {}),
     // Base L2
-    ...(ALCHEMY_API_KEY && DEPLOYER_PRIVATE_KEY && DEPLOYER_PRIVATE_KEY.length === 64 ? {
+    ...(INFURA_PROJECT_ID && DEPLOYER_PRIVATE_KEY && DEPLOYER_PRIVATE_KEY.length === 64 ? {
       base: {
-        url: `https://base-mainnet.g.alchemy.com/v2/${ALCHEMY_API_KEY}`,
+        url: `https://base-mainnet.infura.io/v3/${INFURA_PROJECT_ID}`,
         accounts: [`0x${DEPLOYER_PRIVATE_KEY}`],
-        gasPrice: parseInt(GAS_PRICE_MAINNET) * 1000000000,
+        gasPrice: Math.max(parseInt(GAS_PRICE_MAINNET) * 100000000, 50000000), // Minimum 0.05 gwei for Base
         timeout: 60000,
       }
     } : {}),
@@ -69,12 +69,21 @@ const config: HardhatUserConfig = {
     } : {}),
   },
   etherscan: {
-    apiKey: {
-      mainnet: ETHERSCAN_API_KEY || "",
-      sepolia: ETHERSCAN_API_KEY || "",
-      polygon: POLYGONSCAN_API_KEY || "",
-      base: BASESCAN_API_KEY || "",
-    },
+    // Etherscan v2 API configuration
+    apiKey: ETHERSCAN_API_KEY || "",
+    customChains: [
+      {
+        network: "base",
+        chainId: 8453,
+        urls: {
+          apiURL: "https://api.basescan.org/api",
+          browserURL: "https://basescan.org"
+        }
+      }
+    ]
+  },
+  sourcify: {
+    enabled: true
   },
   gasReporter: {
     enabled: REPORT_GAS === "true",
