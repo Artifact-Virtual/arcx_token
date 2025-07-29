@@ -16,7 +16,8 @@ ARCx is a time-bound, non-inflationary ERC20  that bootstraps The Arc and Adam P
    
 </p>
 
-# ARCx Token: The Smarter Contract
+# ARCx
+> The Smarter Contract
 
 **ARCx** is the foundational, fixed-supply provisioning token for The Arc Protocol—a sovereign blockchain layer engineered for constitutional intelligence and decentralized governance. ARCx represents the evolution of smart contracts into intelligent, self-governing systems designed for uncompromising security, seamless migration, and robust composability within the EVM ecosystem.
 
