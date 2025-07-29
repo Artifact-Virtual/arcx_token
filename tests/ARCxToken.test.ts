@@ -175,6 +175,65 @@ describe("ARCxToken", function () {
             await expect(arcxToken.connect(addr1).finalizeMinting())
                 .to.be.revertedWith("Restricted to admins");
         });
+
+        it("Should allow admin role transfer", async function () {
+            await expect(arcxToken.transferAdminRole(addr1.address))
+                .to.emit(arcxToken, "AdminRoleTransferred")
+                .withArgs(owner.address, addr1.address);
+            
+            const adminRole = await arcxToken.ADMIN_ROLE();
+            expect(await arcxToken.hasRole(adminRole, addr1.address)).to.be.true;
+        });
+
+        it("Should not allow admin role transfer to zero address", async function () {
+            await expect(arcxToken.transferAdminRole(ethers.ZeroAddress))
+                .to.be.revertedWith("Invalid address");
+        });
+
+        it("Should not allow admin role transfer to self", async function () {
+            await expect(arcxToken.transferAdminRole(owner.address))
+                .to.be.revertedWith("Cannot transfer to self");
+        });
+
+        it("Should allow admin role renouncement", async function () {
+            await expect(arcxToken.renounceAdminRole())
+                .to.emit(arcxToken, "AdminRoleRenounced")
+                .withArgs(owner.address);
+            
+            const adminRole = await arcxToken.ADMIN_ROLE();
+            expect(await arcxToken.hasRole(adminRole, owner.address)).to.be.false;
+        });
+
+        it("Should allow emergency role revocation", async function () {
+            const minterRole = await arcxToken.MINTER_ROLE();
+            await arcxToken.grantRole(minterRole, addr1.address);
+            
+            await expect(arcxToken.emergencyRevokeAllRoles(addr1.address))
+                .to.emit(arcxToken, "EmergencyRoleRevocation")
+                .withArgs(addr1.address, owner.address);
+            
+            expect(await arcxToken.hasRole(minterRole, addr1.address)).to.be.false;
+        });
+
+        it("Should not allow emergency revocation of own roles", async function () {
+            await expect(arcxToken.emergencyRevokeAllRoles(owner.address))
+                .to.be.revertedWith("Cannot revoke own roles");
+        });
+
+        it("Should check role status correctly", async function () {
+            const adminRole = await arcxToken.ADMIN_ROLE();
+            expect(await arcxToken.checkRoleStatus(adminRole, owner.address)).to.be.true;
+            expect(await arcxToken.checkRoleStatus(adminRole, addr1.address)).to.be.false;
+        });
+
+        it("Should detect any admin role correctly", async function () {
+            expect(await arcxToken.hasAnyAdminRole(owner.address)).to.be.true;
+            expect(await arcxToken.hasAnyAdminRole(addr1.address)).to.be.false;
+            
+            const pauserRole = await arcxToken.PAUSER_ROLE();
+            await arcxToken.grantRole(pauserRole, addr1.address);
+            expect(await arcxToken.hasAnyAdminRole(addr1.address)).to.be.true;
+        });
     });
 
     describe("ERC20 Standard Compliance", function () {

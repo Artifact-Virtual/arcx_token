@@ -23,15 +23,15 @@ A zero-vulnerability, production-ready digital asset that seeds the foundational
 
 ## Slide 3: Problem We Solve
 
-❌ Decentralized systems lack ethical, constitutional scaffolding.
-❌ Foundational development is underfunded and over-speculated.
-❌ Governance capture and inflation ruin long-term trust.
-❌ Security vulnerabilities compromise project integrity.
+X Decentralized systems lack ethical, constitutional scaffolding.
+X Foundational development is underfunded and over-speculated.
+X Governance capture and inflation ruin long-term trust.
+X Security vulnerabilities compromise project integrity.
 
-✅ ARCx funds the infrastructure without introducing long-term distortion.
-✅ One-time issuance. Zero inflation. Absolute clarity.
-✅ **Zero-vulnerability environment** ensures maximum security.
-✅ **A+ Security Rating** with comprehensive dependency management.
++ ARCx funds the infrastructure without introducing long-term distortion.
++ One-time issuance. Zero inflation. Absolute clarity.
++ **Zero-vulnerability environment** ensures maximum security.
++ **A+ Security Rating** with comprehensive dependency management.
 
 ---
 

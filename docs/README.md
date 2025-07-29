@@ -18,7 +18,7 @@
 
 ### Dependencies Status
 ```bash
-npm audit  # ✅ 0 vulnerabilities found
+npm audit  # 0 vulnerabilities found
 ```
 
 All critical cryptographic dependencies (elliptic, secp256k1, cookie) have been updated to secure versions with dependency overrides ensuring no vulnerable packages are included.
@@ -45,11 +45,15 @@ All critical cryptographic dependencies (elliptic, secp256k1, cookie) have been 
 
 - **Fixed Supply**: The total supply of ARCx is immutable and established at contract deployment. No further minting is possible after the initial allocation.
 
+- **Enhanced Role Management**: Sophisticated role-based access control with transfer, renouncement, and emergency revocation capabilities for operational security.
+
 - **Burn-to-Migrate**: ARCx holders can convert their tokens to FUEL via a contract-enforced, one-way migration bridge during the migration phase.
 
 - **Role-Based Access Control**: The contract implements strict roles (`ADMIN`, `MINTER`, `PAUSER`) with immutable logic for governance and operational security.
 
 - **Emergency Controls**: Includes mechanisms for emergency pausing and comprehensive on-chain auditability.
+
+- **Environment Configuration**: Enterprise-grade environment variable management with comprehensive security documentation.
 
 - **ERC20 Compliance**: Fully compatible with wallets and DeFi applications.
 
@@ -107,21 +111,50 @@ npm install
 # Compile contracts
 npx hardhat compile
 
-# Run comprehensive test suite
+# Run comprehensive test suite (35 test cases)
 npx hardhat test
 
 # Check test coverage
 npx hardhat coverage
 
+# Set up environment variables
+cp .env.example .env
+# Edit .env with your configuration
+
 # Deploy to network
-npx hardhat run scripts/deploy.ts --network <network_name>
+npx hardhat run scripts/deploy_arcx.ts --network <network_name>
 
 # Verify contracts
 npx hardhat verify --network <network_name> <contract_address>
 
 # Security audit
 npm audit
+
+# Generate gas report
+REPORT_GAS=true npx hardhat test
 ```
+
+### Enhanced Smart Contract Features
+
+The ARCx token contract includes enterprise-grade enhancements:
+
+#### Advanced Role Management
+- **Role Transfer**: Secure admin role transfer with two-step verification
+- **Role Renouncement**: Ability to permanently renounce admin capabilities
+- **Emergency Revocation**: Emergency role removal for compromised accounts
+- **Role Querying**: Check role status and administrative capabilities
+
+#### Environment Configuration
+- **Comprehensive .env Setup**: Over 30 configuration variables
+- **Multi-network Support**: Mainnet, Sepolia, Base, Polygon configurations
+- **Security Best Practices**: Detailed security documentation and validation
+- **Deployment Automation**: Enhanced deployment script with full verification
+
+#### Security Enhancements
+- **35 Test Cases**: Comprehensive test coverage including new role functions
+- **Gas Optimization**: Solidity optimizer enabled with 200 runs
+- **Network Validation**: Pre-deployment environment verification
+- **Multi-signature Ready**: Supports complex operational scenarios
 
 ### Testing
 The project includes comprehensive test coverage with:

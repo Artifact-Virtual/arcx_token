@@ -18,7 +18,7 @@ The ARCx Token sale funds the genesis and development of The Arc Protocol, a sov
 
 - **Smart Contract**: Solidity 0.8.21 with OpenZeppelin security primitives
 - **Development Stack**: Hardhat v2.22.16, Ethers v6.15.0, TypeScript v5.7.2
-- **Security Status**: ✅ Zero vulnerabilities (npm audit: 0 issues found)
+- **Security Status**: Zero vulnerabilities (npm audit: 0 issues found)
 - **Test Coverage**: Comprehensive unit and integration test suite
 - **Audit Status**: A+ security rating with production deployment approval
 

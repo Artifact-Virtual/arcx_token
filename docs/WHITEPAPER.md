@@ -4,7 +4,7 @@
 
 ARCx is the initial funding and provisioning token for The Arc Protocol, the sovereign blockchain layer powering constitutional intelligence. It is designed as a fixed-supply, time-bound digital asset that bootstraps development while ensuring smooth migration into the broader FUEL-based economy.
 
-**Security Status**: ✅ Zero vulnerabilities across all dependencies, production-ready with A+ security rating.
+**Security Status**: Zero vulnerabilities across all dependencies, production-ready with A+ security rating.
 
 ---
 

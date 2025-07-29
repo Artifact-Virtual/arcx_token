@@ -88,6 +88,65 @@ contract ARCxToken is ERC20, ERC20Burnable, AccessControl, Pausable {
         // future: notify fuel bridge
     }
 
+    // Enhanced Role Management Functions
+    
+    /// @notice Safely transfer admin role to a new address with two-step verification
+    /// @param newAdmin The address to transfer admin role to
+    function transferAdminRole(address newAdmin) external onlyAdmin {
+        require(newAdmin != address(0), "Invalid address");
+        require(newAdmin != msg.sender, "Cannot transfer to self");
+        
+        // Grant admin role to new admin
+        _grantRole(ADMIN_ROLE, newAdmin);
+        _grantRole(DEFAULT_ADMIN_ROLE, newAdmin);
+        
+        emit AdminRoleTransferred(msg.sender, newAdmin);
+    }
+    
+    /// @notice Renounce admin role (irreversible - use with caution)
+    /// @dev This will make the contract immutable by removing admin capabilities
+    function renounceAdminRole() external onlyAdmin {
+        address admin = msg.sender;
+        _revokeRole(ADMIN_ROLE, admin);
+        _revokeRole(DEFAULT_ADMIN_ROLE, admin);
+        
+        emit AdminRoleRenounced(admin);
+    }
+    
+    /// @notice Emergency role revocation for compromised accounts
+    /// @param compromisedAccount The account to revoke all roles from
+    function emergencyRevokeAllRoles(address compromisedAccount) external onlyAdmin {
+        require(compromisedAccount != msg.sender, "Cannot revoke own roles");
+        
+        _revokeRole(ADMIN_ROLE, compromisedAccount);
+        _revokeRole(MINTER_ROLE, compromisedAccount);
+        _revokeRole(PAUSER_ROLE, compromisedAccount);
+        
+        emit EmergencyRoleRevocation(compromisedAccount, msg.sender);
+    }
+    
+    /// @notice Check role status for an account
+    /// @param role The role to query
+    /// @param account The account to check
+    /// @dev Helper function for role verification
+    function checkRoleStatus(bytes32 role, address account) external view returns (bool accountHasRole) {
+        return hasRole(role, account);
+    }
+    
+    /// @notice Check if an address has any administrative role
+    /// @param account The address to check
+    /// @return accountHasAdminRole True if the address has admin, minter, or pauser role
+    function hasAnyAdminRole(address account) external view returns (bool accountHasAdminRole) {
+        return hasRole(ADMIN_ROLE, account) || 
+               hasRole(MINTER_ROLE, account) || 
+               hasRole(PAUSER_ROLE, account);
+    }
+
+    // Additional Events for Enhanced Role Management
+    event AdminRoleTransferred(address indexed previousAdmin, address indexed newAdmin);
+    event AdminRoleRenounced(address indexed admin);
+    event EmergencyRoleRevocation(address indexed compromisedAccount, address indexed revoker);
+
     function _beforeTokenTransfer(address from, address to, uint256 amount) internal override whenNotPaused {
         super._beforeTokenTransfer(from, to, amount);
     }

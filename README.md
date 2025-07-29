@@ -18,7 +18,7 @@
 
 ### Dependencies Status
 ```bash
-npm audit  # ✅ 0 vulnerabilities found
+npm audit  # 0 vulnerabilities found
 ```
 
 All critical cryptographic dependencies (elliptic, secp256k1, cookie) have been updated to secure versions with dependency overrides ensuring no vulnerable packages are included.
