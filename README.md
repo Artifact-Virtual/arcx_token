@@ -1,3 +1,6 @@
+## ARCx
+> The Smarter Contract
+
 ## Overview
 
 ARCx is a time-bound, non-inflationary ERC20  that bootstraps The Arc and Adam Protocol providing a one-way migration path to FUEL, the ARC's native asset. Built as **The Smarter Contract**, ARCx incorporates advanced role management, comprehensive security auditing, and intelligent deployment automation, representing the evolution of smart contracts into intelligent, self-governing systems designed for uncompromising security, seamless migration, and robust composability within the EVM ecosystem.
