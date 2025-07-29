@@ -21,8 +21,25 @@
 - **Symbol:** ARCx  
 - **Decimals:** 18
 - **Max Supply:** 100,000,000 ARCx
-- **Current Supply:** 0 ARCx (minting not yet initiated)
+- **Current Supply:** 1,000,000 ARCx (initial mint complete)
 - **Type:** ERC20 with AccessControl, Pausable, and Capped extensions
+
+#### Initial Mint
+
+The first mint was executed as follows:
+
+```js
+ARCx.mint("0x21E914dFBB137F7fEC896F11bC8BAd6BCCDB147B", ethers.parseEther("1000000"));
+```
+
+Transaction details:
+
+- **From:** `0x21E914dFBB137F7fEC896F11bC8BAd6BCCDB147B`
+- **To (Contract):** `0xDa1d3752a2227FA2d2ad86Ba1D637d1d33D585ec`
+- **Amount:** 1,000,000 ARCx
+- **Transaction Hash:** [`0x62dacaac7fe198c2b68d41806029a00386944cb03cdd93a0371c5a0d575c7bcd`](https://basescan.org/tx/0x62dacaac7fe198c2b68d41806029a00386944cb03cdd93a0371c5a0d575c7bcd)
+- **Gas Used:** 74,198
+- **Chain ID:** 8453 (Base Mainnet)
 
 ### Role Configuration
 
@@ -35,12 +52,11 @@
 - **Paused:** No ✅
 - **Minting Finalized:** No (ready for token distribution)
 - **Bridge Configured:** Not yet (0x0000000000000000000000000000000000000000)
-- **Total Supply:** 0 ARCx (awaiting initial mint)
+- **Total Supply:** 1,000,000 ARCx (initial mint complete)
 
 ### Overview
 
 ARCx is a time-bound, non-inflationary ERC20 that bootstraps The Arc and Adam Protocol providing a one-way migration path to FUEL, the ARC's native asset. Built as **The Smarter Contract**, ARCx incorporates advanced role management, comprehensive security auditing, and intelligent deployment automation, representing the evolution of smart contracts into intelligent, self-governing systems designed for uncompromising security, seamless migration, and robust composability within the EVM ecosystem.
-
 
 <!-- Badges -->
 <p align="center">
@@ -77,16 +93,15 @@ ARCx is a time-bound, non-inflationary ERC20 that bootstraps The Arc and Adam Pr
 - [Project Status](#project-status)
 - [License](#license)
 
-
 ---
 
 ## 🔗 Contract Interaction
 
 ### Adding ARCx to Your Wallet
 
-**Network:** Base Mainnet
-**Contract Address:** `0xDa1d3752a2227FA2d2ad86Ba1D637d1d33D585ec`
-**Symbol:** ARCx
+**Network:** Base Mainnet  
+**Contract Address:** `0xDa1d3752a2227FA2d2ad86Ba1D637d1d33D585ec`  
+**Symbol:** ARCx  
 **Decimals:** 18
 
 ### Contract Functions
@@ -107,6 +122,33 @@ ARCx is a time-bound, non-inflationary ERC20 that bootstraps The Arc and Adam Pr
 
 **Migration Function:**
 - `burnToFuel(uint256)` → Burn ARCx and migrate to FUEL (available after bridge is set)
+
+#### Example Mint Transaction
+
+The following Hardhat/ethers.js call was used for the initial mint:
+
+```js
+ARCx.mint("0x21E914dFBB137F7fEC896F11bC8BAd6BCCDB147B", ethers.parseEther("1000000"));
+```
+
+Transaction response:
+
+```js
+ContractTransactionResponse {
+  blockNumber: null,
+  blockHash: null,
+  hash: '0x62dacaac7fe198c2b68d41806029a00386944cb03cdd93a0371c5a0d575c7bcd',
+  from: '0x21E914dFBB137F7fEC896F11bC8BAd6BCCDB147B',
+  to: '0xDa1d3752a2227FA2d2ad86Ba1D637d1d33D585ec',
+  nonce: 1,
+  gasLimit: 74198n,
+  gasPrice: 50000000n,
+  data: '0x40c10f1900000000000000000000000021e914dfbb137f7fec896f11bc8bad6bccdb147b00000000000000000000000000000000000000000000d3c21bcecceda1000000',
+  value: 0n,
+  chainId: 8453n,
+  ...
+}
+```
 
 ### Gas Optimization
 
