@@ -3,105 +3,112 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ARTIFACT VIRTUAL - Constitutional Bridge</title>
-  <meta name="description" content="Migrate ARCx tokens to FUEL using ARTIFACT VIRTUAL's constitutional bridge with transparent, auditable on-chain logic.">
-  <link rel="stylesheet" href="css/style.css">
+  <title>ARCx Bridge — Migration Protocol</title>
+  <meta name="description" content="Migrate ARCx tokens to FUEL through the constitutional bridge protocol with transparent, auditable conversion mechanics.">
+  <link rel="stylesheet" href="css/arcx-refined.css">
   <link rel="icon" href="css/arcx-logo.png" type="image/png">
 </head>
 <body>
-  <!-- Navigation -->
   <nav class="main-nav">
     <div class="nav-container">
       <div class="nav-brand">
-        <img src="css/arcx-logo.png" alt="ARTIFACT VIRTUAL" class="nav-logo"/>
-        <span class="nav-title"></span>
+        <img src="css/arcx-logo.png" alt="ARCx" class="nav-logo"/>
       </div>
       <div class="nav-links-main">
-        <a href="index.html">Home</a>
-        <a href="arcx.html">ARCx Token</a>
-        <a href="bridge.html" class="active">Bridge</a>
+        <a href="https://www.artifactvirtual.com" target="_blank">Home</a>
+        <a href="index.html">Overview</a>
+        <a href="arcx.html">ARCx</a>
         <a href="whitepaper.html">Documentation</a>
       </div>
     </div>
   </nav>
 
   <div class="container">
-    <div class="glass-card">
-      <h1>Constitutional Bridge</h1>
-      <div class="section-divider" style="background: linear-gradient(90deg, #00d4aa 0%, #000 100%); height: 3px; border-radius: 2px; margin: 18px 0 24px 0; width: 100%;"></div>
-      <h2 class="subtitle">ARCx → FUEL Migration Protocol</h2>
-      
-      <div class="warning-block">
-        <strong>Bridge Status:</strong> Migration bridge not yet configured. Bridge address will be set when FUEL network is ready for migration.
+    <div class="card">
+      <h1>Migration Bridge</h1>
+      <div class="divider"></div>
+      <p>The ARCx migration protocol enables transparent, auditable conversion from ARCx tokens to FUEL through a one-way burn mechanism. Migration preserves value while transitioning to the constitutional intelligence substrate.</p>
+
+      <div class="warning">
+        <strong>Status:</strong> Bridge configuration is pending ARC network deployment. This interface will become active when the FUEL ecosystem launches.
       </div>
+    </div>
+
+    <div class="card">
+      <h2>Migration Mechanics</h2>
+      <div class="divider"></div>
       
-      <div class="warning-block">
-        <strong>Migration Notice:</strong> This process is irreversible and will permanently burn your ARCx tokens in exchange for FUEL allocation at the predetermined migration ratio. Ensure you understand the constitutional implications before proceeding.
+      <div class="info-block">
+        <div class="contract-detail">
+          <span class="contract-label">Process Type</span>
+          <span class="contract-value">Burn-to-mint with cryptographic proof</span>
+        </div>
+        <div class="contract-detail">
+          <span class="contract-label">Conversion Ratio</span>
+          <span class="contract-value">1:1 ARCx to FUEL (subject to governance)</span>
+        </div>
+        <div class="contract-detail">
+          <span class="contract-label">Verification</span>
+          <span class="contract-value">On-chain proof, complete audit trail</span>
+        </div>
+        <div class="contract-detail">
+          <span class="contract-label">Reversibility</span>
+          <span class="contract-value">Irreversible burn operation</span>
+        </div>
       </div>
+    </div>
+
+    <div class="card">
+      <h2>Migration Form</h2>
+      <div class="divider"></div>
       
-      <form id="bridgeForm" class="migration-form">
-        <label for="address">Wallet Address</label>
-        <input type="text" id="address" name="address" placeholder="0x..." required>
-        
-        <label for="amount">ARCx Amount to Migrate</label>
-        <input type="number" id="amount" name="amount" min="0" step="any" placeholder="0.0" required>
-        
-        <div class="info-block">
-          <p><strong>Migration Ratio:</strong> 1:1 ARCx to FUEL (subject to protocol governance)</p>
-          <p><strong>Gas Estimates:</strong> ~150,000 gas for bridge transaction</p>
-          <p><strong>Confirmation Time:</strong> 1-3 blocks on target network</p>
+      <form class="migration-form">
+        <div class="form-group">
+          <label class="form-label" for="wallet-address">Wallet Address</label>
+          <input type="text" id="wallet-address" class="form-input" placeholder="0x..." disabled>
         </div>
         
-        <button type="submit" class="arc-button arc-button-primary" style="width: 100%;">
-          Initialize Constitutional Migration
-        </button>
+        <div class="form-group">
+          <label class="form-label" for="migration-amount">ARCx Amount</label>
+          <input type="number" id="migration-amount" class="form-input" placeholder="0.0" min="0" step="any" disabled>
+        </div>
+        
+        <div class="warning">
+          <strong>Migration Notice:</strong> This process is irreversible and will permanently burn your ARCx tokens. Ensure you understand the constitutional implications before proceeding.
+        </div>
+        
+        <button type="submit" class="btn" disabled>Bridge Not Active</button>
       </form>
+    </div>
+
+    <div class="card">
+      <h2>Technical Specifications</h2>
+      <div class="divider"></div>
       
-      <div class="contract-section">
-        <span class="contract-label">Bridge Contract Status</span>
-        <div class="contract-value">
-          Bridge Address: Locked by Admin Role<br>
-          Migration Phase: Awaiting Protocol Deployment<br>
-          Security Level: Enterprise Grade (A+)
+      <div class="info-block">
+        <div class="contract-detail">
+          <span class="contract-label">Bridge Contract</span>
+          <span class="contract-value">Pending configuration</span>
+        </div>
+        <div class="contract-detail">
+          <span class="contract-label">Gas Estimate</span>
+          <span class="contract-value">~150,000 gas for migration transaction</span>
+        </div>
+        <div class="contract-detail">
+          <span class="contract-label">Confirmation Time</span>
+          <span class="contract-value">1-3 blocks on target network</span>
+        </div>
+        <div class="contract-detail">
+          <span class="contract-label">Network Compatibility</span>
+          <span class="contract-value">Base → ARC network bridge</span>
         </div>
       </div>
-    </div>
-    
-    <div class="glass-card">
-      <h3>Migration Mechanics</h3>
-      <p>The constitutional bridge ensures transparent, auditable migration through immutable smart contract logic. Every ARCx token burned is recorded on-chain with cryptographic proof of the FUEL allocation event.</p>
-      
-            <div class="info-block">
-        <strong>Constitutional Guarantees:</strong>
-        <div class="protocol-features" style="margin-top: 16px;">
-          <div class="feature-item">One-way migration with cryptographic finality</div>
-          <div class="feature-item">On-chain audit trail for all bridge events</div>
-          <div class="feature-item">Role-based access control protecting bridge integrity</div>
-          <div class="feature-item">No trusted intermediaries or custodial risks</div>
-        </div>
+
+      <div style="margin-top: 2rem;">
+        <a href="arcx.html" class="btn btn-secondary">ARCx Token Details</a>
+        <a href="whitepaper.html" class="btn btn-secondary">Technical Documentation</a>
       </div>
     </div>
-    
   </div>
-  
-  <script>
-    document.getElementById('bridgeForm').onsubmit = function(e) {
-      e.preventDefault();
-      const amount = document.getElementById('amount').value;
-      const address = document.getElementById('address').value;
-      
-      if (!amount || !address) {
-        alert('Please provide both wallet address and migration amount.');
-        return;
-      }
-      
-      if (!address.match(/^0x[a-fA-F0-9]{40}$/)) {
-        alert('Invalid Ethereum address format.');
-        return;
-      }
-      
-      alert(`Constitutional Migration Preview:\n\nAddress: ${address}\nAmount: ${amount} ARCx\n\nThis is a development preview. Connect your wallet and interact with the deployed smart contract to execute the actual migration during the active migration phase.`);
-    };
-  </script>
 </body>
 </html>

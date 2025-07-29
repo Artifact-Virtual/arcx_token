@@ -3,106 +3,173 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ARTIFACT VIRTUAL - Technical Documentation</title>
-  <meta name="description" content="Comprehensive technical documentation for ARTIFACT VIRTUAL's constitutional intelligence architecture, tokenomics, and protocol specifications.">
-  <link rel="stylesheet" href="css/style.css">
+  <title>ARCx Documentation — Technical Reference</title>
+  <meta name="description" content="Comprehensive technical documentation for ARCx token, including smart contract specifications, security audits, and migration protocols.">
+  <link rel="stylesheet" href="css/arcx-refined.css">
   <link rel="icon" href="css/arcx-logo.png" type="image/png">
 </head>
 <body>
-  <!-- Navigation -->
   <nav class="main-nav">
     <div class="nav-container">
       <div class="nav-brand">
-        <img src="css/arcx-logo.png" alt="ARTIFACT VIRTUAL" class="nav-logo"/>
-        <span class="nav-title"></span>
+        <img src="css/arcx-logo.png" alt="ARCx" class="nav-logo"/>
       </div>
       <div class="nav-links-main">
-        <a href="index.html">Home</a>
-        <a href="arcx.html">ARCx Token</a>
+        <a href="https://www.artifactvirtual.com" target="_blank">Home</a>
+        <a href="index.html">Overview</a>
+        <a href="arcx.html">ARCx</a>
         <a href="bridge.html">Bridge</a>
-        <a href="whitepaper.html" class="active">Documentation</a>
       </div>
     </div>
   </nav>
 
   <div class="container">
-    <div class="glass-card">
-      <h1>ARCx Technical Whitepaper</h1>
-      <div class="section-divider" style="background: linear-gradient(90deg, #9333ea 0%, #000 100%); height: 3px; border-radius: 2px; margin: 18px 0 24px 0; width: 100%;"></div>
-      <h2 class="subtitle">Constitutional Intelligence Protocol Documentation</h2>
-      
-      <p>The ARCx Whitepaper provides comprehensive technical documentation for the foundational funding token of ARTIFACT VIRTUAL. This document outlines the constitutional intelligence architecture, tokenomics design, security framework, and migration mechanics to the FUEL ecosystem.</p>
+    <div class="card">
+      <h1>Technical Documentation</h1>
+      <div class="divider"></div>
+      <p>Comprehensive technical reference for ARCx token implementation, security architecture, and constitutional intelligence principles.</p>
+    </div>
+
+    <div class="card">
+      <h2>Contract Architecture</h2>
+      <div class="divider"></div>
       
       <div class="info-block">
-        <strong>Document Overview:</strong>
-        <ul style="margin-top: 16px; padding-left: 20px; color: var(--text-gray);">
-          <li>Constitutional principles and governance framework</li>
-          <li>Enterprise-grade security architecture and audit results</li>
-          <li>Fixed-supply tokenomics and distribution mechanics</li>
-          <li>Burn to migrate protocol for FUEL transition</li>
-          <li>Smart contract specifications and role-based access control</li>
-        </ul>
+        <div class="contract-detail">
+          <span class="contract-label">Base Implementation</span>
+          <span class="contract-value">OpenZeppelin ERC20, AccessControl, Pausable</span>
+        </div>
+        <div class="contract-detail">
+          <span class="contract-label">Compiler Version</span>
+          <span class="contract-value">Solidity 0.8.21</span>
+        </div>
+        <div class="contract-detail">
+          <span class="contract-label">Development Framework</span>
+          <span class="contract-value">Hardhat v2.22.16, TypeScript v5.7.2</span>
+        </div>
+        <div class="contract-detail">
+          <span class="contract-label">Test Coverage</span>
+          <span class="contract-value">100% line coverage, 35 test cases</span>
+        </div>
       </div>
-      
-      <div style="margin: 40px 0;">
-        <a href="docs/WHITEPAPER.md" target="_blank" class="arc-button arc-button-primary">
-          Read Technical Whitepaper
-        </a>
-        <a href="docs/TokenSaleTerms.md" target="_blank" class="arc-button arc-button-secondary">
-          Token Sale Terms
-        </a>
+
+      <p><strong>Core Functions</strong></p>
+      <div class="info-block">
+        <code>mint(address, amount)</code> — Token distribution (MINTER_ROLE)<br>
+        <code>pause() / unpause()</code> — Emergency controls (PAUSER_ROLE)<br>
+        <code>finalizeMinting()</code> — Lock supply permanently (ADMIN_ROLE)<br>
+        <code>setFuelBridge(address)</code> — Bridge configuration (ADMIN_ROLE)<br>
+        <code>burnToFuel(uint256)</code> — Migration to FUEL ecosystem
       </div>
     </div>
-    
-    <div class="glass-card">
-      <h3>Constitutional Intelligence Framework</h3>
-      <p>ARCx represents the genesis implementation of constitutional intelligence—a sovereign blockchain architecture that ensures ethical AI governance through immutable smart contract logic and transparent democratic processes.</p>
+
+    <div class="card">
+      <h2>Security Audit</h2>
+      <div class="divider"></div>
       
-      <div class="contract-section">
-        <span class="contract-label">Live Deployment</span>
-        <div class="contract-value">
-          • Network: Base Mainnet (Chain ID: 8453)<br>
-          • Contract: 0xDa1d3752a2227FA2d2ad86Ba1D637d1d33D585ec<br>
-          • Verification: BaseScan and Sourcify verified<br>
-          • Status: Production ready, zero vulnerabilities<br>
-          • Deployed: July 29, 2025
+      <div class="status-badge">Zero Vulnerabilities</div>
+      <div class="status-badge">A+ Security Rating</div>
+      <div class="status-badge">Production Approved</div>
+
+      <div class="info-block">
+        <div class="contract-detail">
+          <span class="contract-label">Dependencies Audited</span>
+          <span class="contract-value">574 packages, 0 vulnerabilities</span>
         </div>
-      </div>
-      
-      <div class="contract-section">
-        <span class="contract-label">Core Design Principles</span>
-        <div class="contract-value">
-          • Fixed supply with immutable cap enforcement<br>
-          • Zero inflation through minting finalization<br>
-          • Constitutional burn to migrate mechanics<br>
-          • Multi-role governance with hardcoded constraints<br>
-          • Enterprise security with zero vulnerabilities
+        <div class="contract-detail">
+          <span class="contract-label">Security Model</span>
+          <span class="contract-value">Role-based access, emergency controls</span>
         </div>
-      </div>
-      
-      <div class="contract-section">
-        <span class="contract-label">Technical Architecture</span>
-        <div class="contract-value">
-          • Solidity 0.8.21 with OpenZeppelin security primitives<br>
-          • Role-based access control (ADMIN, MINTER, PAUSER)<br>
-          • Pausable transfers with emergency controls<br>
-          • Transparent migration protocol to FUEL ecosystem<br>
-          • Comprehensive audit trail and on-chain governance
+        <div class="contract-detail">
+          <span class="contract-label">Audit Status</span>
+          <span class="contract-value">Comprehensive review completed</span>
         </div>
       </div>
     </div>
-    
-    <div class="glass-card">
-      <h3>Additional Resources</h3>
-      <div class="nav-links" style="border: none; padding: 0; margin: 0;">
-        <a href="docs/audit_project_summary.md" target="_blank">Audit Project Summary</a>
-        <a href="docs/audit_scope.md" target="_blank">Security Audit Scope</a>
-        <a href="docs/audit_timeline.md" target="_blank">Audit Timeline</a>
-        <a href="audits/security-report.md" target="_blank">Complete Security Report</a>
-        <a href="https://github.com/Artifact-Virtual/arcx_token" target="_blank">Source Code Repository</a>
+
+    <div class="card">
+      <h2>Constitutional Principles</h2>
+      <div class="divider"></div>
+      
+      <p>ARCx embodies constitutional intelligence through immutable smart contract logic that ensures transparent governance and predictable behavior.</p>
+
+      <div class="info-block">
+        <div class="contract-detail">
+          <span class="contract-label">Supply Immutability</span>
+          <span class="contract-value">Fixed cap with no inflation mechanism</span>
+        </div>
+        <div class="contract-detail">
+          <span class="contract-label">Governance Transparency</span>
+          <span class="contract-value">Role-based access with on-chain verification</span>
+        </div>
+        <div class="contract-detail">
+          <span class="contract-label">Migration Integrity</span>
+          <span class="contract-value">One-way bridge with cryptographic proof</span>
+        </div>
+        <div class="contract-detail">
+          <span class="contract-label">Emergency Safeguards</span>
+          <span class="contract-value">Pausable transfers, admin controls</span>
+        </div>
       </div>
     </div>
-    
+
+    <div class="card">
+      <h2>Migration Protocol</h2>
+      <div class="divider"></div>
+      
+      <p>The ARCx to FUEL migration represents a constitutional transition from genesis funding to operational sovereignty within the ARTIFACT VIRTUAL ecosystem.</p>
+
+      <div class="info-block">
+        <div class="contract-detail">
+          <span class="contract-label">Migration Type</span>
+          <span class="contract-value">Burn-to-mint with bridge verification</span>
+        </div>
+        <div class="contract-detail">
+          <span class="contract-label">Network Transition</span>
+          <span class="contract-value">Base Mainnet → ARC Layer 1</span>
+        </div>
+        <div class="contract-detail">
+          <span class="contract-label">Value Preservation</span>
+          <span class="contract-value">1:1 ratio maintained through governance</span>
+        </div>
+        <div class="contract-detail">
+          <span class="contract-label">Audit Trail</span>
+          <span class="contract-value">Complete on-chain transparency</span>
+        </div>
+      </div>
+
+      <div style="margin-top: 2rem;">
+        <a href="bridge.html" class="btn">Migration Bridge</a>
+        <a href="https://github.com/Artifact-Virtual/arcx_token" target="_blank" class="btn btn-secondary">Source Code</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Resources</h2>
+      <div class="divider"></div>
+      
+      <div class="info-block">
+        <div class="contract-detail">
+          <span class="contract-label">Contract Verification</span>
+          <span class="contract-value">
+            <a href="https://basescan.org/address/0xDa1d3752a2227FA2d2ad86Ba1D637d1d33D585ec#code" target="_blank">BaseScan</a> ·
+            <a href="https://repo.sourcify.dev/contracts/full_match/8453/0xDa1d3752a2227FA2d2ad86Ba1D637d1d33D585ec/" target="_blank">Sourcify</a>
+          </span>
+        </div>
+        <div class="contract-detail">
+          <span class="contract-label">Source Repository</span>
+          <span class="contract-value">
+            <a href="https://github.com/Artifact-Virtual/arcx_token" target="_blank">GitHub</a>
+          </span>
+        </div>
+        <div class="contract-detail">
+          <span class="contract-label">ARTIFACT VIRTUAL</span>
+          <span class="contract-value">
+            <a href="https://www.artifactvirtual.com" target="_blank">Main Website</a>
+          </span>
+        </div>
+      </div>
+    </div>
   </div>
 </body>
 </html>
