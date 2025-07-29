@@ -36,11 +36,6 @@ ARCx is a time-bound, non-inflationary ERC20  that bootstraps The Arc and Adam P
 - [Project Status](#project-status)
 - [License](#license)
 
----
-
-## Overview
-
-ARCx is a time-bound, non-inflationary ERC20 token that bootstraps The Arc Protocol and provides a one-way migration path to FUEL, the protocol’s native asset. It is engineered for maximum security, transparency, and operational resilience.
 
 ---
 
