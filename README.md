@@ -1,6 +1,7 @@
 ## Overview
 
-ARCx is a time-bound, non-inflationary ERC20  that bootstraps The Arc and Adam Protocol providing a one-way migration path to FUEL, the ARC's native asset. Built as **The Smarter Contract**, ARCx incorporates advanced role management, comprehensive security auditing, and intelligent deployment automation—representing the next generation of blockchain infrastructure engineered for maximum security, transparency, and operational resilience. 
+ARCx is a time-bound, non-inflationary ERC20  that bootstraps The Arc and Adam Protocol providing a one-way migration path to FUEL, the ARC's native asset. Built as **The Smarter Contract**, ARCx incorporates advanced role management, comprehensive security auditing, and intelligent deployment automation, representing the evolution of smart contracts into intelligent, self-governing systems designed for uncompromising security, seamless migration, and robust composability within the EVM ecosystem.
+
 
 <!-- Badges -->
 <p align="center">
@@ -15,11 +16,6 @@ ARCx is a time-bound, non-inflationary ERC20  that bootstraps The Arc and Adam P
     <a href="#security-model"><img src="https://img.shields.io/badge/Security-0%20vulnerabilities-brightgreen?logo=shield" alt="Security"></a>
    
 </p>
-
-# ARCx
-> The Smarter Contract
-
-**ARCx** is the foundational, fixed-supply provisioning token for The Arc Protocol—a sovereign blockchain layer engineered for constitutional intelligence and decentralized governance. ARCx represents the evolution of smart contracts into intelligent, self-governing systems designed for uncompromising security, seamless migration, and robust composability within the EVM ecosystem.
 
 ---
 
