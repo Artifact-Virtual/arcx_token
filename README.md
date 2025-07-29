@@ -1,7 +1,7 @@
 ## ARCx
 > The Smarter Contract
 
-![Live](https://img.shields.io/badge/Live-Live-0052FF?style=for-the-badge&logo=coinbase)
+![Live](https://img.shields.io/badge/Live-Live-0052FF)
 
 **Contract Address:** [`0xDa1d3752a2227FA2d2ad86Ba1D637d1d33D585ec`](https://basescan.org/address/0xDa1d3752a2227FA2d2ad86Ba1D637d1d33D585ec)
 
