@@ -2,9 +2,9 @@
   "name": "arcx-token",
   "version": "1.0.0",
   "description": "ARCx Token smart contract and deployment scripts",
-  "main": "scripts/deploy.ts",
+  "main": "scripts/deploy_arcx.ts",
   "scripts": {
-    "deploy": "ts-node scripts/deploy.ts",
+    "deploy": "npx hardhat run scripts/deploy_arcx.ts",
     "test": "hardhat test"
   },
   "dependencies": {

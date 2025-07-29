@@ -11,8 +11,8 @@ describe("ARCxToken", function () {
     beforeEach(async function () {
         ARCxToken = await ethers.getContractFactory("ARCxToken");
         [owner, addr1, addr2] = await ethers.getSigners();
-        arcxToken = await ARCxToken.deploy("ARCx Token", "ARCX", 1000000);
-        await arcxToken.deployed();
+        arcxToken = await ARCxToken.deploy("ARCx Token", "ARCX", ethers.parseEther("1000000"), owner.address);
+        await arcxToken.waitForDeployment();
     });
 
     describe("Deployment", function () {
