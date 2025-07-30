@@ -3,16 +3,16 @@
 
 ![Live](https://img.shields.io/badge/-Live-0052FF?style=for-the-badge&logo=https://cryptologos.cc/logos/base-base-logo.svg&logoColor=white)
 
-**Contract Address:** [`0xDa1d3752a2227FA2d2ad86Ba1D637d1d33D585ec`](https://basescan.org/address/0xDa1d3752a2227FA2d2ad86Ba1D637d1d33D585ec)
+**Contract Address:** [`0xA4093669DAFbD123E37d52e0939b3aB3C2272f44`](https://basescan.org/address/0xA4093669DAFbD123E37d52e0939b3aB3C2272f44)
 
-**Verification Status:** ✅ Verified on [BaseScan](https://basescan.org/address/0xDa1d3752a2227FA2d2ad86Ba1D637d1d33D585ec#code) and [Sourcify](https://repo.sourcify.dev/contracts/full_match/8453/0xDa1d3752a2227FA2d2ad86Ba1D637d1d33D585ec/)
+**Verification Status:** ✅ Verified on [BaseScan](https://basescan.org/address/0xA4093669DAFbD123E37d52e0939b3aB3C2272f44#code) and [Sourcify](https://repo.sourcify.dev/contracts/full_match/8453/0xA4093669DAFbD123E37d52e0939b3aB3C2272f44/)
 
 **Deployment Details:**
 
 - **Network:** Base Mainnet (Chain ID: 8453)
-- **Deployed:** July 29, 2025
-- **Block Number:** 33,511,728
-- **Transaction Hash:** [`0x13ea418cf30bb88691de06a495838182df6a37b07a0cb3cdb089dce7dcd8a2f7`](https://basescan.org/tx/0x13ea418cf30bb88691de06a495838182df6a37b07a0cb3cdb089dce7dcd8a2f7)
+- **Deployed:** July 30, 2025
+- **Block Number:** 33,538,106
+- **Transaction Hash:** [`0x2e18fe324150c61cabfbf27524129bdeb0d02f007460f77c1a5716c77bed93aa`](https://basescan.org/tx/0x2e18fe324150c61cabfbf27524129bdeb0d02f007460f77c1a5716c77bed93aa)
 - **Deployer:** `0x21E914dFBB137F7fEC896F11bC8BAd6BCCDB147B`
 
 ### Token Specifications
@@ -35,9 +35,9 @@ ARCx.mint("0x21E914dFBB137F7fEC896F11bC8BAd6BCCDB147B", ethers.parseEther("10000
 Transaction details:
 
 - **From:** `0x21E914dFBB137F7fEC896F11bC8BAd6BCCDB147B`
-- **To (Contract):** `0xDa1d3752a2227FA2d2ad86Ba1D637d1d33D585ec`
+- **To (Contract):** `0xA4093669DAFbD123E37d52e0939b3aB3C2272f44`
 - **Amount:** 1,000,000 ARCx
-- **Transaction Hash:** [`0x62dacaac7fe198c2b68d41806029a00386944cb03cdd93a0371c5a0d575c7bcd`](https://basescan.org/tx/0x62dacaac7fe198c2b68d41806029a00386944cb03cdd93a0371c5a0d575c7bcd)
+- **Transaction Hash:** [`0xe2f323f6bbcb1d01f756bc3d51c7a4ee97b0762aa52480df06e5dcb42b2ed2f3`](https://basescan.org/tx/0xe2f323f6bbcb1d01f756bc3d51c7a4ee97b0762aa52480df06e5dcb42b2ed2f3)
 - **Gas Used:** 74,198
 - **Chain ID:** 8453 (Base Mainnet)
 
@@ -100,7 +100,7 @@ ARCx is a time-bound, non-inflationary ERC20 that bootstraps The Arc and Adam Pr
 ### Adding ARCx to Your Wallet
 
 **Network:** Base Mainnet  
-**Contract Address:** `0xDa1d3752a2227FA2d2ad86Ba1D637d1d33D585ec`  
+**Contract Address:** `0xA4093669DAFbD123E37d52e0939b3aB3C2272f44`  
 **Symbol:** ARCx  
 **Decimals:** 18
 
@@ -111,7 +111,7 @@ ARCx is a time-bound, non-inflationary ERC20 that bootstraps The Arc and Adam Pr
 - `symbol()` → "ARCx" 
 - `totalSupply()` → Current circulating supply
 - `balanceOf(address)` → Token balance of address
-- `cap()` → Maximum supply (100,000,000 ARCx)
+- `MAX_SUPPLY()` → Maximum supply (100,000,000 ARCx)
 - `paused()` → Contract pause status
 
 **Admin Functions (Role Required):**
@@ -137,10 +137,10 @@ Transaction response:
 ContractTransactionResponse {
   blockNumber: null,
   blockHash: null,
-  hash: '0x62dacaac7fe198c2b68d41806029a00386944cb03cdd93a0371c5a0d575c7bcd',
+  hash: '0xe2f323f6bbcb1d01f756bc3d51c7a4ee97b0762aa52480df06e5dcb42b2ed2f3',
   from: '0x21E914dFBB137F7fEC896F11bC8BAd6BCCDB147B',
-  to: '0xDa1d3752a2227FA2d2ad86Ba1D637d1d33D585ec',
-  nonce: 1,
+  to: '0xA4093669DAFbD123E37d52e0939b3aB3C2272f44',
+  nonce: 11,
   gasLimit: 74198n,
   gasPrice: 50000000n,
   data: '0x40c10f1900000000000000000000000021e914dfbb137f7fec896f11bc8bad6bccdb147b00000000000000000000000000000000000000000000d3c21bcecceda1000000',
