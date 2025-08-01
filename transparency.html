@@ -113,7 +113,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      gap: 35px;
+      gap: 20px;
       transform-style: preserve-3d;
       transform: rotateX(12deg) rotateY(-8deg);
       transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -253,40 +253,49 @@
     
     .cylinder-label {
       position: absolute;
-      top: -60px;
+      top: 50%;
       left: 50%;
-      transform: translateX(-50%);
-      font-size: 0.8rem;
-      color: var(--text-gray);
+      transform: translate(-50%, -50%);
+      font-size: 0.85rem;
+      font-weight: var(--font-weight-normal);
       text-align: center;
-      font-weight: var(--font-weight-light);
-      opacity: 0.5;
+      opacity: 0;
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       white-space: nowrap;
-      z-index: 10;
-      filter: blur(1px);
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+      z-index: 15;
+      filter: blur(3px);
+      color: #ff6b35;
+      text-shadow: 
+        0 0 8px rgba(255, 107, 53, 0.8),
+        0 0 16px rgba(255, 107, 53, 0.4),
+        1px 1px 0px rgba(0, 0, 0, 0.8),
+        -1px -1px 0px rgba(0, 0, 0, 0.8),
+        1px -1px 0px rgba(0, 0, 0, 0.8),
+        -1px 1px 0px rgba(0, 0, 0, 0.8);
+      pointer-events: none;
     }
     
     .cylinder:hover .cylinder-label {
       opacity: 1;
-      color: var(--pure-white);
-      transform: translateX(-50%) translateY(-8px);
+      transform: translate(-50%, -50%) scale(1.05);
       filter: blur(0px);
-      text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+      color: #ff6b35;
+      text-shadow: 
+        0 0 12px rgba(255, 107, 53, 1),
+        0 0 20px rgba(255, 107, 53, 0.6),
+        2px 2px 0px rgba(0, 0, 0, 1),
+        -2px -2px 0px rgba(0, 0, 0, 1),
+        2px -2px 0px rgba(0, 0, 0, 1),
+        -2px 2px 0px rgba(0, 0, 0, 1);
     }
     
     .cylinder-label span {
       display: block;
       font-family: var(--font-mono);
-      font-size: 0.7rem;
-      color: var(--text-gray);
+      font-size: 0.75rem;
       margin-top: 4px;
-      transition: color 0.4s ease;
-    }
-    
-    .cylinder:hover .cylinder-label span {
-      color: var(--pure-white);
+      transition: all 0.4s ease;
+      color: inherit;
     }
     
     .allocation-info {
@@ -673,7 +682,7 @@
       .cylinder-stack {
         transform: rotateX(8deg) rotateY(-4deg) scale(0.7);
         margin: 60px 0;
-        gap: 25px;
+        gap: 15px;
       }
       
       .cylinder {
@@ -699,7 +708,6 @@
       
       .cylinder-label {
         font-size: 0.7rem;
-        top: -50px;
       }
       
       .cylinder-label span {
