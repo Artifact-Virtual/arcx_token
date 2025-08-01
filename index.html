@@ -56,6 +56,380 @@
         <a href="bridge.html" class="btn btn-secondary">Migration Bridge</a>
       </div>
     </div>
+
+    <!-- ARCx Roadmap Section -->
+    <div class="roadmap-section">
+      <h2>Protocol Evolution</h2>
+      <div class="roadmap-container">
+        <div class="roadmap-line"></div>
+        
+        <div class="milestone active" data-phase="1">
+          <div class="milestone-marker"></div>
+          <div class="milestone-content" onclick="toggleMilestone(this)">
+            <h3>Genesis</h3>
+            <p>Smart contract deployment, treasury setup, initial security audit</p>
+            <span class="status">Complete</span>
+            <div class="milestone-details">
+              <ul>
+                <li>Contract deployed on Base Mainnet</li>
+                <li>Multi-signature treasury configured</li>
+                <li>Security audit completed</li>
+                <li>Contract verification on BaseScan & Sourcify</li>
+                <li>Initial documentation published</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="milestone current" data-phase="2">
+          <div class="milestone-marker"></div>
+          <div class="milestone-content" onclick="toggleMilestone(this)">
+            <h3>Distribution</h3>
+            <p>Token allocation to early holders and core contributors</p>
+            <span class="status">Current</span>
+            <div class="milestone-details">
+              <ul>
+                <li>Initial mint (1M ARCx) to deployer</li>
+                <li>Community allocation planning</li>
+                <li>Early contributor distributions</li>
+                <li>Vesting schedule implementation</li>
+                <li>Public allocation strategy</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="milestone" data-phase="3">
+          <div class="milestone-marker"></div>
+          <div class="milestone-content" onclick="toggleMilestone(this)">
+            <h3>Liquidity</h3>
+            <p>DEX integration, liquidity provision, trading pairs activation</p>
+            <span class="status">Planned</span>
+            <div class="milestone-details">
+              <ul>
+                <li>DEX listing preparation</li>
+                <li>Initial liquidity pool creation</li>
+                <li>Trading pair activation</li>
+                <li>Liquidity incentive programs</li>
+                <li>Market maker partnerships</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="milestone" data-phase="4">
+          <div class="milestone-marker"></div>
+          <div class="milestone-content" onclick="toggleMilestone(this)">
+            <h3>Utility</h3>
+            <p>Governance activation, partner integrations, ecosystem expansion</p>
+            <span class="status">Planned</span>
+            <div class="milestone-details">
+              <ul>
+                <li>Governance framework deployment</li>
+                <li>Voting mechanism activation</li>
+                <li>Strategic partner integrations</li>
+                <li>Ecosystem utility development</li>
+                <li>Community governance transition</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="milestone" data-phase="5">
+          <div class="milestone-marker"></div>
+          <div class="milestone-content" onclick="toggleMilestone(this)">
+            <h3>Migration</h3>
+            <p>FUEL bridge deployment, ARCx to FUEL conversion protocol</p>
+            <span class="status">Planned</span>
+            <div class="milestone-details">
+              <ul>
+                <li>FUEL bridge contract development</li>
+                <li>Migration mechanism testing</li>
+                <li>ARCx to FUEL conversion activation</li>
+                <li>Bridge security audit</li>
+                <li>Migration documentation</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="milestone" data-phase="6">
+          <div class="milestone-marker"></div>
+          <div class="milestone-content" onclick="toggleMilestone(this)">
+            <h3>Legacy</h3>
+            <p>Protocol handover, final documentation, archive transition</p>
+            <span class="status">Future</span>
+            <div class="milestone-details">
+              <ul>
+                <li>Final protocol documentation</li>
+                <li>Community handover completion</li>
+                <li>Archive system implementation</li>
+                <li>Legacy support framework</li>
+                <li>Historical record preservation</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+
+  <style>
+    .roadmap-section {
+      margin-top: 4rem;
+      padding: 3rem 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .roadmap-section h2 {
+      text-align: center;
+      font-size: 2.2rem;
+      margin-bottom: 3rem;
+      background: linear-gradient(135deg, #0052ff, #00d4ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 400;
+    }
+
+    .roadmap-container {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem 0;
+    }
+
+    .roadmap-line {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(180deg, 
+        #0052ff 0%, 
+        #00d4ff 50%, 
+        rgba(0, 212, 255, 0.3) 100%);
+      transform: translateX(-50%);
+      border-radius: 2px;
+      box-shadow: 0 0 20px rgba(0, 82, 255, 0.3);
+    }
+
+    .milestone {
+      position: relative;
+      margin: 3rem 0;
+      display: flex;
+      align-items: center;
+      opacity: 0.6;
+      transition: all 0.3s ease;
+    }
+
+    .milestone.active,
+    .milestone.current {
+      opacity: 1;
+    }
+
+    .milestone:nth-child(odd) {
+      justify-content: flex-start;
+    }
+
+    .milestone:nth-child(even) {
+      justify-content: flex-end;
+    }
+
+    .milestone:nth-child(odd) .milestone-content {
+      margin-left: calc(50% + 2rem);
+      text-align: left;
+    }
+
+    .milestone:nth-child(even) .milestone-content {
+      margin-right: calc(50% + 2rem);
+      text-align: left;
+    }
+
+    .milestone-marker {
+      position: absolute;
+      left: 50%;
+      width: 16px;
+      height: 16px;
+      background: #1a1a1a;
+      border: 3px solid #666;
+      border-radius: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      transition: all 0.3s ease;
+    }
+
+    .milestone.active .milestone-marker {
+      border-color: #0052ff;
+      background: #0052ff;
+      box-shadow: 0 0 20px rgba(0, 82, 255, 0.5);
+    }
+
+    .milestone.current .milestone-marker {
+      border-color: #00d4ff;
+      background: #00d4ff;
+      box-shadow: 0 0 25px rgba(0, 212, 255, 0.7);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: translateX(-50%) scale(1); }
+      50% { transform: translateX(-50%) scale(1.2); }
+    }
+
+    .milestone-content {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 1.5rem;
+      max-width: 280px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .milestone:hover .milestone-content {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(0, 82, 255, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .milestone-content h3 {
+      font-size: 1.3rem;
+      margin: 0 0 0.5rem 0;
+      color: #ffffff;
+      font-weight: 400;
+    }
+
+    .milestone.active .milestone-content h3,
+    .milestone.current .milestone-content h3 {
+      color: #00d4ff;
+    }
+
+    .milestone-content p {
+      margin: 0 0 1rem 0;
+      color: #cccccc;
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+
+    .milestone-details {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      margin-top: 1rem;
+    }
+
+    .milestone-content.expanded .milestone-details {
+      max-height: 200px;
+    }
+
+    .milestone-details ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .milestone-details li {
+      padding: 0.4rem 0;
+      font-size: 0.85rem;
+      color: #b8b8b8;
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding-left: 1.2rem;
+    }
+
+    .milestone-details li::before {
+      content: '◦';
+      position: absolute;
+      left: 0;
+      color: #00d4ff;
+      font-size: 1rem;
+      font-weight: bold;
+    }
+
+    .milestone-content::after {
+      content: '▼';
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      font-size: 0.8rem;
+      color: #666;
+      transition: transform 0.3s ease;
+    }
+
+    .milestone-content.expanded::after {
+      transform: rotate(180deg);
+    }
+
+    .status {
+      display: inline-block;
+      padding: 0.3rem 0.8rem;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .milestone.active .status {
+      background: rgba(0, 82, 255, 0.2);
+      color: #0052ff;
+    }
+
+    .milestone.current .status {
+      background: rgba(0, 212, 255, 0.2);
+      color: #00d4ff;
+      animation: glow 2s infinite alternate;
+    }
+
+    @keyframes glow {
+      from { box-shadow: 0 0 5px rgba(0, 212, 255, 0.3); }
+      to { box-shadow: 0 0 15px rgba(0, 212, 255, 0.6); }
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 768px) {
+      .roadmap-container {
+        padding: 1rem;
+      }
+
+      .milestone:nth-child(odd),
+      .milestone:nth-child(even) {
+        justify-content: center;
+      }
+
+      .milestone:nth-child(odd) .milestone-content,
+      .milestone:nth-child(even) .milestone-content {
+        margin: 0;
+        text-align: left;
+        max-width: 250px;
+      }
+
+      .roadmap-line {
+        left: 2rem;
+      }
+
+      .milestone-marker {
+        left: 2rem;
+      }
+
+      .milestone-content {
+        margin-left: 4rem;
+      }
+
+      .roadmap-section h2 {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+
+  <script>
+    function toggleMilestone(element) {
+      element.classList.toggle('expanded');
+    }
+  </script>
 </body>
 </html>
