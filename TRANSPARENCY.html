@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARCx Transparency Portal — Allocation & Vesting</title>
+  <meta name="description" content="Complete transparency dashboard for ARCx token allocation, vesting schedules, and on-chain verification. Built with constitutional intelligence principles.">
+  <link rel="stylesheet" href="css/arcx-refined.css">
+  <link rel="stylesheet" href="css/animated-background.css">
+  <link rel="icon" href="css/arcx-logo.png" type="image/png">
+  
+  <style>
+    /* Transparency Portal Specific Styles */
+    .transparency-hero {
+      text-align: center;
+      margin-bottom: var(--space-xxl);
+    }
+    
+    .transparency-subtitle {
+      color: var(--text-gray);
+      font-size: 1.1rem;
+      font-weight: var(--font-weight-light);
+      margin-top: var(--space-sm);
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: var(--line-height-relaxed);
+    }
+    
+    .status-badges {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-sm);
+      margin: var(--space-lg) 0;
+      flex-wrap: wrap;
+    }
+    
+    .status-badge {
+      background: var(--pure-white);
+      color: var(--pure-black);
+      font-size: 0.8rem;
+      font-weight: var(--font-weight-normal);
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--border-radius);
+      margin: var(--space-xs) 0;
+    }
+    
+    .status-badge.live {
+      background: #00ff88;
+      color: var(--pure-black);
+    }
+    
+    /* Enhanced Contract Info */
+    .contract-showcase {
+      background: var(--ghost-black);
+      border: 1px solid var(--border-gray);
+      border-radius: var(--border-radius);
+      padding: var(--space-lg);
+      margin: var(--space-lg) 0;
+    }
+    
+    .contract-address {
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      color: var(--pure-white);
+      background: var(--soft-black);
+      padding: var(--space-sm);
+      border-radius: var(--border-radius);
+      border: 1px solid var(--border-gray);
+      word-break: break-all;
+      margin: var(--space-xs) 0;
+      letter-spacing: 0.02em;
+    }
+    
+    /* Allocation Visualization */
+    .allocation-visual {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-xl);
+      margin: var(--space-xl) 0;
+    }
+    
+    .allocation-chart {
+      position: relative;
+      height: 300px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .pie-segment {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      opacity: 0;
+      animation: segmentFadeIn 0.8s ease-out forwards;
+    }
+    
+    .pie-segment:nth-child(1) { 
+      background: conic-gradient(from 0deg, var(--pure-white) 108deg, transparent 108deg);
+      animation-delay: 0.2s;
+    }
+    .pie-segment:nth-child(2) { 
+      background: conic-gradient(from 108deg, #cccccc 90deg, transparent 90deg);
+      animation-delay: 0.4s;
+    }
+    .pie-segment:nth-child(3) { 
+      background: conic-gradient(from 198deg, #999999 72deg, transparent 72deg);
+      animation-delay: 0.6s;
+    }
+    .pie-segment:nth-child(4) { 
+      background: conic-gradient(from 270deg, #666666 54deg, transparent 54deg);
+      animation-delay: 0.8s;
+    }
+    .pie-segment:nth-child(5) { 
+      background: conic-gradient(from 324deg, #333333 36deg, transparent 36deg);
+      animation-delay: 1.0s;
+    }
+    
+    @keyframes segmentFadeIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    
+    .allocation-legend {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+    
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: var(--space-sm);
+      background: var(--ghost-black);
+      border-radius: var(--border-radius);
+      opacity: 0;
+      animation: legendSlideIn 0.6s ease-out forwards;
+    }
+    
+    .legend-item:nth-child(1) { animation-delay: 1.2s; }
+    .legend-item:nth-child(2) { animation-delay: 1.3s; }
+    .legend-item:nth-child(3) { animation-delay: 1.4s; }
+    .legend-item:nth-child(4) { animation-delay: 1.5s; }
+    .legend-item:nth-child(5) { animation-delay: 1.6s; }
+    .legend-item:nth-child(6) { animation-delay: 1.7s; }
+    
+    @keyframes legendSlideIn {
+      from { opacity: 0; transform: translateX(-20px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    
+    .legend-color {
+      width: 16px;
+      height: 16px;
+      border-radius: var(--border-radius);
+      flex-shrink: 0;
+    }
+    
+    .legend-text {
+      font-size: 0.9rem;
+      color: var(--text-gray);
+    }
+    
+    .legend-amount {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--pure-white);
+      margin-left: auto;
+    }
+    
+    /* Enhanced Tables */
+    .transparency-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--ghost-black);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      margin: var(--space-lg) 0;
+      border: 1px solid var(--border-gray);
+    }
+    
+    .transparency-table th,
+    .transparency-table td {
+      padding: var(--space-sm) var(--space-md);
+      text-align: left;
+      border-bottom: 1px solid var(--border-gray);
+    }
+    
+    .transparency-table th {
+      background: var(--soft-black);
+      color: var(--pure-white);
+      font-weight: var(--font-weight-normal);
+      font-size: 0.9rem;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+    
+    .transparency-table td {
+      color: var(--text-gray);
+      font-size: 0.95rem;
+    }
+    
+    .transparency-table tr:last-child td {
+      border-bottom: none;
+    }
+    
+    .transparency-table tr:hover {
+      background: rgba(255, 255, 255, 0.02);
+    }
+    
+    .mono-text {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--pure-white);
+      background: var(--soft-black);
+      padding: 0.2em 0.4em;
+      border-radius: var(--border-radius);
+    }
+    
+    /* Vesting Timeline */
+    .vesting-timeline {
+      position: relative;
+      margin: var(--space-xl) 0;
+      padding: var(--space-lg);
+      background: var(--ghost-black);
+      border-radius: var(--border-radius);
+      border: 1px solid var(--border-gray);
+    }
+    
+    .timeline-line {
+      position: absolute;
+      top: var(--space-xl);
+      left: var(--space-lg);
+      right: var(--space-lg);
+      height: 2px;
+      background: var(--border-gray);
+    }
+    
+    .timeline-progress {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      background: var(--pure-white);
+      width: 15%;
+      animation: progressGrow 2s ease-out;
+    }
+    
+    @keyframes progressGrow {
+      from { width: 0%; }
+      to { width: 15%; }
+    }
+    
+    .timeline-markers {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      margin-bottom: var(--space-lg);
+    }
+    
+    .timeline-marker {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .marker-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--border-gray);
+      margin-bottom: var(--space-xs);
+    }
+    
+    .marker-dot.active {
+      background: var(--pure-white);
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
+    
+    .marker-label {
+      font-size: 0.8rem;
+      color: var(--text-gray);
+      text-align: center;
+      font-weight: var(--font-weight-light);
+    }
+    
+    /* Links */
+    .transparency-link {
+      color: var(--pure-white);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: all 0.2s ease;
+    }
+    
+    .transparency-link:hover {
+      border-bottom-color: var(--pure-white);
+      color: var(--text-gray);
+    }
+    
+    /* Notice */
+    .transparency-notice {
+      background: var(--soft-black);
+      border: 1px solid var(--border-gray);
+      border-left: 3px solid var(--pure-white);
+      border-radius: var(--border-radius);
+      padding: var(--space-lg);
+      margin: var(--space-xl) 0;
+      text-align: center;
+    }
+    
+    .transparency-notice strong {
+      color: var(--pure-white);
+      font-weight: var(--font-weight-normal);
+    }
+    
+    /* Grid Layout */
+    .transparency-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-xl);
+      margin: var(--space-xl) 0;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .allocation-visual,
+      .transparency-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-lg);
+      }
+      
+      .allocation-chart {
+        height: 250px;
+      }
+      
+      .pie-segment {
+        width: 150px;
+        height: 150px;
+      }
+      
+      .transparency-table {
+        font-size: 0.85rem;
+      }
+      
+      .transparency-table th,
+      .transparency-table td {
+        padding: var(--space-xs) var(--space-sm);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Animated Background -->
+  <div class="animated-background">
+    <div class="bg-pattern"></div>
+    <div class="bg-pattern"></div>
+    <div class="bg-pattern"></div>
+    <div class="bg-pattern"></div>
+    <div class="bg-pattern"></div>
+    <div class="bg-line"></div>
+    <div class="bg-line"></div>
+    <div class="bg-line"></div>
+    <div class="bg-grid"></div>
+    <div class="bg-orb"></div>
+    <div class="bg-orb"></div>
+    <div class="bg-orb"></div>
+    <div class="bg-particle"></div>
+    <div class="bg-particle"></div>
+    <div class="bg-particle"></div>
+    <div class="bg-particle"></div>
+    <div class="bg-wave"></div>
+  </div>
+
+  <nav class="main-nav">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <img src="css/arcx-logo.png" alt="ARCx" class="nav-logo"/>
+      </div>
+      <div class="nav-links-main">
+        <a href="https://www.artifactvirtual.com" target="_blank">Home</a>
+        <a href="index.html">Overview</a>
+        <a href="arcx.html">ARCx</a>
+        <a href="bridge.html">Bridge</a>
+        <a href="whitepaper.html">Documentation</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <!-- Hero Section -->
+    <div class="card transparency-hero">
+      <h1>Transparency Portal</h1>
+      <div class="divider"></div>
+      <p class="transparency-subtitle">
+        Complete visibility into ARCx token allocation, vesting schedules, and on-chain verification. 
+        Built with constitutional intelligence principles for radical transparency in protocol governance.
+      </p>
+      
+      <div class="status-badges">
+        <span class="status-badge live">Live on Base Mainnet</span>
+        <span class="status-badge">Contract Verified</span>
+        <span class="status-badge">Zero Vulnerabilities</span>
+        <span class="status-badge">Open Source</span>
+      </div>
+    </div>
+
+    <!-- Contract Information -->
+    <div class="card">
+      <h2>Smart Contract Information</h2>
+      <div class="divider"></div>
+      
+      <div class="contract-showcase">
+        <div class="contract-detail">
+          <span class="contract-label">Contract Address</span>
+          <div class="contract-address">0xA4093669DAFbD123E37d52e0939b3aB3C2272f44</div>
+        </div>
+        <div class="contract-detail">
+          <span class="contract-label">Deployer Address</span>
+          <div class="contract-address">0x21E914dFBB137F7fEC896F11bC8BAd6BCCDB147B</div>
+        </div>
+        <div class="contract-detail">
+          <span class="contract-label">Network</span>
+          <span class="contract-value">Base Mainnet (Chain ID: 8453)</span>
+        </div>
+        <div class="contract-detail">
+          <span class="contract-label">Contract Verification</span>
+          <span class="contract-value">
+            <a href="https://basescan.org/address/0xA4093669DAFbD123E37d52e0939b3aB3C2272f44#code" target="_blank" class="transparency-link">BaseScan Explorer</a> ·
+            <a href="https://repo.sourcify.dev/contracts/full_match/8453/0xA4093669DAFbD123E37d52e0939b3aB3C2272f44/" target="_blank" class="transparency-link">Sourcify Verification</a>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Allocation Visualization -->
+    <div class="card">
+      <h2>Token Allocation Overview</h2>
+      <div class="divider"></div>
+      <p>Visual breakdown of the 1,000,000 ARCx token distribution across stakeholder categories with constitutional intelligence governance principles.</p>
+      
+      <div class="allocation-visual">
+        <div class="allocation-chart">
+          <div class="pie-segment"></div>
+          <div class="pie-segment"></div>
+          <div class="pie-segment"></div>
+          <div class="pie-segment"></div>
+          <div class="pie-segment"></div>
+        </div>
+        
+        <div class="allocation-legend">
+          <div class="legend-item">
+            <div class="legend-color" style="background: var(--pure-white);"></div>
+            <div class="legend-text">Ecosystem Fund</div>
+            <div class="legend-amount">250,000 ARCx (25%)</div>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background: #cccccc;"></div>
+            <div class="legend-text">Core Team & Developers</div>
+            <div class="legend-amount">200,000 ARCx (20%)</div>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background: #999999;"></div>
+            <div class="legend-text">Public Sale</div>
+            <div class="legend-amount">200,000 ARCx (20%)</div>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background: #666666;"></div>
+            <div class="legend-text">Community & Airdrop</div>
+            <div class="legend-amount">150,000 ARCx (15%)</div>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background: #333333;"></div>
+            <div class="legend-text">Strategic Partners</div>
+            <div class="legend-amount">100,000 ARCx (10%)</div>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background: #1a1a1a;"></div>
+            <div class="legend-text">Treasury Reserve</div>
+            <div class="legend-amount">100,000 ARCx (10%)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Detailed Allocation & Vesting -->
+    <div class="transparency-grid">
+      <div class="card">
+        <h2>Allocation Details</h2>
+        <div class="divider"></div>
+        
+        <table class="transparency-table">
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>Amount</th>
+              <th>Percentage</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Core Team & Developers</td>
+              <td><span class="mono-text">200,000 ARCx</span></td>
+              <td>20%</td>
+            </tr>
+            <tr>
+              <td>Ecosystem Fund</td>
+              <td><span class="mono-text">250,000 ARCx</span></td>
+              <td>25%</td>
+            </tr>
+            <tr>
+              <td>Community & Airdrop</td>
+              <td><span class="mono-text">150,000 ARCx</span></td>
+              <td>15%</td>
+            </tr>
+            <tr>
+              <td>Strategic Partners</td>
+              <td><span class="mono-text">100,000 ARCx</span></td>
+              <td>10%</td>
+            </tr>
+            <tr>
+              <td>Public Sale</td>
+              <td><span class="mono-text">200,000 ARCx</span></td>
+              <td>20%</td>
+            </tr>
+            <tr>
+              <td>Treasury Reserve</td>
+              <td><span class="mono-text">100,000 ARCx</span></td>
+              <td>10%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h2>Vesting Schedules</h2>
+        <div class="divider"></div>
+        
+        <table class="transparency-table">
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>Vesting Terms</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Core Team & Developers</td>
+              <td>12-month cliff, 36-month linear vesting</td>
+            </tr>
+            <tr>
+              <td>Ecosystem Fund</td>
+              <td>25% unlocked at launch, 75% vests linearly over 1 year</td>
+            </tr>
+            <tr>
+              <td>Community & Airdrop</td>
+              <td>Immediate claim or 3-month vesting option</td>
+            </tr>
+            <tr>
+              <td>Strategic Partners</td>
+              <td>6-month cliff, then linear vesting over 12 months</td>
+            </tr>
+            <tr>
+              <td>Public Sale</td>
+              <td>Fully unlocked at sale event, no vesting</td>
+            </tr>
+            <tr>
+              <td>Treasury Reserve</td>
+              <td>Locked for 2 years, protocol use only</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Vesting Timeline -->
+    <div class="card">
+      <h2>Vesting Timeline Visualization</h2>
+      <div class="divider"></div>
+      <p>Progressive token unlock schedule showing current status and future milestones across the ARCx ecosystem lifecycle.</p>
+      
+      <div class="vesting-timeline">
+        <div class="timeline-line">
+          <div class="timeline-progress"></div>
+        </div>
+        
+        <div class="timeline-markers">
+          <div class="timeline-marker">
+            <div class="marker-dot active"></div>
+            <div class="marker-label">Genesis<br>Aug 2025</div>
+          </div>
+          <div class="timeline-marker">
+            <div class="marker-dot"></div>
+            <div class="marker-label">Public Sale<br>Q4 2025</div>
+          </div>
+          <div class="timeline-marker">
+            <div class="marker-dot"></div>
+            <div class="marker-label">Team Cliff End<br>Aug 2026</div>
+          </div>
+          <div class="timeline-marker">
+            <div class="marker-dot"></div>
+            <div class="marker-label">Partner Unlock<br>Feb 2026</div>
+          </div>
+          <div class="timeline-marker">
+            <div class="marker-dot"></div>
+            <div class="marker-label">Treasury Unlock<br>Aug 2027</div>
+          </div>
+          <div class="timeline-marker">
+            <div class="marker-dot"></div>
+            <div class="marker-label">FUEL Migration<br>Q2 2026</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Wallet Addresses -->
+    <div class="card">
+      <h2>Allocation Wallet Addresses</h2>
+      <div class="divider"></div>
+      <p>Transparent wallet and contract addresses for each allocation category. All addresses will be published once allocation distribution begins.</p>
+      
+      <table class="transparency-table">
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Wallet Type</th>
+            <th>Address Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Core Team & Developers</td>
+            <td>Multisignature Wallet</td>
+            <td><span class="mono-text">To be published</span></td>
+          </tr>
+          <tr>
+            <td>Ecosystem Fund</td>
+            <td>Multisignature Wallet</td>
+            <td><span class="mono-text">To be published</span></td>
+          </tr>
+          <tr>
+            <td>Community & Airdrop</td>
+            <td>Vesting Contract</td>
+            <td><span class="mono-text">To be published</span></td>
+          </tr>
+          <tr>
+            <td>Strategic Partners</td>
+            <td>Multisignature Wallet</td>
+            <td><span class="mono-text">To be published</span></td>
+          </tr>
+          <tr>
+            <td>Public Sale</td>
+            <td>Sale Contract</td>
+            <td><span class="mono-text">To be published</span></td>
+          </tr>
+          <tr>
+            <td>Treasury Reserve</td>
+            <td>Multisignature Wallet</td>
+            <td><span class="mono-text">To be published</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- On-Chain Transparency -->
+    <div class="card">
+      <h2>On-Chain Verification</h2>
+      <div class="divider"></div>
+      
+      <div class="info-block">
+        <div class="contract-detail">
+          <span class="contract-label">Initial Mint Transaction</span>
+          <span class="contract-value">
+            <a href="https://basescan.org/tx/0xe2f323f6bbcb1d01f756bc3d51c7a4ee97b0762aa52480df06e5dcb42b2ed2f3" target="_blank" class="transparency-link">View on BaseScan</a>
+          </span>
+        </div>
+        <div class="contract-detail">
+          <span class="contract-label">Token Tracker</span>
+          <span class="contract-value">
+            <a href="https://basescan.org/token/0xA4093669DAFbD123E37d52e0939b3aB3C2272f44" target="_blank" class="transparency-link">ARCx Token on BaseScan</a>
+          </span>
+        </div>
+        <div class="contract-detail">
+          <span class="contract-label">Token List Integration</span>
+          <span class="contract-value">
+            <a href="https://raw.githubusercontent.com/Artifact-Virtual/arcx_token/main/artifact-tokenlist.json" target="_blank" class="transparency-link">Official Token List JSON</a>
+          </span>
+        </div>
+        <div class="contract-detail">
+          <span class="contract-label">Source Code Repository</span>
+          <span class="contract-value">
+            <a href="https://github.com/Artifact-Virtual/arcx_token" target="_blank" class="transparency-link">GitHub Repository</a>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Constitutional Notice -->
+    <div class="transparency-notice">
+      <strong>Constitutional Intelligence Commitment:</strong> This transparency portal is updated for every major allocation event, contract deployment, and governance decision. All wallet addresses, vesting contracts, and distribution schedules will be published and verifiable on-chain. ARTIFACT VIRTUAL is committed to radical transparency and constitutional governance principles in all protocol development and token economics.
+    </div>
+  </div>
+</body>
+</html>
