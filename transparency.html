@@ -666,40 +666,40 @@
       }
       
       .allocation-3d-scene {
-        height: 350px;
+        height: 450px;
         padding: var(--space-lg) var(--space-sm);
       }
       
       .cylinder-stack {
-        transform: rotateX(5deg) rotateY(-2deg) scale(0.85);
-        margin: 40px 0;
-        gap: 12px;
+        transform: rotateX(8deg) rotateY(-4deg) scale(0.7);
+        margin: 60px 0;
+        gap: 25px;
       }
       
       .cylinder {
-        width: 140px;
+        width: 180px;
       }
       
       .cylinder-face.top {
-        width: 140px;
-        height: 20px;
+        width: 180px;
+        height: 24px;
       }
       
       .cylinder-face.side {
-        width: 140px;
+        width: 180px;
       }
       
       /* Adjust cylinder heights for mobile */
-      .cylinder.ecosystem .cylinder-face.side { height: 40px; }
-      .cylinder.team .cylinder-face.side { height: 32px; }
-      .cylinder.public .cylinder-face.side { height: 32px; }
-      .cylinder.community .cylinder-face.side { height: 24px; }
-      .cylinder.partners .cylinder-face.side { height: 16px; }
-      .cylinder.treasury .cylinder-face.side { height: 16px; }
+      .cylinder.ecosystem .cylinder-face.side { height: 55px; }
+      .cylinder.team .cylinder-face.side { height: 48px; }
+      .cylinder.public .cylinder-face.side { height: 48px; }
+      .cylinder.community .cylinder-face.side { height: 36px; }
+      .cylinder.partners .cylinder-face.side { height: 24px; }
+      .cylinder.treasury .cylinder-face.side { height: 24px; }
       
       .cylinder-label {
         font-size: 0.7rem;
-        top: -35px;
+        top: -50px;
       }
       
       .cylinder-label span {
@@ -771,11 +771,29 @@
         });
       });
       
-      // 3D Scene mouse tracking - smoother interaction
+      // Enhanced 3D Scene mouse tracking with smooth interpolation
       const scene = document.querySelector('.allocation-3d-scene');
       const cylinderStack = document.querySelector('.cylinder-stack');
       
       let isMouseOver = false;
+      let currentRotation = { x: 12, y: -8 };
+      let targetRotation = { x: 12, y: -8 };
+      
+      function lerp(start, end, factor) {
+        return start + (end - start) * factor;
+      }
+      
+      function updateRotation() {
+        currentRotation.x = lerp(currentRotation.x, targetRotation.x, 0.1);
+        currentRotation.y = lerp(currentRotation.y, targetRotation.y, 0.1);
+        
+        cylinderStack.style.transform = `rotateX(${currentRotation.x}deg) rotateY(${currentRotation.y}deg)`;
+        
+        if (Math.abs(currentRotation.x - targetRotation.x) > 0.1 || 
+            Math.abs(currentRotation.y - targetRotation.y) > 0.1) {
+          requestAnimationFrame(updateRotation);
+        }
+      }
       
       scene.addEventListener('mouseenter', function() {
         isMouseOver = true;
@@ -783,7 +801,8 @@
       
       scene.addEventListener('mouseleave', function() {
         isMouseOver = false;
-        cylinderStack.style.transform = 'rotateX(10deg) rotateY(-5deg)';
+        targetRotation = { x: 12, y: -8 };
+        requestAnimationFrame(updateRotation);
       });
       
       scene.addEventListener('mousemove', function(e) {
@@ -793,13 +812,11 @@
         const x = (e.clientX - rect.left) / rect.width;
         const y = (e.clientY - rect.top) / rect.height;
         
-        // Reduce the rotation range for smoother interaction
-        const rotateY = -5 + (x * 10);  // -5 to 5 degrees
-        const rotateX = 10 + (y * 5);   // 10 to 15 degrees
+        // Enhanced rotation range with smooth curves
+        targetRotation.y = -8 + (x * 16);  // -8 to 8 degrees
+        targetRotation.x = 12 + (y * 8);   // 12 to 20 degrees
         
-        requestAnimationFrame(() => {
-          cylinderStack.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-        });
+        requestAnimationFrame(updateRotation);
       });
     });
   </script>
