@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ARCx transparency portal — Allocation & Vesting</title>
+  <title> ARCx Transparency portal</title>
   <meta name="description" content="Complete transparency dashboard for ARCx token allocation, vesting schedules, and on-chain verification. Built with constitutional intelligence principles.">
   <link rel="stylesheet" href="css/arcx-refined.css">
   <link rel="stylesheet" href="css/animated-background.css">
@@ -74,13 +74,13 @@
       letter-spacing: 0.02em;
     }
     
-    /* 3D Allocation Visualization */
+    /* 3D Allocation Visualization - Enhanced */
     .allocation-3d-container {
       display: grid;
       grid-template-columns: 2fr 1fr;
       gap: var(--space-xl);
       margin: var(--space-xl) 0;
-      min-height: 400px;
+      min-height: 600px;
     }
     
     .allocation-3d-scene {
@@ -89,90 +89,191 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background: var(--ghost-black);
+      background: linear-gradient(135deg, var(--ghost-black) 0%, rgba(0, 0, 0, 0.95) 100%);
       border-radius: var(--border-radius);
       border: 1px solid var(--border-gray);
       position: relative;
-      overflow: hidden;
+      overflow: visible;
+      padding: var(--space-xxl);
+    }
+    
+    .allocation-3d-scene::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at center, rgba(255, 255, 255, 0.03) 0%, transparent 70%);
+      pointer-events: none;
     }
     
     .cylinder-stack {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      justify-content: center;
+      align-items: center;
+      gap: 35px;
       transform-style: preserve-3d;
-      transform: rotateX(15deg) rotateY(-10deg);
-      transition: transform 0.6s ease;
+      transform: rotateX(12deg) rotateY(-8deg);
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      margin: 80px 0;
     }
     
     .allocation-3d-scene:hover .cylinder-stack {
-      transform: rotateX(20deg) rotateY(10deg);
+      transform: rotateX(18deg) rotateY(8deg);
     }
     
     .cylinder {
       position: relative;
-      width: 200px;
+      width: 240px;
       cursor: pointer;
       transform-style: preserve-3d;
-      transition: all 0.4s ease;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      margin: 8px 0;
     }
     
     .cylinder:hover {
-      transform: translateZ(20px) scale(1.05);
-      filter: brightness(1.2);
+      transform: translateZ(25px) scale(1.08);
+      filter: brightness(1.3) saturate(1.2);
     }
     
     .cylinder-face {
       position: absolute;
-      border-radius: var(--border-radius);
+      border-radius: 4px;
     }
     
     .cylinder-face.top {
-      width: 200px;
+      width: 240px;
       height: 30px;
       transform: rotateX(90deg) translateZ(15px);
+      border: 2px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
     }
     
     .cylinder-face.side {
-      width: 200px;
+      width: 240px;
       transform-origin: bottom;
+      border: 2px solid rgba(255, 255, 255, 0.15);
+      position: relative;
     }
     
-    /* Cylinder heights and colors */
-    .cylinder.ecosystem .cylinder-face.side { height: 60px; background: linear-gradient(180deg, var(--pure-white), #e0e0e0); }
-    .cylinder.ecosystem .cylinder-face.top { background: var(--pure-white); }
+    .cylinder-face.side::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.1) 0%, 
+        transparent 50%, 
+        rgba(0, 0, 0, 0.2) 100%);
+      border-radius: inherit;
+    }
     
-    .cylinder.team .cylinder-face.side { height: 48px; background: linear-gradient(180deg, #cccccc, #b0b0b0); }
-    .cylinder.team .cylinder-face.top { background: #cccccc; }
+    /* Enhanced cylinder heights and colors with gradients */
+    .cylinder.ecosystem .cylinder-face.side { 
+      height: 70px; 
+      background: linear-gradient(180deg, 
+        var(--pure-white) 0%, 
+        #f0f0f0 50%, 
+        #e0e0e0 100%); 
+      box-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
+    }
+    .cylinder.ecosystem .cylinder-face.top { 
+      background: radial-gradient(circle, var(--pure-white) 0%, #f8f8f8 100%); 
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
+    }
     
-    .cylinder.public .cylinder-face.side { height: 48px; background: linear-gradient(180deg, #999999, #808080); }
-    .cylinder.public .cylinder-face.top { background: #999999; }
+    .cylinder.team .cylinder-face.side { 
+      height: 60px; 
+      background: linear-gradient(180deg, 
+        #d8d8d8 0%, 
+        #c0c0c0 50%, 
+        #a8a8a8 100%); 
+      box-shadow: 0 4px 18px rgba(200, 200, 200, 0.4);
+    }
+    .cylinder.team .cylinder-face.top { 
+      background: radial-gradient(circle, #d8d8d8 0%, #c8c8c8 100%); 
+      box-shadow: 0 0 20px rgba(216, 216, 216, 0.4);
+    }
     
-    .cylinder.community .cylinder-face.side { height: 36px; background: linear-gradient(180deg, #666666, #555555); }
-    .cylinder.community .cylinder-face.top { background: #666666; }
+    .cylinder.public .cylinder-face.side { 
+      height: 60px; 
+      background: linear-gradient(180deg, 
+        #a8a8a8 0%, 
+        #909090 50%, 
+        #787878 100%); 
+      box-shadow: 0 4px 16px rgba(150, 150, 150, 0.4);
+    }
+    .cylinder.public .cylinder-face.top { 
+      background: radial-gradient(circle, #a8a8a8 0%, #989898 100%); 
+      box-shadow: 0 0 18px rgba(168, 168, 168, 0.4);
+    }
     
-    .cylinder.partners .cylinder-face.side { height: 24px; background: linear-gradient(180deg, #333333, #2a2a2a); }
-    .cylinder.partners .cylinder-face.top { background: #333333; }
+    .cylinder.community .cylinder-face.side { 
+      height: 45px; 
+      background: linear-gradient(180deg, 
+        #787878 0%, 
+        #606060 50%, 
+        #484848 100%); 
+      box-shadow: 0 4px 14px rgba(100, 100, 100, 0.4);
+    }
+    .cylinder.community .cylinder-face.top { 
+      background: radial-gradient(circle, #787878 0%, #686868 100%); 
+      box-shadow: 0 0 16px rgba(120, 120, 120, 0.4);
+    }
     
-    .cylinder.treasury .cylinder-face.side { height: 24px; background: linear-gradient(180deg, #1a1a1a, #111111); }
-    .cylinder.treasury .cylinder-face.top { background: #1a1a1a; }
+    .cylinder.partners .cylinder-face.side { 
+      height: 30px; 
+      background: linear-gradient(180deg, 
+        #484848 0%, 
+        #303030 50%, 
+        #202020 100%); 
+      box-shadow: 0 4px 12px rgba(60, 60, 60, 0.4);
+    }
+    .cylinder.partners .cylinder-face.top { 
+      background: radial-gradient(circle, #484848 0%, #383838 100%); 
+      box-shadow: 0 0 14px rgba(72, 72, 72, 0.4);
+    }
+    
+    .cylinder.treasury .cylinder-face.side { 
+      height: 30px; 
+      background: linear-gradient(180deg, 
+        #303030 0%, 
+        #202020 50%, 
+        #101010 100%); 
+      box-shadow: 0 4px 10px rgba(40, 40, 40, 0.4);
+    }
+    .cylinder.treasury .cylinder-face.top { 
+      background: radial-gradient(circle, #303030 0%, #282828 100%); 
+      box-shadow: 0 0 12px rgba(48, 48, 48, 0.4);
+    }
     
     .cylinder-label {
       position: absolute;
-      top: -40px;
+      top: -60px;
       left: 50%;
       transform: translateX(-50%);
       font-size: 0.8rem;
-      color: var(--pure-white);
+      color: var(--text-gray);
       text-align: center;
       font-weight: var(--font-weight-light);
-      opacity: 0.8;
-      transition: opacity 0.3s ease;
+      opacity: 0.5;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      white-space: nowrap;
+      z-index: 10;
+      filter: blur(1px);
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
     }
     
     .cylinder:hover .cylinder-label {
       opacity: 1;
       color: var(--pure-white);
+      transform: translateX(-50%) translateY(-8px);
+      filter: blur(0px);
+      text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
     }
     
     .cylinder-label span {
@@ -180,7 +281,12 @@
       font-family: var(--font-mono);
       font-size: 0.7rem;
       color: var(--text-gray);
-      margin-top: 2px;
+      margin-top: 4px;
+      transition: color 0.4s ease;
+    }
+    
+    .cylinder:hover .cylinder-label span {
+      color: var(--pure-white);
     }
     
     .allocation-info {
@@ -560,23 +666,44 @@
       }
       
       .allocation-3d-scene {
-        height: 300px;
+        height: 350px;
+        padding: var(--space-lg) var(--space-sm);
       }
       
       .cylinder-stack {
-        transform: rotateX(10deg) rotateY(-5deg) scale(0.8);
+        transform: rotateX(5deg) rotateY(-2deg) scale(0.85);
+        margin: 40px 0;
+        gap: 12px;
       }
       
       .cylinder {
-        width: 150px;
+        width: 140px;
       }
       
       .cylinder-face.top {
-        width: 150px;
+        width: 140px;
+        height: 20px;
       }
       
       .cylinder-face.side {
-        width: 150px;
+        width: 140px;
+      }
+      
+      /* Adjust cylinder heights for mobile */
+      .cylinder.ecosystem .cylinder-face.side { height: 40px; }
+      .cylinder.team .cylinder-face.side { height: 32px; }
+      .cylinder.public .cylinder-face.side { height: 32px; }
+      .cylinder.community .cylinder-face.side { height: 24px; }
+      .cylinder.partners .cylinder-face.side { height: 16px; }
+      .cylinder.treasury .cylinder-face.side { height: 16px; }
+      
+      .cylinder-label {
+        font-size: 0.7rem;
+        top: -35px;
+      }
+      
+      .cylinder-label span {
+        font-size: 0.6rem;
       }
       
       .allocation-cards {
@@ -644,23 +771,35 @@
         });
       });
       
-      // 3D Scene mouse tracking
+      // 3D Scene mouse tracking - smoother interaction
       const scene = document.querySelector('.allocation-3d-scene');
       const cylinderStack = document.querySelector('.cylinder-stack');
       
+      let isMouseOver = false;
+      
+      scene.addEventListener('mouseenter', function() {
+        isMouseOver = true;
+      });
+      
+      scene.addEventListener('mouseleave', function() {
+        isMouseOver = false;
+        cylinderStack.style.transform = 'rotateX(10deg) rotateY(-5deg)';
+      });
+      
       scene.addEventListener('mousemove', function(e) {
+        if (!isMouseOver) return;
+        
         const rect = this.getBoundingClientRect();
         const x = (e.clientX - rect.left) / rect.width;
         const y = (e.clientY - rect.top) / rect.height;
         
-        const rotateY = -10 + (x * 20);
-        const rotateX = 15 + (y * 10);
+        // Reduce the rotation range for smoother interaction
+        const rotateY = -5 + (x * 10);  // -5 to 5 degrees
+        const rotateX = 10 + (y * 5);   // 10 to 15 degrees
         
-        cylinderStack.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-      });
-      
-      scene.addEventListener('mouseleave', function() {
-        cylinderStack.style.transform = 'rotateX(15deg) rotateY(-10deg)';
+        requestAnimationFrame(() => {
+          cylinderStack.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
       });
     });
   </script>
