@@ -256,49 +256,49 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 0.85rem;
-      font-weight: var(--font-weight-normal);
+      font-size: 0.95rem;
+      font-weight: var(--font-weight-bold);
       text-align: center;
       opacity: 0;
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       white-space: nowrap;
       z-index: 15;
       filter: blur(3px);
-      color: #ff6b35;
+      color: var(--pure-white);
       text-shadow: 
-        0 0 8px rgba(255, 107, 53, 0.8),
-        0 0 16px rgba(255, 107, 53, 0.4),
-        1px 1px 0px rgba(0, 0, 0, 0.8),
-        -1px -1px 0px rgba(0, 0, 0, 0.8),
-        1px -1px 0px rgba(0, 0, 0, 0.8),
-        -1px 1px 0px rgba(0, 0, 0, 0.8);
+        0 0 8px rgba(0, 0, 0, 1),
+        0 0 16px rgba(0, 0, 0, 0.8),
+        2px 2px 0px rgba(0, 0, 0, 1),
+        -2px -2px 0px rgba(0, 0, 0, 1),
+        2px -2px 0px rgba(0, 0, 0, 1),
+        -2px 2px 0px rgba(0, 0, 0, 1);
       pointer-events: none;
     }
     
     .cylinder:hover .cylinder-label {
       opacity: 1;
-      transform: translate(-50%, -50%) scale(1.05);
+      transform: translate(-50%, -50%) scale(1.1);
       filter: blur(0px);
-      color: #ff6b35;
+      color: var(--pure-white);
       text-shadow: 
-        0 0 12px rgba(255, 107, 53, 1),
-        0 0 20px rgba(255, 107, 53, 0.6),
-        2px 2px 0px rgba(0, 0, 0, 1),
-        -2px -2px 0px rgba(0, 0, 0, 1),
-        2px -2px 0px rgba(0, 0, 0, 1),
-        -2px 2px 0px rgba(0, 0, 0, 1);
+        0 0 12px rgba(0, 0, 0, 1),
+        0 0 20px rgba(0, 0, 0, 0.9),
+        0 0 30px rgba(255, 255, 255, 0.3),
+        3px 3px 0px rgba(0, 0, 0, 1),
+        -3px -3px 0px rgba(0, 0, 0, 1),
+        3px -3px 0px rgba(0, 0, 0, 1),
+        -3px 3px 0px rgba(0, 0, 0, 1);
     }
     
     .cylinder-label span {
       display: block;
       font-family: var(--font-mono);
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       margin-top: 4px;
       transition: all 0.4s ease;
       color: inherit;
-    }
-    
-    .allocation-info {
+      font-weight: var(--font-weight-normal);
+    }    .allocation-info {
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -348,10 +348,10 @@
       line-height: var(--line-height-relaxed);
     }
     
-    /* Allocation Cards */
+    /* Allocation Cards - Enhanced Structure */
     .allocation-cards {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
       gap: var(--space-lg);
       margin: var(--space-lg) 0;
     }
@@ -367,6 +367,7 @@
     .allocation-card:hover {
       transform: translateY(-2px);
       box-shadow: var(--soft-shadow);
+      border-color: rgba(255, 255, 255, 0.2);
     }
     
     .card-header {
@@ -377,15 +378,17 @@
     
     .card-header h3 {
       color: var(--pure-white);
-      font-size: 1rem;
+      font-size: 1.1rem;
       margin-bottom: var(--space-xs);
+      font-weight: var(--font-weight-medium);
     }
     
     .card-amount {
       font-family: var(--font-mono);
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       color: var(--pure-white);
       margin-bottom: var(--space-xs);
+      font-weight: var(--font-weight-bold);
     }
     
     .card-percentage {
@@ -395,19 +398,67 @@
       top: var(--space-md);
       right: var(--space-md);
       background: var(--soft-black);
-      padding: 0.2em 0.6em;
+      padding: 0.3em 0.8em;
       border-radius: var(--border-radius);
+      font-weight: var(--font-weight-medium);
     }
     
     .card-body {
       padding: var(--space-md);
     }
     
-    .card-body p {
-      font-size: 0.9rem;
+    .card-description {
+      font-size: 0.95rem;
       color: var(--text-gray);
       line-height: var(--line-height-relaxed);
+      margin-bottom: var(--space-sm);
+    }
+    
+    .card-features {
+      list-style: none;
+      padding: 0;
       margin: 0;
+    }
+    
+    .card-features li {
+      font-size: 0.85rem;
+      color: var(--text-gray);
+      line-height: var(--line-height-relaxed);
+      padding: 0.3em 0;
+      position: relative;
+      padding-left: 1.2em;
+    }
+    
+    .card-features li::before {
+      content: '•';
+      color: var(--pure-white);
+      font-weight: bold;
+      position: absolute;
+      left: 0;
+      top: 0.3em;
+    }
+    
+    .card-vesting {
+      background: var(--soft-black);
+      padding: var(--space-sm);
+      border-radius: var(--border-radius);
+      margin-top: var(--space-sm);
+      border: 1px solid var(--border-gray);
+    }
+    
+    .vesting-label {
+      font-size: 0.75rem;
+      color: var(--text-gray);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.2em;
+      font-weight: var(--font-weight-medium);
+    }
+    
+    .vesting-terms {
+      font-size: 0.85rem;
+      color: var(--pure-white);
+      font-family: var(--font-mono);
     }
     
     /* Enhanced header colors */
@@ -568,6 +619,18 @@
       background: var(--ghost-black);
       border-radius: var(--border-radius);
       border: 1px solid var(--border-gray);
+      overflow: hidden;
+    }
+    
+    .vesting-timeline::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at center, rgba(255, 255, 255, 0.02) 0%, transparent 70%);
+      pointer-events: none;
     }
     
     .timeline-line {
@@ -575,8 +638,12 @@
       top: var(--space-xl);
       left: var(--space-lg);
       right: var(--space-lg);
-      height: 2px;
-      background: var(--border-gray);
+      height: 3px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 2px;
+      box-shadow: 
+        0 0 10px rgba(255, 255, 255, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
     }
     
     .timeline-progress {
@@ -584,14 +651,53 @@
       top: 0;
       left: 0;
       height: 100%;
-      background: var(--pure-white);
+      background: linear-gradient(90deg, 
+        var(--pure-white) 0%, 
+        #f0f0f0 50%, 
+        var(--pure-white) 100%);
       width: 15%;
-      animation: progressGrow 2s ease-out;
+      border-radius: 2px;
+      animation: progressGrow 2s ease-out, progressFlicker 3s ease-in-out infinite;
+      box-shadow: 
+        0 0 15px rgba(255, 255, 255, 0.6),
+        0 0 30px rgba(255, 255, 255, 0.3),
+        0 2px 10px rgba(255, 255, 255, 0.4);
     }
     
     @keyframes progressGrow {
       from { width: 0%; }
       to { width: 15%; }
+    }
+    
+    @keyframes progressFlicker {
+      0%, 100% { 
+        opacity: 1; 
+        box-shadow: 
+          0 0 15px rgba(255, 255, 255, 0.6),
+          0 0 30px rgba(255, 255, 255, 0.3),
+          0 2px 10px rgba(255, 255, 255, 0.4);
+      }
+      25% { 
+        opacity: 0.8; 
+        box-shadow: 
+          0 0 20px rgba(255, 255, 255, 0.8),
+          0 0 40px rgba(255, 255, 255, 0.5),
+          0 2px 15px rgba(255, 255, 255, 0.6);
+      }
+      50% { 
+        opacity: 1; 
+        box-shadow: 
+          0 0 25px rgba(255, 255, 255, 1),
+          0 0 50px rgba(255, 255, 255, 0.7),
+          0 2px 20px rgba(255, 255, 255, 0.8);
+      }
+      75% { 
+        opacity: 0.9; 
+        box-shadow: 
+          0 0 18px rgba(255, 255, 255, 0.7),
+          0 0 35px rgba(255, 255, 255, 0.4),
+          0 2px 12px rgba(255, 255, 255, 0.5);
+      }
     }
     
     .timeline-markers {
@@ -610,16 +716,38 @@
     }
     
     .marker-dot {
-      width: 12px;
-      height: 12px;
+      width: 14px;
+      height: 14px;
       border-radius: 50%;
       background: var(--border-gray);
       margin-bottom: var(--space-xs);
+      border: 2px solid var(--soft-black);
+      transition: all 0.3s ease;
     }
     
     .marker-dot.active {
       background: var(--pure-white);
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+      border-color: var(--pure-white);
+      animation: dotGlow 2s ease-in-out infinite;
+      box-shadow: 
+        0 0 15px rgba(255, 255, 255, 0.8),
+        0 0 30px rgba(255, 255, 255, 0.4),
+        0 2px 10px rgba(255, 255, 255, 0.6);
+    }
+    
+    @keyframes dotGlow {
+      0%, 100% { 
+        box-shadow: 
+          0 0 15px rgba(255, 255, 255, 0.8),
+          0 0 30px rgba(255, 255, 255, 0.4),
+          0 2px 10px rgba(255, 255, 255, 0.6);
+      }
+      50% { 
+        box-shadow: 
+          0 0 25px rgba(255, 255, 255, 1),
+          0 0 50px rgba(255, 255, 255, 0.6),
+          0 2px 20px rgba(255, 255, 255, 0.8);
+      }
     }
     
     .marker-label {
@@ -627,6 +755,13 @@
       color: var(--text-gray);
       text-align: center;
       font-weight: var(--font-weight-light);
+      transition: all 0.3s ease;
+    }
+    
+    .timeline-marker:first-child .marker-label {
+      color: var(--pure-white);
+      font-weight: var(--font-weight-normal);
+      text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
     }
     
     /* Links */
@@ -869,7 +1004,7 @@
   <div class="container">
     <!-- Hero Section -->
     <div class="card transparency-hero">
-      <h1>transparency portal</h1>
+      <h1>ARCx Transparency Portal</h1>
       <div class="divider"></div>
       <p class="transparency-subtitle">
         Complete visibility into ARCx token allocation, vesting schedules, and on-chain verification. 
@@ -886,7 +1021,7 @@
 
     <!-- Vesting Timeline -->
     <div class="card">
-      <h2>Vesting Timeline Visualization</h2>
+      <h2>Vesting Timeline</h2>
       <div class="divider"></div>
       <p>Progressive token unlock schedule showing current status and future milestones across the ARCx ecosystem lifecycle.</p>
       
@@ -968,12 +1103,10 @@
         
         <div class="allocation-info">
           <div class="info-display">
-            <h3>Hover to Explore</h3>
-            <p>Move your mouse over the 3D cylinders to see detailed allocation information.</p>
             <div class="selected-info" id="selectedInfo">
               <div class="info-category">Select a category</div>
               <div class="info-amount">—</div>
-              <div class="info-description">Hover over any cylinder above to see allocation details.</div>
+              <div class="info-description">Hover over any category to see allocation details.</div>
             </div>
           </div>
         </div>
@@ -994,7 +1127,17 @@
             <div class="card-percentage">25%</div>
           </div>
           <div class="card-body">
-            <p>Infrastructure development, validator rewards, and ecosystem tooling. Critical for network growth and decentralization.</p>
+            <p class="card-description">Infrastructure development, validator rewards, and ecosystem tooling critical for network growth and decentralization.</p>
+            <ul class="card-features">
+              <li>Validator reward distribution system</li>
+              <li>Developer tooling and SDK development</li>
+              <li>Network infrastructure grants</li>
+              <li>Cross-chain bridge incentives</li>
+            </ul>
+            <div class="card-vesting">
+              <div class="vesting-label">Vesting Schedule</div>
+              <div class="vesting-terms">25% at launch, 75% over 12 months</div>
+            </div>
           </div>
         </div>
         
@@ -1005,7 +1148,17 @@
             <div class="card-percentage">20%</div>
           </div>
           <div class="card-body">
-            <p>Protocol engineers, researchers, and core contributors. Vested over 4 years with 12-month cliff for long-term alignment.</p>
+            <p class="card-description">Protocol engineers, researchers, and core contributors with long-term alignment incentives.</p>
+            <ul class="card-features">
+              <li>Protocol development team</li>
+              <li>Research and innovation leads</li>
+              <li>Security audit specialists</li>
+              <li>Constitutional governance architects</li>
+            </ul>
+            <div class="card-vesting">
+              <div class="vesting-label">Vesting Schedule</div>
+              <div class="vesting-terms">12-month cliff, 36-month linear</div>
+            </div>
           </div>
         </div>
         
@@ -1016,7 +1169,17 @@
             <div class="card-percentage">20%</div>
           </div>
           <div class="card-body">
-            <p>Fair-launch public distribution ensuring broad community participation and decentralized ownership from genesis.</p>
+            <p class="card-description">Fair-launch public distribution ensuring broad community participation and decentralized ownership from genesis.</p>
+            <ul class="card-features">
+              <li>Open public sale event</li>
+              <li>KYC-compliant distribution</li>
+              <li>Anti-whale mechanisms</li>
+              <li>Immediate trading liquidity</li>
+            </ul>
+            <div class="card-vesting">
+              <div class="vesting-label">Vesting Schedule</div>
+              <div class="vesting-terms">Immediate unlock, no vesting</div>
+            </div>
           </div>
         </div>
         
@@ -1027,7 +1190,17 @@
             <div class="card-percentage">15%</div>
           </div>
           <div class="card-body">
-            <p>Early supporters, contributors, and community members. Immediate claim or optional 3-month vesting for enhanced rewards.</p>
+            <p class="card-description">Early supporters, contributors, and community members with optional enhanced vesting rewards.</p>
+            <ul class="card-features">
+              <li>Early community contributors</li>
+              <li>Beta testers and validators</li>
+              <li>Social media ambassadors</li>
+              <li>Documentation contributors</li>
+            </ul>
+            <div class="card-vesting">
+              <div class="vesting-label">Vesting Schedule</div>
+              <div class="vesting-terms">Immediate or 3-month enhanced</div>
+            </div>
           </div>
         </div>
         
@@ -1038,7 +1211,17 @@
             <div class="card-percentage">10%</div>
           </div>
           <div class="card-body">
-            <p>Institutional partners, integrators, and strategic alliances. 6-month cliff with 12-month linear vesting.</p>
+            <p class="card-description">Institutional partners, integrators, and strategic alliances supporting protocol adoption.</p>
+            <ul class="card-features">
+              <li>Exchange partnerships</li>
+              <li>DeFi protocol integrations</li>
+              <li>Enterprise blockchain solutions</li>
+              <li>Cross-chain collaboration</li>
+            </ul>
+            <div class="card-vesting">
+              <div class="vesting-label">Vesting Schedule</div>
+              <div class="vesting-terms">6-month cliff, 12-month linear</div>
+            </div>
           </div>
         </div>
         
@@ -1049,7 +1232,17 @@
             <div class="card-percentage">10%</div>
           </div>
           <div class="card-body">
-            <p>Protocol governance reserve locked for 2 years. Used exclusively for constitutional governance and emergency provisions.</p>
+            <p class="card-description">Protocol governance reserve locked for constitutional governance and emergency provisions only.</p>
+            <ul class="card-features">
+              <li>Constitutional governance decisions</li>
+              <li>Emergency protocol upgrades</li>
+              <li>Long-term sustainability fund</li>
+              <li>Community-voted initiatives</li>
+            </ul>
+            <div class="card-vesting">
+              <div class="vesting-label">Vesting Schedule</div>
+              <div class="vesting-terms">2-year lock, governance-controlled</div>
+            </div>
           </div>
         </div>
       </div>
