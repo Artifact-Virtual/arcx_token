@@ -1,6 +1,8 @@
-## ARCx Token Launch: Pro-Level Execution Playbook
+## ARCx Playbook
 
-This playbook provides a step-by-step, actionable guide for managing your ARCx tokens post-mint. It covers protocol, liquidity, and ecosystem strategy—excluding marketing. Use this as your master reference for execution and governance.
+This playbook provides a step-by-step, actionable guide for managing ARCx. It covers protocol, liquidity, and ecosystem strategy—excluding marketing. 
+
+> This is the MASTER GOVERNANCE EXECUTION reference.
 
 ---
 
@@ -13,14 +15,14 @@ This playbook provides a step-by-step, actionable guide for managing your ARCx t
 
 2. **Finalize Tokenomics**
     - Decide allocations for team, treasury, ecosystem, airdrops, incentives, partners, etc.
-    - Document your allocation strategy (internal or public).
+    - Document the allocation strategy (internal or public).
 
 3. **Define Distribution & Emission Policy**
-    - Choose between fair launch (airdrop/sale) or controlled launch (treasury governance).
-    - Write down your distribution rules and schedule.
+    - Select between fair launch (airdrop/sale) or controlled launch (treasury governance).
+    - Record distribution rules and schedule.
 
 4. **Plan Liquidity Event**
-    - Don’t rush to add liquidity.
+    - Avoid rushing to add liquidity.
     - Prepare a detailed plan:
       - Amount of ARCx and ETH/USDC to pair
       - Target price
@@ -32,21 +34,21 @@ This playbook provides a step-by-step, actionable guide for managing your ARCx t
     - Use smart contracts or transparent wallets for trust.
 
 6. **Distribute to Early Adopters (If Planned)**
-    - Send ARCx to partners, early backers, or participants per your plan.
+    - Distribute ARCx to partners, early backers, or participants per the allocation plan.
     - Log all distributions for auditability.
 
 7. **Prepare for DEX Listing**
     - Add initial liquidity to Uniswap (Base) or chosen DEX when ready.
     - Announce pool details to prevent scams/fake pairs.
-    - Be prepared for volatility.
+    - Prepare for volatility.
 
 8. **Mint/Burn Policy**
-    - Only mint or burn tokens per protocol rules.
+    - Mint or burn tokens only per protocol rules.
     - Avoid arbitrary supply changes.
 
 ---
 
-### TL;DR — What To Do Right Now
+### TL;DR — Immediate Steps
 
 - Hold all ARCx in secure treasury.
 - Plan allocation and liquidity events.
@@ -207,4 +209,5 @@ A horizontally organized masterplan with vertical streams and actionable steps f
 
 ---
 
-> This **Playbook** is the backbone for ARCx and Artifact Virtual. Flexible, actionable, and auditable—adapt as needed while maintaining a clear path forward.
+> This **Playbook** is the backbone for ARCx and Artifact Virtual. Flexible, actionable, and auditable—adaptable as needed while maintaining a clear path forward.
+
