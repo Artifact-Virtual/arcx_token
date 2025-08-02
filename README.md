@@ -51,8 +51,9 @@ Transaction details:
 
 - **Paused:** No ✅
 - **Minting Finalized:** No (ready for token distribution)
-- **Bridge Configured:** Not yet (0x0000000000000000000000000000000000000000)
-- **Total Supply:** 1,000,000 ARCx (initial mint complete)
+**Contract Status:** ✅ LIVE  
+**Vesting System:** 🚀 READY FOR DEPLOYMENT  
+**Treasury Safe:** `0x8F8fdBFa1AF9f53973a7003CbF26D854De9b2f38`
 
 ### Overview
 
@@ -76,19 +77,27 @@ ARCx is a time-bound, non-inflationary ERC20 that bootstraps The Arc and Adam Pr
 
 ## Table of Contents
 
-- [Live Deployment](#-live-on-base-mainnet-)
-- [Token Specifications](#token-specifications)
-- [Role Configuration](#role-configuration)
-- [Contract Status](#contract-status)
-- [Overview](#overview)
-- [Contract Interaction](#-contract-interaction)
+- [ARCx](#arcx)
+  - [Token Specifications](#token-specifications)
+    - [Initial Mint](#initial-mint)
+  - [Role Configuration](#role-configuration)
+  - [Contract Status](#contract-status)
+  - [Overview](#overview)
+- [Table of Contents](#table-of-contents)
+- [🔗 Contract Interaction](#-contract-interaction)
+  - [Adding ARCx to Your Wallet](#adding-arcx-to-your-wallet)
+  - [Contract Functions](#contract-functions)
+  - [Vesting System](#vesting-system)
+    - [Example Mint Transaction](#example-mint-transaction)
+  - [Gas Optimization](#gas-optimization)
 - [Security Model](#security-model)
 - [Architecture](#architecture)
 - [Lifecycle Phases](#lifecycle-phases)
 - [Token Distribution](#token-distribution)
 - [Development Environment](#development-environment)
 - [Getting Started](#getting-started)
-- [Testing & Quality Assurance](#testing--quality-assurance)
+  - [Common Commands](#common-commands)
+- [Testing \& Quality Assurance](#testing--quality-assurance)
 - [Documentation](#documentation)
 - [Project Status](#project-status)
 - [License](#license)
@@ -122,6 +131,22 @@ ARCx is a time-bound, non-inflationary ERC20 that bootstraps The Arc and Adam Pr
 
 **Migration Function:**
 - `burnToFuel(uint256)` → Burn ARCx and migrate to FUEL (available after bridge is set)
+
+### Vesting System
+
+**Master Vesting Contract (ARCx_MVC.sol):**
+- **Role-Based Access:** ADMIN_ROLE, VESTING_MANAGER_ROLE, PAUSER_ROLE
+- **Security Features:** AccessControl, ReentrancyGuard, Pausable, SafeERC20
+- **Category Management:** Enum-based allocation tracking per distribution category
+- **Emergency Controls:** Revocation, restoration, emergency withdrawal with audit trail
+- **Treasury Integration:** Safe multisig compatibility with comprehensive governance
+
+**Vesting Functions:**
+- `addVesting(beneficiary, amount, cliff, duration, category)` → Create vesting schedule
+- `release(beneficiary)` → Release vested tokens
+- `revokeVesting(beneficiary)` → Emergency revocation (admin only)
+- `releasable(beneficiary)` → Query available tokens for release
+- `getVesting(beneficiary)` → Get complete vesting details
 
 #### Example Mint Transaction
 
@@ -195,13 +220,19 @@ Deployed on Base for ultra-low transaction costs:
 
 ## Token Distribution
 
-| Category                 | Allocation | Description                                  |
-| ------------------------ | ---------- | -------------------------------------------- |
-| Core Development Fund    | 30%        | Protocol engineers and contributors          |
-| Ecosystem Bootstrap      | 20%        | Validators, infrastructure, and tooling      |
-| Community Round (Public) | 25%        | Public, fair-launch sale                     |
-| Strategic Partners       | 15%        | Institutional partners and integrators       |
-| ARCx Treasury Reserve    | 10%        | Future conversion or burn mechanisms         |
+| Category                 | Allocation | Vesting Schedule | Description                                  |
+| ------------------------ | ---------- | ---------------- | -------------------------------------------- |
+| Core Team & Developers   | 20%        | 6-36 month cliff/linear | Protocol engineers and contributors          |
+| Ecosystem Fund           | 25%        | 25% immediate, 75% linear | Validators, infrastructure, and tooling      |
+| Community & Airdrop      | 15%        | Immediate/3-month options | Community distribution and airdrops         |
+| Strategic Partners       | 10%        | 6 month cliff, 12 month linear | Institutional partners and integrators       |
+| Public Sale              | 20%        | Immediate unlock | Public, fair-launch sale                     |
+| Treasury Reserve         | 10%        | 2 year lock | Future protocol operations and reserves      |
+
+**Vesting Management:**
+- **Contract:** ARCx Master Vesting Contract (ARCx_MVC.sol)
+- **Treasury:** `0x8F8fdBFa1AF9f53973a7003CbF26D854De9b2f38` (Safe Multisig)
+- **Features:** Role-based access, emergency controls, category-based allocation tracking
 
 - **Token Symbol:** ARCx
 - **Decimals:** 18
@@ -244,6 +275,18 @@ npx hardhat coverage
 # Deploy to a network
 npx hardhat run scripts/deploy_arcx.ts --network <network_name>
 
+# Deploy vesting system
+npx hardhat run scripts/deploy_vesting.ts --network <network_name>
+
+# Transfer tokens to vesting (with confirmation)
+CONFIRM_TRANSFER=true npx hardhat run scripts/transfer_tokens_to_vesting.ts --network <network_name>
+
+# Setup vesting schedules
+CONFIRM_SCHEDULES=true npx hardhat run scripts/setup_vesting_schedules.ts --network <network_name>
+
+# Master deployment orchestration (dry run first)
+DRY_RUN=true npx hardhat run scripts/orchestrate_full_deployment.ts --network <network_name>
+
 # Verify contracts
 npx hardhat verify --network <network_name> <contract_address>
 
@@ -258,12 +301,13 @@ REPORT_GAS=true npx hardhat test
 
 ## Testing & Quality Assurance
 
-- **35 Comprehensive Tests:** Complete coverage including enhanced role management functions.
-- **Unit Tests:** 100% coverage for all contract logic and administrative functions.
-- **Integration Tests:** Simulate migration scenarios and multi-network deployments.
-- **Role Management Tests:** Comprehensive testing of role transfer, renouncement, and emergency functions.
+- **35+ Comprehensive Tests:** Complete coverage including enhanced role management and vesting functions.
+- **Unit Tests:** 100% coverage for all contract logic, administrative functions, and vesting mechanics.
+- **Integration Tests:** Simulate migration scenarios, multi-network deployments, and vesting workflows.
+- **Vesting Tests:** Comprehensive testing of schedule creation, token release, revocation, and emergency controls.
+- **Role Management Tests:** Complete testing of role transfer, renouncement, and emergency functions.
 - **Gas Profiling:** Automated gas usage optimization and reporting.
-- **Security Tests:** Fuzzing and invariant checks for critical functions.
+- **Security Tests:** Fuzzing and invariant checks for critical functions including vesting logic.
 - **Environment Validation:** Pre-deployment verification of configuration and network connectivity.
 
 ---
@@ -273,6 +317,9 @@ REPORT_GAS=true npx hardhat test
 - [`docs/WHITEPAPER.md`](docs/WHITEPAPER.md): Protocol rationale, architecture, and migration details.
 - [`docs/TokenSaleTerms.md`](docs/TokenSaleTerms.md): Sale and distribution terms.
 - [`docs/ENVIRONMENT_SETUP.md`](docs/ENVIRONMENT_SETUP.md): Comprehensive environment configuration guide.
+- [`VESTING_SUMMARY.md`](VESTING_SUMMARY.md): Master vesting contract implementation summary.
+- [`DEPLOYMENT_GUIDE.md`](DEPLOYMENT_GUIDE.md): Enterprise deployment guide for vesting system.
+- [`DEPLOYMENT_STATUS.md`](DEPLOYMENT_STATUS.md): Current deployment status and execution checklist.
 - [`audits/security-report.md`](audits/security-report.md): Comprehensive security audit results.
 
 ---
