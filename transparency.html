@@ -3,1474 +3,752 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title> ARCx Transparency portal</title>
-  <meta name="description" content="Complete transparency dashboard for ARCx token allocation, vesting schedules, and on-chain verification. Built with constitutional intelligence principles.">
-  <link rel="stylesheet" href="css/arcx-refined.css">
-  <link rel="stylesheet" href="css/animated-background.css">
+  <title>ARCx Transparency Portal</title>
+  <meta name="description" content="ARCx token allocation, vesting schedules, contract information, and on-chain verification.">
   <link rel="icon" href="css/arcx-logo.png" type="image/png">
   
   <style>
-    /* Transparency Portal Specific Styles */
-    .transparency-hero {
-      text-align: left;
-      margin-bottom: var(--space-xxl);
+    :root {
+      --pure-white: #ffffff;
+      --soft-black: #000000;
+      --ghost-black: #111111;
+      --border-gray: #1a1a1a;
+      --text-gray: #888888;
+      --accent-blue: #0052ff;
+      --accent-green: #00ff88;
+      --accent-amber: #ffaa00;
+      --accent-red: #ff6b6b;
+      --space-xs: 0.5rem;
+      --space-sm: 1rem;
+      --space-md: 1.5rem;
+      --space-lg: 2rem;
+      --space-xl: 3rem;
+      --space-xxl: 4rem;
+      --border-radius: 0px;
+      --font-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+      --font-weight-light: 100;
+      --font-weight-normal: 200;
+      --font-weight-medium: 300;
+      --font-weight-bold: 400;
+      --font-weight-ultra: 500;
+      --line-height-tight: 1.2;
+      --line-height-relaxed: 1.6;
+      --soft-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     }
-    
-    .transparency-subtitle {
-      color: var(--text-gray);
-      font-size: 1.1rem;
-      font-weight: var(--font-weight-light);
-      margin-top: var(--space-sm);
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-      line-height: var(--line-height-relaxed);
-    }
-    
-    .status-badges {
-      display: flex;
-      justify-content: flex-start;
-      gap: var(--space-sm);
-      margin: var(--space-lg) 0;
-      flex-wrap: wrap;
-    }
-    
-    .status-badge {
-      background: var(--pure-white);
-      color: var(--pure-black);
-      font-size: 0.8rem;
-      font-weight: var(--font-weight-normal);
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
-      padding: var(--space-xs) var(--space-sm);
-      border-radius: var(--border-radius);
-      margin: var(--space-xs) 0;
-    }
-    
-    .status-badge.live {
-      background: #00ff88;
-      color: var(--pure-black);
-    }
-    
-    /* Enhanced Contract Info */
-    .contract-showcase {
-      background: var(--ghost-black);
-      border: 1px solid var(--border-gray);
-      border-radius: var(--border-radius);
-      padding: var(--space-lg);
-      margin: var(--space-lg) 0;
-    }
-    
-    .contract-address {
-      font-family: var(--font-mono);
-      font-size: 0.9rem;
-      color: var(--pure-white);
-      background: var(--soft-black);
-      padding: var(--space-sm);
-      border-radius: var(--border-radius);
-      border: 1px solid var(--border-gray);
-      word-break: break-all;
-      margin: var(--space-xs) 0;
-      letter-spacing: 0.02em;
-    }
-    
-    /* 3D Allocation Visualization - Enhanced */
-    .allocation-3d-container {
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: var(--space-xl);
-      margin: var(--space-xl) 0;
-      min-height: 600px;
-    }
-    
-    .allocation-3d-scene {
-      perspective: 1200px;
-      perspective-origin: center center;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: linear-gradient(135deg, var(--ghost-black) 0%, rgba(0, 0, 0, 0.95) 100%);
-      border-radius: var(--border-radius);
-      border: 1px solid var(--border-gray);
-      position: relative;
-      overflow: visible;
-      padding: var(--space-xxl);
-    }
-    
-    .allocation-3d-scene::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: radial-gradient(circle at center, rgba(255, 255, 255, 0.03) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    
-    .cylinder-stack {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 20px;
-      transform-style: preserve-3d;
-      transform: rotateX(12deg) rotateY(-8deg);
-      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-      margin: 80px 0;
-    }
-    
-    .allocation-3d-scene:hover .cylinder-stack {
-      transform: rotateX(18deg) rotateY(8deg);
-    }
-    
-    .cylinder {
-      position: relative;
-      width: 240px;
-      cursor: pointer;
-      transform-style: preserve-3d;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      margin: 8px 0;
-    }
-    
-    .cylinder:hover {
-      transform: translateZ(25px) scale(1.08);
-      filter: brightness(1.3) saturate(1.2);
-    }
-    
-    .cylinder-face {
-      position: absolute;
-      border-radius: 4px;
-    }
-    
-    .cylinder-face.top {
-      width: 240px;
-      height: 30px;
-      transform: rotateX(90deg) translateZ(15px);
-      border: 2px solid rgba(255, 255, 255, 0.15);
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-    }
-    
-    .cylinder-face.side {
-      width: 240px;
-      transform-origin: bottom;
-      border: 2px solid rgba(255, 255, 255, 0.15);
-      position: relative;
-    }
-    
-    .cylinder-face.side::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(135deg, 
-        rgba(255, 255, 255, 0.1) 0%, 
-        transparent 50%, 
-        rgba(0, 0, 0, 0.2) 100%);
-      border-radius: inherit;
-    }
-    
-    /* Enhanced cylinder heights and colors with gradients */
-    .cylinder.ecosystem .cylinder-face.side { 
-      height: 70px; 
-      background: linear-gradient(180deg, 
-        var(--pure-white) 0%, 
-        #f0f0f0 50%, 
-        #e0e0e0 100%); 
-      box-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
-    }
-    .cylinder.ecosystem .cylinder-face.top { 
-      background: radial-gradient(circle, var(--pure-white) 0%, #f8f8f8 100%); 
-      box-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
-    }
-    
-    .cylinder.team .cylinder-face.side { 
-      height: 60px; 
-      background: linear-gradient(180deg, 
-        #d8d8d8 0%, 
-        #c0c0c0 50%, 
-        #a8a8a8 100%); 
-      box-shadow: 0 4px 18px rgba(200, 200, 200, 0.4);
-    }
-    .cylinder.team .cylinder-face.top { 
-      background: radial-gradient(circle, #d8d8d8 0%, #c8c8c8 100%); 
-      box-shadow: 0 0 20px rgba(216, 216, 216, 0.4);
-    }
-    
-    .cylinder.public .cylinder-face.side { 
-      height: 60px; 
-      background: linear-gradient(180deg, 
-        #a8a8a8 0%, 
-        #909090 50%, 
-        #787878 100%); 
-      box-shadow: 0 4px 16px rgba(150, 150, 150, 0.4);
-    }
-    .cylinder.public .cylinder-face.top { 
-      background: radial-gradient(circle, #a8a8a8 0%, #989898 100%); 
-      box-shadow: 0 0 18px rgba(168, 168, 168, 0.4);
-    }
-    
-    .cylinder.community .cylinder-face.side { 
-      height: 45px; 
-      background: linear-gradient(180deg, 
-        #787878 0%, 
-        #606060 50%, 
-        #484848 100%); 
-      box-shadow: 0 4px 14px rgba(100, 100, 100, 0.4);
-    }
-    .cylinder.community .cylinder-face.top { 
-      background: radial-gradient(circle, #787878 0%, #686868 100%); 
-      box-shadow: 0 0 16px rgba(120, 120, 120, 0.4);
-    }
-    
-    .cylinder.partners .cylinder-face.side { 
-      height: 30px; 
-      background: linear-gradient(180deg, 
-        #484848 0%, 
-        #303030 50%, 
-        #202020 100%); 
-      box-shadow: 0 4px 12px rgba(60, 60, 60, 0.4);
-    }
-    .cylinder.partners .cylinder-face.top { 
-      background: radial-gradient(circle, #484848 0%, #383838 100%); 
-      box-shadow: 0 0 14px rgba(72, 72, 72, 0.4);
-    }
-    
-    .cylinder.treasury .cylinder-face.side { 
-      height: 30px; 
-      background: linear-gradient(180deg, 
-        #303030 0%, 
-        #202020 50%, 
-        #101010 100%); 
-      box-shadow: 0 4px 10px rgba(40, 40, 40, 0.4);
-    }
-    .cylinder.treasury .cylinder-face.top { 
-      background: radial-gradient(circle, #303030 0%, #282828 100%); 
-      box-shadow: 0 0 12px rgba(48, 48, 48, 0.4);
-    }
-    
-    .cylinder-label {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 0.95rem;
-      font-weight: var(--font-weight-bold);
-      text-align: center;
-      opacity: 0;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      white-space: nowrap;
-      z-index: 15;
-      filter: blur(3px);
-      color: var(--pure-white);
-      text-shadow: 
-        0 0 8px rgba(0, 0, 0, 1),
-        0 0 16px rgba(0, 0, 0, 0.8),
-        2px 2px 0px rgba(0, 0, 0, 1),
-        -2px -2px 0px rgba(0, 0, 0, 1),
-        2px -2px 0px rgba(0, 0, 0, 1),
-        -2px 2px 0px rgba(0, 0, 0, 1);
-      pointer-events: none;
-    }
-    
-    .cylinder:hover .cylinder-label {
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1.1);
-      filter: blur(0px);
-      color: var(--pure-white);
-      text-shadow: 
-        0 0 12px rgba(0, 0, 0, 1),
-        0 0 20px rgba(0, 0, 0, 0.9),
-        0 0 30px rgba(255, 255, 255, 0.3),
-        3px 3px 0px rgba(0, 0, 0, 1),
-        -3px -3px 0px rgba(0, 0, 0, 1),
-        3px -3px 0px rgba(0, 0, 0, 1),
-        -3px 3px 0px rgba(0, 0, 0, 1);
-    }
-    
-    .cylinder-label span {
-      display: block;
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-      margin-top: 4px;
-      transition: all 0.4s ease;
-      color: inherit;
-      font-weight: var(--font-weight-normal);
-    }    .allocation-info {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-    
-    .info-display {
-      background: var(--ghost-black);
-      border: 1px solid var(--border-gray);
-      border-radius: var(--border-radius);
-      padding: var(--space-lg);
-    }
-    
-    .info-display h3 {
-      color: var(--pure-white);
-      margin-bottom: var(--space-sm);
-      font-size: 1.1rem;
-    }
-    
-    .info-display p {
-      color: var(--text-gray);
-      font-size: 0.9rem;
-      margin-bottom: var(--space-md);
-    }
-    
-    .selected-info {
-      border-top: 1px solid var(--border-gray);
-      padding-top: var(--space-sm);
-    }
-    
-    .info-category {
-      font-weight: var(--font-weight-normal);
-      color: var(--pure-white);
-      font-size: 1rem;
-      margin-bottom: var(--space-xs);
-    }
-    
-    .info-amount {
-      font-family: var(--font-mono);
-      font-size: 1.2rem;
-      color: var(--pure-white);
-      margin-bottom: var(--space-sm);
-    }
-    
-    .info-description {
-      font-size: 0.85rem;
-      color: var(--text-gray);
-      line-height: var(--line-height-relaxed);
-    }
-    
-    /* Allocation Cards - Enhanced Structure */
-    .allocation-cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-      gap: var(--space-lg);
-      margin: var(--space-lg) 0;
-    }
-    
-    .allocation-card {
-      background: var(--ghost-black);
-      border: 1px solid var(--border-gray);
-      border-radius: var(--border-radius);
-      overflow: hidden;
-      transition: all 0.3s ease;
-    }
-    
-    .allocation-card:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--soft-shadow);
-      border-color: rgba(255, 255, 255, 0.2);
-    }
-    
-    .card-header {
-      padding: var(--space-md);
-      border-bottom: 1px solid var(--border-gray);
-      position: relative;
-    }
-    
-    .card-header h3 {
-      color: var(--pure-white);
-      font-size: 1.1rem;
-      margin-bottom: var(--space-xs);
-      font-weight: var(--font-weight-medium);
-    }
-    
-    .card-amount {
-      font-family: var(--font-mono);
-      font-size: 1.2rem;
-      color: var(--pure-white);
-      margin-bottom: var(--space-xs);
-      font-weight: var(--font-weight-bold);
-    }
-    
-    .card-percentage {
-      font-size: 0.9rem;
-      color: var(--text-gray);
-      position: absolute;
-      top: var(--space-md);
-      right: var(--space-md);
-      background: var(--soft-black);
-      padding: 0.3em 0.8em;
-      border-radius: var(--border-radius);
-      font-weight: var(--font-weight-medium);
-    }
-    
-    .card-body {
-      padding: var(--space-md);
-    }
-    
-    .card-description {
-      font-size: 0.95rem;
-      color: var(--text-gray);
-      line-height: var(--line-height-relaxed);
-      margin-bottom: var(--space-sm);
-    }
-    
-    .card-features {
-      list-style: none;
-      padding: 0;
+
+    * {
       margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-    
-    .card-features li {
-      font-size: 0.85rem;
-      color: var(--text-gray);
-      line-height: var(--line-height-relaxed);
-      padding: 0.3em 0;
-      position: relative;
-      padding-left: 1.2em;
-    }
-    
-    .card-features li::before {
-      content: '•';
-      color: var(--pure-white);
-      font-weight: bold;
-      position: absolute;
-      left: 0;
-      top: 0.3em;
-    }
-    
-    .card-vesting {
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
       background: var(--soft-black);
-      padding: var(--space-sm);
-      border-radius: var(--border-radius);
-      margin-top: var(--space-sm);
-      border: 1px solid var(--border-gray);
-    }
-    
-    .vesting-label {
-      font-size: 0.75rem;
-      color: var(--text-gray);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 0.2em;
-      font-weight: var(--font-weight-medium);
-    }
-    
-    .vesting-terms {
-      font-size: 0.85rem;
       color: var(--pure-white);
-      font-family: var(--font-mono);
-    }
-    
-    /* Enhanced header colors */
-    .card-header.ecosystem { border-left: 3px solid var(--pure-white); }
-    .card-header.team { border-left: 3px solid #cccccc; }
-    .card-header.public { border-left: 3px solid #999999; }
-    .card-header.community { border-left: 3px solid #666666; }
-    .card-header.partners { border-left: 3px solid #333333; }
-    .card-header.treasury { border-left: 3px solid #1a1a1a; }
-    
-    /* Constitutional Commitment Section */
-    .commitment-section {
-      background: linear-gradient(135deg, var(--ghost-black) 0%, var(--soft-black) 100%);
-      border: 1px solid var(--border-gray);
-      border-radius: var(--border-radius);
-      padding: var(--space-xxl);
-      margin: var(--space-xxl) 0;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .commitment-section::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent 0%, var(--pure-white) 50%, transparent 100%);
-    }
-    
-    .commitment-header {
-      margin-bottom: var(--space-xl);
-    }
-    
-    .commit-title {
-      font-size: 3rem;
-      font-weight: var(--font-weight-ultra);
-      color: var(--pure-white);
-      letter-spacing: 0.1em;
-      margin-bottom: var(--space-sm);
-      text-transform: uppercase;
-      background: linear-gradient(135deg, var(--pure-white) 0%, var(--text-gray) 100%);
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: commitPulse 3s ease-in-out infinite;
-    }
-    
-    @keyframes commitPulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.8; }
-    }
-    
-    .commit-divider {
-      width: 60px;
-      height: 2px;
-      background: var(--pure-white);
-      margin: 0 auto;
-    }
-    
-    .commitment-content {
-      max-width: 700px;
-      margin: 0 auto;
-    }
-    
-    .commitment-text {
-      font-size: 1.1rem;
-      color: var(--text-gray);
+      overflow-x: hidden;
       line-height: var(--line-height-relaxed);
-      margin-bottom: var(--space-xl);
       font-weight: var(--font-weight-light);
     }
-    
-    .commitment-principles {
-      display: flex;
-      justify-content: center;
-      gap: var(--space-xl);
-      margin-top: var(--space-xl);
-    }
-    
-    .principle {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: var(--space-sm);
-    }
-    
-    .principle-icon {
-      font-size: 2rem;
-      margin-bottom: var(--space-xs);
-      filter: grayscale(100%) contrast(1.5);
-    }
-    
-    .principle-text {
-      font-size: 0.9rem;
-      color: var(--pure-white);
-      font-weight: var(--font-weight-light);
-      text-align: center;
-      letter-spacing: 0.02em;
-    }
-    
-    /* Enhanced Tables */
-    .transparency-table {
-      width: 100%;
-      border-collapse: collapse;
-      background: var(--ghost-black);
-      border-radius: var(--border-radius);
-      overflow: hidden;
-      margin: var(--space-lg) 0;
-      border: 1px solid var(--border-gray);
-    }
-    
-    .transparency-table th,
-    .transparency-table td {
-      padding: var(--space-sm) var(--space-md);
-      text-align: left;
-      border-bottom: 1px solid var(--border-gray);
-    }
-    
-    .transparency-table th {
-      background: var(--soft-black);
-      color: var(--pure-white);
-      font-weight: var(--font-weight-normal);
-      font-size: 0.9rem;
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
-    }
-    
-    .transparency-table td {
-      color: var(--text-gray);
-      font-size: 0.95rem;
-    }
-    
-    .transparency-table tr:last-child td {
-      border-bottom: none;
-    }
-    
-    .transparency-table tr:hover {
-      background: rgba(255, 255, 255, 0.02);
-    }
-    
-    .mono-text {
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-      color: var(--pure-white);
-      background: var(--soft-black);
-      padding: 0.2em 0.4em;
-      border-radius: var(--border-radius);
-    }
-    
-    /* Vesting Timeline */
-    .vesting-timeline {
-      position: relative;
-      margin: var(--space-xl) 0;
-      padding: var(--space-lg);
-      background: var(--ghost-black);
-      border-radius: var(--border-radius);
-      border: 1px solid var(--border-gray);
-      overflow: hidden;
-    }
-    
-    .vesting-timeline::before {
-      content: '';
-      position: absolute;
+
+    /* Immersive Background */
+    .immersive-canvas {
+      position: fixed;
       top: 0;
       left: 0;
-      right: 0;
-      bottom: 0;
-      background: radial-gradient(circle at center, rgba(255, 255, 255, 0.02) 0%, transparent 70%);
+      width: 100vw;
+      height: 100vh;
       pointer-events: none;
+      z-index: -1;
+      background: radial-gradient(circle at 20% 20%, rgba(0, 82, 255, 0.02) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 80%, rgba(0, 255, 136, 0.015) 0%, transparent 50%);
     }
-    
-    .timeline-line {
-      position: absolute;
-      top: var(--space-xl);
-      left: var(--space-lg);
-      right: var(--space-lg);
-      height: 3px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 2px;
-      box-shadow: 
-        0 0 10px rgba(255, 255, 255, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.05);
-    }
-    
-    .timeline-progress {
-      position: absolute;
+
+    /* Navigation */
+    .main-nav {
+      position: fixed;
       top: 0;
-      left: 0;
-      height: 100%;
-      background: linear-gradient(90deg, 
-        var(--pure-white) 0%, 
-        #f0f0f0 50%, 
-        var(--pure-white) 100%);
-      width: 15%;
-      border-radius: 2px;
-      animation: progressGrow 2s ease-out, progressFlicker 3s ease-in-out infinite;
-      box-shadow: 
-        0 0 15px rgba(255, 255, 255, 0.6),
-        0 0 30px rgba(255, 255, 255, 0.3),
-        0 2px 10px rgba(255, 255, 255, 0.4);
+      width: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      z-index: 1000;
+      padding: var(--space-sm) 0;
     }
-    
-    @keyframes progressGrow {
-      from { width: 0%; }
-      to { width: 15%; }
-    }
-    
-    @keyframes progressFlicker {
-      0%, 100% { 
-        opacity: 1; 
-        box-shadow: 
-          0 0 15px rgba(255, 255, 255, 0.6),
-          0 0 30px rgba(255, 255, 255, 0.3),
-          0 2px 10px rgba(255, 255, 255, 0.4);
-      }
-      25% { 
-        opacity: 0.8; 
-        box-shadow: 
-          0 0 20px rgba(255, 255, 255, 0.8),
-          0 0 40px rgba(255, 255, 255, 0.5),
-          0 2px 15px rgba(255, 255, 255, 0.6);
-      }
-      50% { 
-        opacity: 1; 
-        box-shadow: 
-          0 0 25px rgba(255, 255, 255, 1),
-          0 0 50px rgba(255, 255, 255, 0.7),
-          0 2px 20px rgba(255, 255, 255, 0.8);
-      }
-      75% { 
-        opacity: 0.9; 
-        box-shadow: 
-          0 0 18px rgba(255, 255, 255, 0.7),
-          0 0 35px rgba(255, 255, 255, 0.4),
-          0 2px 12px rgba(255, 255, 255, 0.5);
-      }
-    }
-    
-    .timeline-markers {
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
       display: flex;
       justify-content: space-between;
+      align-items: center;
+      padding: 0 var(--space-md);
+    }
+
+    .nav-logo {
+      height: 32px;
+      width: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: var(--space-xl);
+    }
+
+    .nav-links a {
+      color: var(--text-gray);
+      text-decoration: none;
+      font-weight: var(--font-weight-medium);
+      transition: all 0.3s ease;
       position: relative;
+    }
+
+    .nav-links a:hover {
+      color: var(--pure-white);
+    }
+
+    .nav-links a.active {
+      color: var(--pure-white);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--pure-white);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      width: 100%;
+    }
+
+    /* Main Container */
+    .main-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: calc(80px + var(--space-xl)) var(--space-md) var(--space-xl);
+    }
+
+    /* Cards */
+    .card {
+      background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.03) 0%, 
+        rgba(255, 255, 255, 0.01) 100%);
+      border: 1px solid var(--border-gray);
+      border-radius: var(--border-radius);
+      padding: var(--space-xl);
+      margin-bottom: var(--space-xl);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card h2 {
+      color: var(--pure-white);
+      font-size: 2rem;
+      font-weight: var(--font-weight-ultra);
+      margin-bottom: var(--space-md);
+      background: linear-gradient(135deg, var(--pure-white) 0%, rgba(255, 255, 255, 0.8) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .divider {
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-blue), var(--accent-green));
       margin-bottom: var(--space-lg);
     }
-    
-    .timeline-marker {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+
+    /* Hero Section */
+    .transparency-hero {
+      text-align: center;
+      background: linear-gradient(135deg, 
+        rgba(0, 82, 255, 0.1) 0%, 
+        rgba(0, 255, 136, 0.05) 100%);
+      border: 1px solid rgba(0, 82, 255, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .transparency-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-blue), var(--accent-green));
+    }
+
+    .hero-content {
       position: relative;
       z-index: 2;
     }
-    
-    .marker-dot {
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background: var(--border-gray);
-      margin-bottom: var(--space-xs);
-      border: 2px solid var(--soft-black);
-      transition: all 0.3s ease;
+
+    .hero-content h1 {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: var(--font-weight-ultra);
+      margin-bottom: var(--space-md);
+      background: linear-gradient(135deg, var(--pure-white) 0%, rgba(255, 255, 255, 0.8) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
-    
-    .marker-dot.active {
-      background: var(--pure-white);
-      border-color: var(--pure-white);
-      animation: dotGlow 2s ease-in-out infinite;
-      box-shadow: 
-        0 0 15px rgba(255, 255, 255, 0.8),
-        0 0 30px rgba(255, 255, 255, 0.4),
-        0 2px 10px rgba(255, 255, 255, 0.6);
+
+    .transparency-subtitle {
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.8);
+      max-width: 700px;
+      margin: 0 auto var(--space-lg);
+      line-height: var(--line-height-relaxed);
     }
-    
-    @keyframes dotGlow {
-      0%, 100% { 
-        box-shadow: 
-          0 0 15px rgba(255, 255, 255, 0.8),
-          0 0 30px rgba(255, 255, 255, 0.4),
-          0 2px 10px rgba(255, 255, 255, 0.6);
-      }
-      50% { 
-        box-shadow: 
-          0 0 25px rgba(255, 255, 255, 1),
-          0 0 50px rgba(255, 255, 255, 0.6),
-          0 2px 20px rgba(255, 255, 255, 0.8);
-      }
+
+    .status-icons {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-lg);
+      margin-top: var(--space-lg);
     }
-    
-    .marker-label {
-      font-size: 0.8rem;
-      color: var(--text-gray);
-      text-align: center;
-      font-weight: var(--font-weight-light);
-      transition: all 0.3s ease;
+
+    .status-icon {
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+      font-size: 0.9rem;
+      font-weight: var(--font-weight-medium);
     }
-    
-    .timeline-marker:first-child .marker-label {
-      color: var(--pure-white);
-      font-weight: var(--font-weight-normal);
-      text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+
+    .status-icon.base {
+      color: var(--accent-blue);
     }
-    
-    /* Links */
-    .transparency-link {
-      color: var(--pure-white);
-      text-decoration: none;
-      border-bottom: 1px solid transparent;
-      transition: all 0.2s ease;
+
+    .status-icon.verified {
+      color: var(--accent-green);
     }
-    
-    .transparency-link:hover {
-      border-bottom-color: var(--pure-white);
-      color: var(--text-gray);
+
+    .status-icon.secure {
+      color: var(--accent-amber);
     }
-    
-    /* Notice */
-    .transparency-notice {
-      background: var(--soft-black);
+
+    /* Deployment Status Grid */
+    .deployment-status {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: var(--space-lg);
+      margin: var(--space-lg) 0;
+    }
+
+    .status-card {
+      background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.02) 0%, 
+        rgba(255, 255, 255, 0.01) 100%);
       border: 1px solid var(--border-gray);
-      border-left: 3px solid var(--pure-white);
       border-radius: var(--border-radius);
       padding: var(--space-lg);
-      margin: var(--space-xl) 0;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      min-height: 200px;
+    }
+
+    .status-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--card-status-color, var(--border-gray));
+      transition: all 0.3s ease;
+    }
+
+    .status-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .status-card.deployed {
+      --card-status-color: var(--accent-green);
+    }
+
+    .status-card.ready {
+      --card-status-color: var(--accent-amber);
+    }
+
+    .status-card.pending {
+      --card-status-color: var(--accent-red);
+    }
+
+    .status-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+
+    .status-icon-large {
+      width: 24px;
+      height: 24px;
+      fill: var(--card-status-color, var(--pure-white));
+      filter: drop-shadow(0 0 8px var(--card-status-color));
+    }
+
+    .status-title {
+      color: var(--pure-white);
+      font-size: 1.1rem;
+      font-weight: var(--font-weight-medium);
+      margin: 0;
+      flex: 1;
+    }
+
+    .status-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .status-description {
+      color: var(--text-gray);
+      font-size: 0.9rem;
+      line-height: var(--line-height-relaxed);
+      margin-bottom: var(--space-sm);
+      flex: 1;
+    }
+
+    .status-details {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--pure-white);
+      background: var(--ghost-black);
+      padding: var(--space-sm);
+      border-radius: var(--border-radius);
+      border-left: 3px solid var(--card-status-color, var(--border-gray));
+      margin-bottom: var(--space-md);
+    }
+
+    .status-badge {
+      background: var(--card-status-color, var(--border-gray));
+      color: var(--soft-black);
+      font-size: 0.7rem;
+      font-weight: var(--font-weight-bold);
+      padding: 0.3em 0.8em;
+      border-radius: calc(var(--border-radius) * 2);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      align-self: flex-start;
+      margin-top: auto;
+    }
+
+    /* Tables */
+    .transparency-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: var(--space-lg) 0;
+      font-size: 0.9rem;
+    }
+
+    .transparency-table th,
+    .transparency-table td {
+      padding: var(--space-md);
+      text-align: left;
+      border-bottom: 1px solid var(--border-gray);
+    }
+
+    .transparency-table th {
+      background: var(--ghost-black);
+      color: var(--pure-white);
+      font-weight: var(--font-weight-medium);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-size: 0.8rem;
+    }
+
+    .transparency-table td {
+      color: var(--text-gray);
+    }
+
+    .transparency-table tr:hover {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .mono-text {
+      font-family: var(--font-mono);
+      color: var(--pure-white);
+    }
+
+    /* Info Blocks */
+    .info-block {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-gray);
+      border-radius: var(--border-radius);
+      padding: var(--space-lg);
+      margin: var(--space-lg) 0;
+    }
+
+    .contract-detail {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-sm) 0;
+      border-bottom: 1px solid var(--border-gray);
+    }
+
+    .contract-detail:last-child {
+      border-bottom: none;
+    }
+
+    .contract-label {
+      color: var(--text-gray);
+      font-weight: var(--font-weight-medium);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-size: 0.8rem;
+    }
+
+    .contract-value {
+      color: var(--pure-white);
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+    }
+
+    .transparency-link {
+      color: var(--accent-blue);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .transparency-link:hover {
+      color: var(--accent-green);
+    }
+
+    /* Notice */
+    .transparency-notice {
+      background: rgba(0, 255, 136, 0.05);
+      border: 1px solid rgba(0, 255, 136, 0.2);
+      border-radius: var(--border-radius);
+      padding: var(--space-lg);
+      margin-top: var(--space-xl);
       text-align: center;
     }
-    
-    .transparency-notice strong {
-      color: var(--pure-white);
-      font-weight: var(--font-weight-normal);
+
+    .transparency-notice p {
+      color: rgba(255, 255, 255, 0.9);
+      line-height: var(--line-height-relaxed);
     }
-    
-    /* Grid Layout */
-    .transparency-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: var(--space-xl);
-      margin: var(--space-xl) 0;
-    }
-    
-    /* Responsive */
+
+    /* Responsive Design */
     @media (max-width: 768px) {
-      .allocation-3d-container,
-      .transparency-grid {
-        grid-template-columns: 1fr;
-        gap: var(--space-lg);
-      }
-      
-      .allocation-3d-scene {
-        height: 450px;
-        padding: var(--space-lg) var(--space-sm);
-      }
-      
-      .cylinder-stack {
-        transform: rotateX(8deg) rotateY(-4deg) scale(0.7);
-        margin: 60px 0;
-        gap: 15px;
-      }
-      
-      .cylinder {
-        width: 180px;
-      }
-      
-      .cylinder-face.top {
-        width: 180px;
-        height: 24px;
-      }
-      
-      .cylinder-face.side {
-        width: 180px;
-      }
-      
-      /* Adjust cylinder heights for mobile */
-      .cylinder.ecosystem .cylinder-face.side { height: 55px; }
-      .cylinder.team .cylinder-face.side { height: 48px; }
-      .cylinder.public .cylinder-face.side { height: 48px; }
-      .cylinder.community .cylinder-face.side { height: 36px; }
-      .cylinder.partners .cylinder-face.side { height: 24px; }
-      .cylinder.treasury .cylinder-face.side { height: 24px; }
-      
-      .cylinder-label {
-        font-size: 0.7rem;
-      }
-      
-      .cylinder-label span {
-        font-size: 0.6rem;
-      }
-      
-      .allocation-cards {
-        grid-template-columns: 1fr;
-      }
-      
-      .transparency-table {
-        font-size: 0.85rem;
-      }
-      
-      .transparency-table th,
-      .transparency-table td {
-        padding: var(--space-xs) var(--space-sm);
-      }
-      
-      .commit-title {
-        font-size: 2rem;
-      }
-      
-      .commitment-principles {
-        flex-direction: column;
+      .nav-links {
         gap: var(--space-md);
       }
-      
-      .commitment-section {
-        padding: var(--space-lg);
+
+      .main-container {
+        padding: calc(80px + var(--space-md)) var(--space-sm) var(--space-md);
+      }
+
+      .deployment-status {
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
+      }
+
+      .status-icons {
+        flex-direction: column;
+        gap: var(--space-sm);
+      }
+
+      .transparency-table {
+        font-size: 0.8rem;
+      }
+
+      .transparency-table th,
+      .transparency-table td {
+        padding: var(--space-sm);
       }
     }
   </style>
-  
-  <script>
-    // 3D Allocation Interaction
-    document.addEventListener('DOMContentLoaded', function() {
-      const cylinders = document.querySelectorAll('.cylinder');
-      const selectedInfo = document.getElementById('selectedInfo');
-      
-      const descriptions = {
-        'Ecosystem Fund': 'Infrastructure development, validator rewards, and ecosystem tooling critical for network growth and decentralization.',
-        'Core Team & Developers': 'Protocol engineers, researchers, and core contributors with long-term alignment incentives.',
-        'Public Sale': 'Fair-launch public distribution ensuring broad community participation and decentralized ownership from genesis.',
-        'Community & Airdrop': 'Early supporters, contributors, and community members with optional enhanced vesting rewards.',
-        'Strategic Partners': 'Institutional partners, integrators, and strategic alliances supporting protocol adoption.',
-        'Treasury Reserve': 'Protocol governance reserve locked for emergency provisions and long-term sustainability.'
-      };
-      
-      cylinders.forEach(cylinder => {
-        cylinder.addEventListener('mouseenter', function() {
-          const category = this.dataset.category;
-          const amount = this.dataset.amount;
-          const percentage = this.dataset.percentage;
-          
-          selectedInfo.innerHTML = `
-            <div class="info-category">${category}</div>
-            <div class="info-amount">${amount} ARCx (${percentage})</div>
-            <div class="info-description">${descriptions[category]}</div>
-          `;
-        });
-        
-        cylinder.addEventListener('mouseleave', function() {
-          selectedInfo.innerHTML = `
-            <div class="info-category">Select a category</div>
-            <div class="info-amount">—</div>
-            <div class="info-description">Hover over any category to see detailed allocation information.</div>
-          `;
-        });
-      });
-      
-      // Enhanced 3D Scene mouse tracking with smooth interpolation
-      const scene = document.querySelector('.allocation-3d-scene');
-      const cylinderStack = document.querySelector('.cylinder-stack');
-      
-      let isMouseOver = false;
-      let currentRotation = { x: 12, y: -8 };
-      let targetRotation = { x: 12, y: -8 };
-      
-      function lerp(start, end, factor) {
-        return start + (end - start) * factor;
-      }
-      
-      function updateRotation() {
-        currentRotation.x = lerp(currentRotation.x, targetRotation.x, 0.1);
-        currentRotation.y = lerp(currentRotation.y, targetRotation.y, 0.1);
-        
-        cylinderStack.style.transform = `rotateX(${currentRotation.x}deg) rotateY(${currentRotation.y}deg)`;
-        
-        if (Math.abs(currentRotation.x - targetRotation.x) > 0.1 || 
-            Math.abs(currentRotation.y - targetRotation.y) > 0.1) {
-          requestAnimationFrame(updateRotation);
-        }
-      }
-      
-      scene.addEventListener('mouseenter', function() {
-        isMouseOver = true;
-      });
-      
-      scene.addEventListener('mouseleave', function() {
-        isMouseOver = false;
-        targetRotation = { x: 12, y: -8 };
-        requestAnimationFrame(updateRotation);
-      });
-      
-      scene.addEventListener('mousemove', function(e) {
-        if (!isMouseOver) return;
-        
-        const rect = this.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width;
-        const y = (e.clientY - rect.top) / rect.height;
-        
-        // Enhanced rotation range with smooth curves
-        targetRotation.y = -8 + (x * 16);  // -8 to 8 degrees
-        targetRotation.x = 12 + (y * 8);   // 12 to 20 degrees
-        
-        requestAnimationFrame(updateRotation);
-      });
-    });
-  </script>
 </head>
 <body>
-  <!-- Animated Background -->
-  <div class="animated-background">
-    <div class="bg-pattern"></div>
-    <div class="bg-pattern"></div>
-    <div class="bg-pattern"></div>
-    <div class="bg-pattern"></div>
-    <div class="bg-pattern"></div>
-    <div class="bg-line"></div>
-    <div class="bg-line"></div>
-    <div class="bg-line"></div>
-    <div class="bg-grid"></div>
-    <div class="bg-orb"></div>
-    <div class="bg-orb"></div>
-    <div class="bg-orb"></div>
-    <div class="bg-particle"></div>
-    <div class="bg-particle"></div>
-    <div class="bg-particle"></div>
-    <div class="bg-particle"></div>
-    <div class="bg-wave"></div>
-  </div>
+  <!-- Immersive Background -->
+  <div class="immersive-canvas"></div>
 
+  <!-- Navigation -->
   <nav class="main-nav">
     <div class="nav-container">
       <div class="nav-brand">
         <img src="css/arcx-logo.png" alt="ARCx" class="nav-logo"/>
       </div>
-      <div class="nav-links-main">
-        <a href="https://www.artifactvirtual.com" target="_blank">Home</a>
-        <a href="index.html">Overview</a>
-        <a href="arcx.html">ARCx</a>
+      <div class="nav-links">
+        <a href="https://www.artifactvirtual.com" target="_blank" rel="noopener">Home</a>
+        <a href="index.html">ARCx</a>
+        <a href="transparency.html" class="active">Transparency</a>
         <a href="bridge.html">Bridge</a>
-        <a href="whitepaper.html">Documentation</a>
+        <a href="documentation.html">Documentation</a>
       </div>
     </div>
   </nav>
 
-  <div class="container">
+  <!-- Main Container -->
+  <div class="main-container">
     <!-- Hero Section -->
     <div class="card transparency-hero">
-      <h1>ARCx Transparency Portal</h1>
-      <div class="divider"></div>
-      <p class="transparency-subtitle">
-        Complete visibility into ARCx token allocation, vesting schedules, and on-chain verification. 
-        Built for radical transparency in protocol governance.
-      </p>
-      
-      <div class="status-badges">
-        <span class="status-badge live">Live on Base Mainnet</span>
-        <span class="status-badge">Contract Verified</span>
-        <span class="status-badge">Zero Vulnerabilities</span>
-        <span class="status-badge">Open Source</span>
-      </div>
-    </div>
-
-    <!-- Vesting Timeline -->
-    <div class="card">
-      <h2>Vesting Timeline</h2>
-      <div class="divider"></div>
-      <p>Progressive token unlock schedule showing current status and future milestones across the ARCx ecosystem lifecycle.</p>
-      
-      <div class="vesting-timeline">
-        <div class="timeline-line">
-          <div class="timeline-progress"></div>
-        </div>
+      <div class="hero-content">
+        <h1>Transparency Portal</h1>
+        <div class="divider"></div>
+        <p class="transparency-subtitle">
+          Real-time visibility into token allocation, vesting schedules, and on-chain verification. 
+          Built for radical transparency in protocol governance.
+        </p>
         
-        <div class="timeline-markers">
-          <div class="timeline-marker">
-            <div class="marker-dot active"></div>
-            <div class="marker-label">Genesis<br>Aug 2025</div>
+        <div class="status-icons">
+          <div class="status-icon base">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+            Base Mainnet
           </div>
-          <div class="timeline-marker">
-            <div class="marker-dot"></div>
-            <div class="marker-label">Public Sale<br>Q4 2025</div>
+          
+          <div class="status-icon verified">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            Verified Secure
           </div>
-          <div class="timeline-marker">
-            <div class="marker-dot"></div>
-            <div class="marker-label">Team Cliff End<br>Aug 2026</div>
-          </div>
-          <div class="timeline-marker">
-            <div class="marker-dot"></div>
-            <div class="marker-label">Partner Unlock<br>Feb 2026</div>
-          </div>
-          <div class="timeline-marker">
-            <div class="marker-dot"></div>
-            <div class="marker-label">Treasury Unlock<br>Aug 2027</div>
-          </div>
-          <div class="timeline-marker">
-            <div class="marker-dot"></div>
-            <div class="marker-label">FUEL Migration<br>Q2 2026</div>
+          
+          <div class="status-icon secure">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+            Treasury Safe
           </div>
         </div>
       </div>
     </div>
 
-    <!-- 3D Token Allocation Visualization -->
+    <!-- Token Allocation Overview -->
     <div class="card">
       <h2>Token Allocation Overview</h2>
       <div class="divider"></div>
-      <p>Interactive 3D visualization of the 1,000,000 ARCx token distribution across stakeholder categories with governance oversight.</p>
-      
-      <div class="allocation-3d-container">
-        <div class="allocation-3d-scene" id="allocation3D">
-          <div class="cylinder-stack">
-            <div class="cylinder ecosystem" data-category="Ecosystem Fund" data-amount="250,000" data-percentage="25%">
-              <div class="cylinder-face top"></div>
-              <div class="cylinder-face side"></div>
-              <div class="cylinder-label">Ecosystem Fund<br><span>250,000 ARCx</span></div>
-            </div>
-            <div class="cylinder team" data-category="Core Team & Developers" data-amount="200,000" data-percentage="20%">
-              <div class="cylinder-face top"></div>
-              <div class="cylinder-face side"></div>
-              <div class="cylinder-label">Core Team<br><span>200,000 ARCx</span></div>
-            </div>
-            <div class="cylinder public" data-category="Public Sale" data-amount="200,000" data-percentage="20%">
-              <div class="cylinder-face top"></div>
-              <div class="cylinder-face side"></div>
-              <div class="cylinder-label">Public Sale<br><span>200,000 ARCx</span></div>
-            </div>
-            <div class="cylinder community" data-category="Community & Airdrop" data-amount="150,000" data-percentage="15%">
-              <div class="cylinder-face top"></div>
-              <div class="cylinder-face side"></div>
-              <div class="cylinder-label">Community<br><span>150,000 ARCx</span></div>
-            </div>
-            <div class="cylinder partners" data-category="Strategic Partners" data-amount="100,000" data-percentage="10%">
-              <div class="cylinder-face top"></div>
-              <div class="cylinder-face side"></div>
-              <div class="cylinder-label">Partners<br><span>100,000 ARCx</span></div>
-            </div>
-            <div class="cylinder treasury" data-category="Treasury Reserve" data-amount="100,000" data-percentage="10%">
-              <div class="cylinder-face top"></div>
-              <div class="cylinder-face side"></div>
-              <div class="cylinder-label">Treasury<br><span>100,000 ARCx</span></div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="allocation-info">
-          <div class="info-display">
-            <div class="selected-info" id="selectedInfo">
-              <div class="info-category">Select a category</div>
-              <div class="info-amount">—</div>
-              <div class="info-description">Hover over any category to see allocation details.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Allocation Details -->
-    <div class="card">
-      <h2>Allocation Details</h2>
-      <div class="divider"></div>
-      <p>Comprehensive breakdown of token allocation across all stakeholder categories with detailed governance principles.</p>
-      
-      <div class="allocation-cards">
-        <div class="allocation-card">
-          <div class="card-header ecosystem">
-            <h3>Ecosystem Fund</h3>
-            <div class="card-amount">250,000 ARCx</div>
-            <div class="card-percentage">25%</div>
-          </div>
-          <div class="card-body">
-            <p class="card-description">Infrastructure development, validator rewards, and ecosystem tooling critical for network growth and decentralization.</p>
-            <ul class="card-features">
-              <li>Validator reward distribution system</li>
-              <li>Developer tooling and SDK development</li>
-              <li>Network infrastructure grants</li>
-              <li>Cross-chain bridge incentives</li>
-            </ul>
-            <div class="card-vesting">
-              <div class="vesting-label">Vesting Schedule</div>
-              <div class="vesting-terms">25% at launch, 75% over 12 months</div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="allocation-card">
-          <div class="card-header team">
-            <h3>Core Team & Developers</h3>
-            <div class="card-amount">200,000 ARCx</div>
-            <div class="card-percentage">20%</div>
-          </div>
-          <div class="card-body">
-            <p class="card-description">Protocol engineers, researchers, and core contributors with long-term alignment incentives.</p>
-            <ul class="card-features">
-              <li>Protocol development team</li>
-              <li>Research and innovation leads</li>
-              <li>Security audit specialists</li>
-              <li>Constitutional governance architects</li>
-            </ul>
-            <div class="card-vesting">
-              <div class="vesting-label">Vesting Schedule</div>
-              <div class="vesting-terms">12-month cliff, 36-month linear</div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="allocation-card">
-          <div class="card-header public">
-            <h3>Public Sale</h3>
-            <div class="card-amount">200,000 ARCx</div>
-            <div class="card-percentage">20%</div>
-          </div>
-          <div class="card-body">
-            <p class="card-description">Fair-launch public distribution ensuring broad community participation and decentralized ownership from genesis.</p>
-            <ul class="card-features">
-              <li>Open public sale event</li>
-              <li>KYC-compliant distribution</li>
-              <li>Anti-whale mechanisms</li>
-              <li>Immediate trading liquidity</li>
-            </ul>
-            <div class="card-vesting">
-              <div class="vesting-label">Vesting Schedule</div>
-              <div class="vesting-terms">Immediate unlock, no vesting</div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="allocation-card">
-          <div class="card-header community">
-            <h3>Community & Airdrop</h3>
-            <div class="card-amount">150,000 ARCx</div>
-            <div class="card-percentage">15%</div>
-          </div>
-          <div class="card-body">
-            <p class="card-description">Early supporters, contributors, and community members with optional enhanced vesting rewards.</p>
-            <ul class="card-features">
-              <li>Early community contributors</li>
-              <li>Beta testers and validators</li>
-              <li>Social media ambassadors</li>
-              <li>Documentation contributors</li>
-            </ul>
-            <div class="card-vesting">
-              <div class="vesting-label">Vesting Schedule</div>
-              <div class="vesting-terms">Immediate or 3-month enhanced</div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="allocation-card">
-          <div class="card-header partners">
-            <h3>Strategic Partners</h3>
-            <div class="card-amount">100,000 ARCx</div>
-            <div class="card-percentage">10%</div>
-          </div>
-          <div class="card-body">
-            <p class="card-description">Institutional partners, integrators, and strategic alliances supporting protocol adoption.</p>
-            <ul class="card-features">
-              <li>Exchange partnerships</li>
-              <li>DeFi protocol integrations</li>
-              <li>Enterprise blockchain solutions</li>
-              <li>Cross-chain collaboration</li>
-            </ul>
-            <div class="card-vesting">
-              <div class="vesting-label">Vesting Schedule</div>
-              <div class="vesting-terms">6-month cliff, 12-month linear</div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="allocation-card">
-          <div class="card-header treasury">
-            <h3>Treasury Reserve</h3>
-            <div class="card-amount">100,000 ARCx</div>
-            <div class="card-percentage">10%</div>
-          </div>
-          <div class="card-body">
-            <p class="card-description">Protocol governance reserve locked for emergency provisions and long-term sustainability.</p>
-            <ul class="card-features">
-              <li>Constitutional governance decisions</li>
-              <li>Emergency protocol upgrades</li>
-              <li>Long-term sustainability fund</li>
-              <li>Community-voted initiatives</li>
-            </ul>
-            <div class="card-vesting">
-              <div class="vesting-label">Vesting Schedule</div>
-              <div class="vesting-terms">2-year lock, governance-controlled</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Allocation Wallet Addresses -->
-    <div class="card">
-      <h2>Allocation Wallet Addresses</h2>
-      <div class="divider"></div>
-      <p>Transparent wallet and contract addresses for each allocation category. All addresses will be published once allocation distribution begins.</p>
+      <p>Distribution of 1,000,000 ARCx tokens across stakeholder categories with vesting schedules.</p>
       
       <table class="transparency-table">
         <thead>
           <tr>
             <th>Category</th>
-            <th>Wallet Type</th>
-            <th>Address Status</th>
+            <th>Allocation</th>
+            <th>Percentage</th>
+            <th>Treasury Managed</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>Core Team & Developers</td>
-            <td>Multisignature Wallet</td>
-            <td><span class="mono-text">To be published</span></td>
-          </tr>
-          <tr>
             <td>Ecosystem Fund</td>
-            <td>Multisignature Wallet</td>
-            <td><span class="mono-text">To be published</span></td>
+            <td><span class="mono-text">250,000 ARCx</span></td>
+            <td>25%</td>
+            <td>✅ Full</td>
           </tr>
           <tr>
-            <td>Community & Airdrop</td>
-            <td>Vesting Contract</td>
-            <td><span class="mono-text">To be published</span></td>
-          </tr>
-          <tr>
-            <td>Strategic Partners</td>
-            <td>Multisignature Wallet</td>
-            <td><span class="mono-text">To be published</span></td>
+            <td>Core Team & Developers</td>
+            <td><span class="mono-text">200,000 ARCx</span></td>
+            <td>20%</td>
+            <td>✅ Partial (105,000 ARCx)</td>
           </tr>
           <tr>
             <td>Public Sale</td>
-            <td>Sale Contract</td>
-            <td><span class="mono-text">To be published</span></td>
+            <td><span class="mono-text">200,000 ARCx</span></td>
+            <td>20%</td>
+            <td>✅ Full</td>
+          </tr>
+          <tr>
+            <td>Community & Airdrop</td>
+            <td><span class="mono-text">150,000 ARCx</span></td>
+            <td>15%</td>
+            <td>✅ Full</td>
+          </tr>
+          <tr>
+            <td>Strategic Partners</td>
+            <td><span class="mono-text">100,000 ARCx</span></td>
+            <td>10%</td>
+            <td>❌ Individual vesting contracts</td>
           </tr>
           <tr>
             <td>Treasury Reserve</td>
-            <td>Multisignature Wallet</td>
-            <td><span class="mono-text">To be published</span></td>
+            <td><span class="mono-text">100,000 ARCx</span></td>
+            <td>10%</td>
+            <td>✅ Full</td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <!-- Vesting Schedules -->
+    <!-- Deployment Information -->
     <div class="card">
-      <h2>Vesting Schedules</h2>
+      <h2>Deployment Status</h2>
       <div class="divider"></div>
-      <p>Detailed vesting terms and unlock schedules for each allocation category, designed to align long-term incentives with protocol success.</p>
+      <p>Current deployment status and next steps for the vesting system.</p>
       
-      <table class="transparency-table">
-        <thead>
-          <tr>
-            <th>Category</th>
-            <th>Vesting Terms</th>
-            <th>Cliff Period</th>
-            <th>Unlock Schedule</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Core Team & Developers</td>
-            <td>12-month cliff, 36-month linear vesting</td>
-            <td>12 months</td>
-            <td>Monthly unlocks after cliff</td>
-          </tr>
-          <tr>
-            <td>Ecosystem Fund</td>
-            <td>25% unlocked at launch, 75% vests linearly over 1 year</td>
-            <td>None</td>
-            <td>Monthly over 12 months</td>
-          </tr>
-          <tr>
-            <td>Community & Airdrop</td>
-            <td>Immediate claim or 3-month vesting option</td>
-            <td>None</td>
-            <td>Immediate or monthly</td>
-          </tr>
-          <tr>
-            <td>Strategic Partners</td>
-            <td>6-month cliff, then linear vesting over 12 months</td>
-            <td>6 months</td>
-            <td>Monthly unlocks after cliff</td>
-          </tr>
-          <tr>
-            <td>Public Sale</td>
-            <td>Fully unlocked at sale event, no vesting</td>
-            <td>None</td>
-            <td>Immediate</td>
-          </tr>
-          <tr>
-            <td>Treasury Reserve</td>
-            <td>Locked for 2 years, protocol use only</td>
-            <td>24 months</td>
-            <td>Governance controlled</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- Smart Contract Information -->
-    <div class="card">
-      <h2>Smart Contract Information</h2>
-      <div class="divider"></div>
-      <p>Complete technical details of the ARCx smart contract deployed on Base Mainnet with enterprise-grade security standards.</p>
-      
-      <div class="contract-showcase">
-        <div class="contract-detail">
-          <span class="contract-label">Contract Address</span>
-          <div class="contract-address">0xA4093669DAFbD123E37d52e0939b3aB3C2272f44</div>
+      <div class="deployment-status">
+        <div class="status-card deployed">
+          <div class="status-header">
+            <svg class="status-icon-large" viewBox="0 0 24 24">
+              <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <h3 class="status-title">Token Contract</h3>
+          </div>
+          <div class="status-content">
+            <p class="status-description">ARCx token contract successfully deployed and verified on Base Mainnet.</p>
+            <div class="status-details">Contract Address: 0xA409...2f44</div>
+            <div class="status-badge">Deployed</div>
+          </div>
         </div>
-        <div class="contract-detail">
-          <span class="contract-label">Deployer Address</span>
-          <div class="contract-address">0x21E914dFBB137F7fEC896F11bC8BAd6BCCDB147B</div>
+        
+        <div class="status-card ready">
+          <div class="status-header">
+            <svg class="status-icon-large" viewBox="0 0 24 24">
+              <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
+            <h3 class="status-title">Vesting Contract</h3>
+          </div>
+          <div class="status-content">
+            <p class="status-description">Master vesting contract tested and ready for deployment with role-based access.</p>
+            <div class="status-details">Status: Awaiting deployment approval</div>
+            <div class="status-badge">Ready</div>
+          </div>
         </div>
-        <div class="contract-detail">
-          <span class="contract-label">Network</span>
-          <span class="contract-value">Base Mainnet (Chain ID: 8453)</span>
+        
+        <div class="status-card deployed">
+          <div class="status-header">
+            <svg class="status-icon-large" viewBox="0 0 24 24">
+              <path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+            </svg>
+            <h3 class="status-title">Treasury Safe</h3>
+          </div>
+          <div class="status-content">
+            <p class="status-description">Multi-signature treasury safe deployed and configured for secure fund management.</p>
+            <div class="status-details">Safe Address: 0x8F8f...2f38</div>
+            <div class="status-badge">Deployed</div>
+          </div>
         </div>
-        <div class="contract-detail">
-          <span class="contract-label">Token Standard</span>
-          <span class="contract-value">ERC20 + OpenZeppelin Extensions</span>
+        
+        <div class="status-card pending">
+          <div class="status-header">
+            <svg class="status-icon-large" viewBox="0 0 24 24">
+              <path d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/>
+            </svg>
+            <h3 class="status-title">Token Transfer</h3>
+          </div>
+          <div class="status-content">
+            <p class="status-description">Transfer of tokens from deployer to treasury and vesting contracts.</p>
+            <div class="status-details">Awaiting: Vesting contract deployment</div>
+            <div class="status-badge">Pending</div>
+          </div>
         </div>
-        <div class="contract-detail">
-          <span class="contract-label">Max Supply</span>
-          <span class="contract-value">100,000,000 ARCx (immutable)</span>
+        
+        <div class="status-card pending">
+          <div class="status-header">
+            <svg class="status-icon-large" viewBox="0 0 24 24">
+              <path d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4"/>
+            </svg>
+            <h3 class="status-title">Schedule Setup</h3>
+          </div>
+          <div class="status-content">
+            <p class="status-description">Configuration of individual vesting schedules for all allocation categories.</p>
+            <div class="status-details">Requires: Vesting contract deployment</div>
+            <div class="status-badge">Pending</div>
+          </div>
         </div>
-        <div class="contract-detail">
-          <span class="contract-label">Current Supply</span>
-          <span class="contract-value">1,000,000 ARCx (initial mint)</span>
-        </div>
-        <div class="contract-detail">
-          <span class="contract-label">Contract Verification</span>
-          <span class="contract-value">
-            <a href="https://basescan.org/address/0xA4093669DAFbD123E37d52e0939b3aB3C2272f44#code" target="_blank" class="transparency-link">BaseScan Explorer</a> ·
-            <a href="https://repo.sourcify.dev/contracts/full_match/8453/0xA4093669DAFbD123E37d52e0939b3aB3C2272f44/" target="_blank" class="transparency-link">Sourcify Verification</a>
-          </span>
+        
+        <div class="status-card pending">
+          <div class="status-header">
+            <svg class="status-icon-large" viewBox="0 0 24 24">
+              <path d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1721 9z"/>
+            </svg>
+            <h3 class="status-title">Admin Role Transfer</h3>
+          </div>
+          <div class="status-content">
+            <p class="status-description">Transfer of administrative roles from deployer to treasury safe multisig.</p>
+            <div class="status-details">Final step: Post-deployment security</div>
+            <div class="status-badge">Pending</div>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- On-Chain Transparency -->
+    <!-- On-Chain Verification -->
     <div class="card">
       <h2>On-Chain Verification</h2>
       <div class="divider"></div>
-      <p>Complete audit trail of all on-chain activities, transactions, and verifications for maximum transparency and governance accountability.</p>
+      <p>Complete audit trail of all on-chain activities and verifications.</p>
       
       <div class="info-block">
         <div class="contract-detail">
-          <span class="contract-label">Initial Mint Transaction</span>
+          <span class="contract-label">Contract Verification</span>
           <span class="contract-value">
-            <a href="https://basescan.org/tx/0xe2f323f6bbcb1d01f756bc3d51c7a4ee97b0762aa52480df06e5dcb42b2ed2f3" target="_blank" class="transparency-link">View on BaseScan</a>
-          </span>
-        </div>
-        <div class="contract-detail">
-          <span class="contract-label">Token Tracker</span>
-          <span class="contract-value">
-            <a href="https://basescan.org/token/0xA4093669DAFbD123E37d52e0939b3aB3C2272f44" target="_blank" class="transparency-link">ARCx Token on BaseScan</a>
-          </span>
-        </div>
-        <div class="contract-detail">
-          <span class="contract-label">Token List Integration</span>
-          <span class="contract-value">
-            <a href="https://raw.githubusercontent.com/Artifact-Virtual/arcx_token/main/artifact-tokenlist.json" target="_blank" class="transparency-link">Official Token List JSON</a>
-          </span>
-        </div>
-        <div class="contract-detail">
-          <span class="contract-label">Source Code Repository</span>
-          <span class="contract-value">
-            <a href="https://github.com/Artifact-Virtual/arcx_token" target="_blank" class="transparency-link">GitHub Repository</a>
+            <a href="https://basescan.org/address/0xA4093669DAFbD123E37d52e0939b3aB3C2272f44#code" target="_blank" rel="noopener" class="transparency-link">BaseScan Explorer</a>
           </span>
         </div>
         <div class="contract-detail">
           <span class="contract-label">Security Audit</span>
           <span class="contract-value">
-            <a href="audits/security-report.md" target="_blank" class="transparency-link">Security Report</a>
+            <a href="audits/security-report.md" target="_blank" rel="noopener" class="transparency-link">Security Report</a>
           </span>
         </div>
         <div class="contract-detail">
-          <span class="contract-label">Documentation</span>
+          <span class="contract-label">Source Code</span>
           <span class="contract-value">
-            <a href="whitepaper.html" target="_blank" class="transparency-link">Technical Whitepaper</a>
+            <a href="https://github.com/Artifact-Virtual/arcx_token" target="_blank" rel="noopener" class="transparency-link">GitHub Repository</a>
           </span>
         </div>
       </div>
     </div>
 
-    <!-- Constitutional Commitment -->
-    <div class="commitment-section">
-      <div class="commitment-header">
-        <h2 class="commit-title">COMMIT.</h2>
-        <div class="commit-divider"></div>
-      </div>
-      
-      <div class="commitment-content">
-        <p class="commitment-text">
-          This transparency portal is updated for every major allocation event, contract deployment, and governance decision. 
-          All wallet addresses, vesting contracts, and distribution schedules will be published and verifiable on-chain. 
-          ARTIFACT VIRTUAL is committed to radical transparency and governance principles in all protocol 
-          development and token economics.
-        </p>
-        
-        <div class="commitment-principles">
-          <div class="principle">
-            <div class="principle-icon">⚖</div>
-            <div class="principle-text">Governance Excellence</div>
-          </div>
-          <div class="principle">
-            <div class="principle-icon">🔍</div>
-            <div class="principle-text">Radical Transparency</div>
-          </div>
-          <div class="principle">
-            <div class="principle-icon">🛡</div>
-            <div class="principle-text">On-Chain Verification</div>
-          </div>
-        </div>
-      </div>
+    <!-- Notice -->
+    <div class="transparency-notice">
+      <p><strong>Transparency Commitment:</strong> This portal is updated for every major allocation event, contract deployment, and governance decision. All wallet addresses, vesting contracts, and distribution schedules will be published and verifiable on-chain upon deployment completion.</p>
     </div>
   </div>
+
+  <script>
+    // Parallax effect
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+      const rate = scrolled * -0.3;
+      
+      document.querySelector('.immersive-canvas').style.transform = `translateY(${rate}px)`;
+    });
+
+    // Intersection Observer for card animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.card').forEach(card => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(30px)';
+      card.style.transition = 'all 0.6s ease';
+      observer.observe(card);
+    });
+  </script>
 </body>
 </html>

@@ -3,456 +3,1334 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ARCx — The Smarter Contract</title>
-  <meta name="description" content="ARCx is the genesis token for ARTIFACT VIRTUAL, verified and live on Base Mainnet with zero vulnerabilities and enterprise-grade security.">
-  <link rel="stylesheet" href="css/arcx-refined.css">
-  <link rel="stylesheet" href="css/animated-background.css">
+  <title>ARCx — Constitutional Intelligence Genesis</title>
+  <meta name="description" content="Genesis token for constitutional intelligence infrastructure. Built on Base, verified secure, migration-ready for FUEL ecosystem.">
   <link rel="icon" href="css/arcx-logo.png" type="image/png">
+  
+  <style>
+    :root {
+      --pure-white: #ffffff;
+      --soft-black: #000000;
+      --ghost-black: #0a0a0a;
+      --border-gray: #111111;
+      --text-gray: #666666;
+      --accent-blue: #0052ff;
+      --accent-green: #00ff88;
+      --accent-amber: #ffaa00;
+      --space-xs: 0.5rem;
+      --space-sm: 1rem;
+      --space-md: 1.5rem;
+      --space-lg: 2rem;
+      --space-xl: 3rem;
+      --space-xxl: 4rem;
+      --border-radius: 0px;
+      --font-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+      --font-weight-light: 100;
+      --font-weight-normal: 200;
+      --font-weight-medium: 300;
+      --font-weight-bold: 400;
+      --font-weight-ultra: 100;
+      --line-height-tight: 1.2;
+      --line-height-relaxed: 1.6;
+      --soft-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: var(--soft-black);
+      color: var(--pure-white);
+      overflow-x: hidden;
+      line-height: var(--line-height-relaxed);
+      font-weight: var(--font-weight-light);
+    }
+
+    /* Advanced 3D Background System */
+    .immersive-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    .layer-1 {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 20%, rgba(0, 82, 255, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(0, 255, 136, 0.02) 0%, transparent 50%),
+        radial-gradient(circle at 40% 60%, rgba(255, 170, 0, 0.015) 0%, transparent 50%);
+      animation: layerDrift 20s ease-in-out infinite;
+    }
+
+    .layer-2 {
+      position: absolute;
+      width: 120%;
+      height: 120%;
+      top: -10%;
+      left: -10%;
+      background: 
+        linear-gradient(45deg, transparent 0%, rgba(255, 255, 255, 0.005) 50%, transparent 100%),
+        linear-gradient(-45deg, transparent 0%, rgba(255, 255, 255, 0.003) 50%, transparent 100%);
+      animation: layerRotate 40s linear infinite;
+    }
+
+    .floating-elements {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+    }
+
+    .float-item {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: var(--pure-white);
+      opacity: 0.1;
+      animation: floatUp 15s ease-in-out infinite;
+    }
+
+    .float-item:nth-child(1) { left: 10%; animation-delay: 0s; }
+    .float-item:nth-child(2) { left: 20%; animation-delay: 2s; }
+    .float-item:nth-child(3) { left: 30%; animation-delay: 4s; }
+    .float-item:nth-child(4) { left: 40%; animation-delay: 6s; }
+    .float-item:nth-child(5) { left: 50%; animation-delay: 8s; }
+    .float-item:nth-child(6) { left: 60%; animation-delay: 1s; }
+    .float-item:nth-child(7) { left: 70%; animation-delay: 3s; }
+    .float-item:nth-child(8) { left: 80%; animation-delay: 5s; }
+    .float-item:nth-child(9) { left: 90%; animation-delay: 7s; }
+
+    @keyframes layerDrift {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      25% { transform: translate(2%, -1%) scale(1.02); }
+      50% { transform: translate(-1%, 2%) scale(0.98); }
+      75% { transform: translate(1%, -2%) scale(1.01); }
+    }
+
+    @keyframes layerRotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes floatUp {
+      0% { 
+        transform: translateY(100vh) scale(0) rotate(0deg); 
+        opacity: 0; 
+      }
+      10% { 
+        opacity: 0.1; 
+        transform: translateY(90vh) scale(1) rotate(45deg); 
+      }
+      90% { 
+        opacity: 0.1; 
+        transform: translateY(-10vh) scale(1) rotate(315deg); 
+      }
+      100% { 
+        transform: translateY(-20vh) scale(0) rotate(360deg); 
+        opacity: 0; 
+      }
+    }
+
+    /* Navigation */
+    .main-nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      z-index: 1000;
+      padding: var(--space-sm) 0;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 var(--space-md);
+    }
+
+    .nav-logo {
+      height: 32px;
+      width: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: var(--space-xl);
+    }
+
+    .nav-links a {
+      color: var(--text-gray);
+      text-decoration: none;
+      font-weight: var(--font-weight-medium);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .nav-links a:hover {
+      color: var(--pure-white);
+    }
+
+    .nav-links a.active {
+      color: var(--pure-white);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--pure-white);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      width: 100%;
+    }
+
+    /* Main Container */
+    .main-container {
+      padding-top: 80px;
+      min-height: 100vh;
+    }
+
+    /* Hero Section */
+    .hero-section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      padding: var(--space-xxl) var(--space-md);
+      overflow: hidden;
+    }
+
+    .hero-content {
+      max-width: 1200px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(0, 255, 136, 0.1);
+      border: 1px solid rgba(0, 255, 136, 0.3);
+      color: var(--accent-green);
+      padding: var(--space-xs) var(--space-md);
+      border-radius: calc(var(--border-radius) * 3);
+      font-size: 0.85rem;
+      font-weight: var(--font-weight-medium);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: var(--space-lg);
+      animation: badgePulse 3s ease-in-out infinite;
+    }
+
+    .hero-title {
+      font-size: clamp(3rem, 8vw, 7rem);
+      font-weight: var(--font-weight-ultra);
+      line-height: var(--line-height-tight);
+      margin-bottom: var(--space-lg);
+      background: linear-gradient(135deg, var(--pure-white) 0%, rgba(255, 255, 255, 0.7) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Constitutional Intelligence Story */
+    .hero-story {
+      margin: var(--space-xxl) 0;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .story-layer {
+      margin-bottom: var(--space-xxl);
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.8s ease;
+      position: relative;
+    }
+
+    .story-layer.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .layer-foundation {
+      background: linear-gradient(135deg, 
+        rgba(0, 82, 255, 0.1) 0%, 
+        rgba(0, 255, 136, 0.05) 100%);
+      border: 1px solid rgba(0, 82, 255, 0.2);
+      border-radius: var(--border-radius);
+      padding: var(--space-xl);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .layer-foundation::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-blue), var(--accent-green));
+      animation: layerGlow 3s ease-in-out infinite;
+    }
+
+    .layer-arc {
+      background: linear-gradient(135deg, 
+        rgba(255, 170, 0, 0.1) 0%, 
+        rgba(0, 82, 255, 0.05) 100%);
+      border: 1px solid rgba(255, 170, 0, 0.2);
+      border-radius: var(--border-radius);
+      padding: var(--space-xl);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .layer-arc::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-amber), var(--accent-blue));
+      animation: layerGlow 3s ease-in-out infinite 0.5s;
+    }
+
+    .layer-adam {
+      background: linear-gradient(135deg, 
+        rgba(0, 255, 136, 0.1) 0%, 
+        rgba(255, 170, 0, 0.05) 100%);
+      border: 1px solid rgba(0, 255, 136, 0.2);
+      border-radius: var(--border-radius);
+      padding: var(--space-xl);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .layer-adam::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-green), var(--accent-amber));
+      animation: layerGlow 3s ease-in-out infinite 1s;
+    }
+
+    .layer-fuel {
+      background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.05) 0%, 
+        rgba(0, 255, 136, 0.05) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--border-radius);
+      padding: var(--space-xl);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .layer-fuel::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, 
+        var(--accent-green), 
+        var(--accent-blue), 
+        var(--accent-amber), 
+        var(--pure-white));
+      animation: layerGlow 3s ease-in-out infinite 1.5s;
+    }
+
+    @keyframes layerGlow {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+
+    .layer-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 60px;
+      height: 60px;
+      margin-bottom: var(--space-md);
+      position: relative;
+    }
+
+    .icon-ci {
+      background: linear-gradient(135deg, var(--accent-blue), var(--accent-green));
+      box-shadow: 0 0 30px rgba(0, 82, 255, 0.3);
+    }
+
+    .icon-arc {
+      background: linear-gradient(135deg, var(--accent-amber), var(--accent-blue));
+      box-shadow: 0 0 30px rgba(255, 170, 0, 0.3);
+    }
+
+    .icon-adam {
+      background: linear-gradient(135deg, var(--accent-green), var(--accent-amber));
+      box-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
+    }
+
+    .icon-fuel {
+      background: linear-gradient(135deg, 
+        var(--pure-white), 
+        var(--accent-green), 
+        var(--accent-blue));
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+    }
+
+    .layer-title {
+      font-size: 2rem;
+      font-weight: var(--font-weight-ultra);
+      margin-bottom: var(--space-md);
+      background: linear-gradient(135deg, var(--pure-white) 0%, rgba(255, 255, 255, 0.8) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .layer-subtitle {
+      font-size: 1rem;
+      color: var(--text-gray);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: var(--space-md);
+      font-weight: var(--font-weight-medium);
+    }
+
+    .layer-description {
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.9);
+      line-height: var(--line-height-relaxed);
+      text-align: left;
+    }
+
+    /* Connection Lines */
+    .layer-connection {
+      display: flex;
+      justify-content: center;
+      margin: var(--space-lg) 0;
+      position: relative;
+    }
+
+    .connection-line {
+      width: 1px;
+      height: 32px;
+      background: linear-gradient(180deg, 
+        rgba(255, 255, 255, 0.1) 0%, 
+        rgba(255, 255, 255, 0.3) 50%, 
+        rgba(255, 255, 255, 0.1) 100%);
+      position: relative;
+      opacity: 0.6;
+    }
+
+    .connection-line::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 4px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.4);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .connection-line::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -8px;
+      right: -8px;
+      height: 1px;
+      background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(255, 255, 255, 0.1) 50%, 
+        transparent 100%);
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: var(--space-md);
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: var(--space-xxl);
+      position: relative;
+      z-index: 20;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      padding: var(--space-md) var(--space-xl);
+      border: none;
+      border-radius: var(--border-radius);
+      font-weight: var(--font-weight-medium);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      font-size: 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-blue) 0%, #0040cc 100%);
+      color: var(--pure-white);
+      box-shadow: 0 4px 15px rgba(0, 82, 255, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 82, 255, 0.4);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--pure-white);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    /* Stats Section */
+    .stats-section {
+      padding: var(--space-xxl) var(--space-md);
+      background: rgba(255, 255, 255, 0.01);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .stats-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: var(--space-xl);
+    }
+
+    .stat-card {
+      text-align: center;
+      padding: var(--space-lg);
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: var(--border-radius);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent-blue), var(--accent-green), var(--accent-amber));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .stat-card:hover::before {
+      opacity: 1;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.04);
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Cracked Glass Effect for Audit Card */
+    .stat-card.audit-card {
+      position: relative;
+      overflow: visible;
+      background: linear-gradient(135deg, 
+        rgba(0, 255, 136, 0.1) 0%, 
+        rgba(255, 255, 255, 0.02) 50%, 
+        rgba(0, 255, 136, 0.05) 100%);
+      border: 1px solid rgba(0, 255, 136, 0.3);
+      box-shadow: 
+        0 0 20px rgba(0, 255, 136, 0.2),
+        inset 0 0 20px rgba(0, 255, 136, 0.1);
+    }
+
+    .stat-card.audit-card::before {
+      background: linear-gradient(90deg, var(--accent-green), var(--accent-green));
+      opacity: 1;
+      height: 3px;
+      box-shadow: 0 0 10px var(--accent-green);
+    }
+
+    .cracked-glass {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .crack-svg {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      animation: crackAppear 0.3s ease forwards;
+      top: 0;
+      left: 0;
+    }
+
+    .crack-svg path {
+      stroke: rgba(0, 255, 136, 0.6);
+      stroke-width: 1.5;
+      fill: none;
+      filter: drop-shadow(0 0 2px rgba(0, 255, 136, 0.8));
+    }
+
+    .crack-svg-1 { animation-delay: 0.5s; }
+    .crack-svg-2 { animation-delay: 0.8s; }
+    .crack-svg-3 { animation-delay: 1.1s; }
+
+    @keyframes crackAppear {
+      0% { 
+        opacity: 0;
+      }
+      100% { 
+        opacity: 0.7;
+      }
+    }
+
+    .glass-shards {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      z-index: 6;
+    }
+
+    .shard {
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      opacity: 0;
+      animation: shardFall 2s ease-out forwards;
+    }
+
+    .shard-1 {
+      top: 30%;
+      left: 40%;
+      border-width: 8px 6px 0 6px;
+      border-color: rgba(0, 255, 136, 0.6) transparent transparent transparent;
+      animation-delay: 1.5s;
+    }
+
+    .shard-2 {
+      top: 50%;
+      left: 60%;
+      border-width: 6px 4px 0 4px;
+      border-color: rgba(255, 255, 255, 0.7) transparent transparent transparent;
+      animation-delay: 1.7s;
+    }
+
+    .shard-3 {
+      top: 70%;
+      left: 30%;
+      border-width: 5px 3px 0 3px;
+      border-color: rgba(0, 255, 136, 0.5) transparent transparent transparent;
+      animation-delay: 1.9s;
+    }
+
+    @keyframes shardFall {
+      0% { 
+        opacity: 0;
+        transform: translateY(-10px) rotate(0deg);
+      }
+      20% {
+        opacity: 1;
+      }
+      100% { 
+        opacity: 0;
+        transform: translateY(100px) rotate(360deg);
+      }
+    }
+
+    .audit-glow {
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      right: -10px;
+      bottom: -10px;
+      background: radial-gradient(circle, 
+        rgba(0, 255, 136, 0.3) 0%, 
+        rgba(0, 255, 136, 0.1) 30%, 
+        transparent 70%);
+      border-radius: calc(var(--border-radius) + 10px);
+      opacity: 0;
+      animation: auditPulse 3s ease-in-out infinite;
+      animation-delay: 2s;
+      z-index: -1;
+    }
+
+    @keyframes auditPulse {
+      0%, 100% { 
+        opacity: 0;
+        transform: scale(1);
+      }
+      50% { 
+        opacity: 0.8;
+        transform: scale(1.1);
+      }
+    }
+
+    .stat-card.audit-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 
+        0 10px 40px rgba(0, 255, 136, 0.4),
+        inset 0 0 30px rgba(0, 255, 136, 0.15);
+    }
+
+    .stat-card.audit-card:hover .crack-svg {
+      animation: crackGlow 1s ease-in-out infinite;
+    }
+
+    @keyframes crackGlow {
+      0%, 100% { 
+        filter: brightness(1) drop-shadow(0 0 2px rgba(0, 255, 136, 0.5));
+      }
+      50% { 
+        filter: brightness(1.5) drop-shadow(0 0 8px rgba(0, 255, 136, 0.8));
+      }
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: var(--font-weight-ultra);
+      color: var(--pure-white);
+      margin-bottom: var(--space-xs);
+      font-family: var(--font-mono);
+      position: relative;
+      z-index: 8;
+    }
+
+    .stat-card.audit-card .stat-number {
+      color: var(--accent-green);
+      text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+      animation: auditGlow 2s ease-in-out infinite;
+    }
+
+    @keyframes auditGlow {
+      0%, 100% { 
+        text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+      }
+      50% { 
+        text-shadow: 0 0 30px rgba(0, 255, 136, 0.8), 0 0 40px rgba(0, 255, 136, 0.3);
+      }
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--text-gray);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: var(--font-weight-medium);
+      position: relative;
+      z-index: 8;
+    }
+
+    .stat-card.audit-card .stat-label {
+      color: var(--accent-green);
+    }
+
+    /* Roadmap Section */
+    .roadmap-section {
+      padding: var(--space-xxl) var(--space-md);
+      position: relative;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: var(--space-xxl);
+    }
+
+    .section-title {
+      font-size: 3rem;
+      font-weight: var(--font-weight-ultra);
+      margin-bottom: var(--space-md);
+      background: linear-gradient(135deg, var(--pure-white) 0%, rgba(255, 255, 255, 0.6) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .section-subtitle {
+      font-size: 1.2rem;
+      color: var(--text-gray);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .roadmap-timeline {
+      max-width: 1000px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .timeline-line {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, 
+        var(--accent-green) 0%, 
+        var(--accent-blue) 50%, 
+        var(--accent-amber) 100%);
+      transform: translateX(-50%);
+      z-index: 1;
+    }
+
+    .roadmap-item {
+      display: flex;
+      margin-bottom: var(--space-xxl);
+      position: relative;
+      z-index: 2;
+    }
+
+    .roadmap-item:nth-child(even) {
+      flex-direction: row-reverse;
+    }
+
+    .roadmap-content {
+      width: 45%;
+      padding: var(--space-lg);
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: var(--border-radius);
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .roadmap-content:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.04);
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .roadmap-status {
+      position: absolute;
+      top: var(--space-md);
+      right: var(--space-md);
+      padding: 0.3em 0.8em;
+      border-radius: calc(var(--border-radius) * 2);
+      font-size: 0.7rem;
+      font-weight: var(--font-weight-bold);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .status-complete {
+      background: var(--accent-green);
+      color: var(--soft-black);
+    }
+
+    .status-active {
+      background: var(--accent-amber);
+      color: var(--soft-black);
+    }
+
+    .status-upcoming {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-gray);
+    }
+
+    .roadmap-phase {
+      font-size: 0.8rem;
+      color: var(--text-gray);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: var(--space-xs);
+    }
+
+    .roadmap-title {
+      font-size: 1.5rem;
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-sm);
+      color: var(--pure-white);
+    }
+
+    .roadmap-description {
+      color: var(--text-gray);
+      line-height: var(--line-height-relaxed);
+    }
+
+    .roadmap-icon {
+      position: absolute;
+      left: 50%;
+      top: var(--space-lg);
+      transform: translateX(-50%);
+      width: 40px;
+      height: 40px;
+      background: var(--ghost-black);
+      border: 3px solid var(--roadmap-color, var(--accent-blue));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 3;
+    }
+
+    .roadmap-item:nth-child(1) { --roadmap-color: var(--accent-green); }
+    .roadmap-item:nth-child(2) { --roadmap-color: var(--accent-green); }
+    .roadmap-item:nth-child(3) { --roadmap-color: var(--accent-amber); }
+    .roadmap-item:nth-child(4) { --roadmap-color: var(--accent-blue); }
+
+    /* CTA Section */
+    .cta-section {
+      padding: var(--space-xxl) var(--space-md);
+      text-align: center;
+      background: linear-gradient(135deg, 
+        rgba(0, 82, 255, 0.05) 0%, 
+        rgba(0, 255, 136, 0.03) 50%, 
+        rgba(255, 170, 0, 0.02) 100%);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .cta-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .cta-title {
+      font-size: 2.5rem;
+      font-weight: var(--font-weight-ultra);
+      margin-bottom: var(--space-md);
+      background: linear-gradient(135deg, var(--pure-white) 0%, rgba(255, 255, 255, 0.7) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .cta-description {
+      font-size: 1.1rem;
+      color: var(--text-gray);
+      margin-bottom: var(--space-xl);
+      line-height: var(--line-height-relaxed);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .nav-links {
+        gap: var(--space-md);
+      }
+
+      .hero-title {
+        font-size: 3rem;
+      }
+
+      .stats-container {
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
+      }
+
+      .timeline-line {
+        left: 20px;
+      }
+
+      .roadmap-item {
+        flex-direction: column !important;
+        padding-left: 60px;
+      }
+
+      .roadmap-content {
+        width: 100%;
+      }
+
+      .roadmap-icon {
+        left: 20px;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .btn {
+        width: 100%;
+        max-width: 300px;
+      }
+    }
+  </style>
 </head>
 <body>
-  <!-- Animated Background -->
-  <div class="animated-background">
-    <div class="bg-pattern"></div>
-    <div class="bg-pattern"></div>
-    <div class="bg-pattern"></div>
-    <div class="bg-pattern"></div>
-    <div class="bg-pattern"></div>
-    <div class="bg-line"></div>
-    <div class="bg-line"></div>
-    <div class="bg-line"></div>
-    <div class="bg-grid"></div>
-    <div class="bg-orb"></div>
-    <div class="bg-orb"></div>
-    <div class="bg-orb"></div>
-    <div class="bg-particle"></div>
-    <div class="bg-particle"></div>
-    <div class="bg-particle"></div>
-    <div class="bg-particle"></div>
-    <div class="bg-wave"></div>
+  <!-- Immersive 3D Background -->
+  <div class="immersive-canvas">
+    <div class="layer-1"></div>
+    <div class="layer-2"></div>
+    <div class="floating-elements">
+      <div class="float-item"></div>
+      <div class="float-item"></div>
+      <div class="float-item"></div>
+      <div class="float-item"></div>
+      <div class="float-item"></div>
+      <div class="float-item"></div>
+      <div class="float-item"></div>
+      <div class="float-item"></div>
+      <div class="float-item"></div>
+    </div>
   </div>
 
+  <!-- Navigation -->
   <nav class="main-nav">
     <div class="nav-container">
       <div class="nav-brand">
         <img src="css/arcx-logo.png" alt="ARCx" class="nav-logo"/>
       </div>
-      <div class="nav-links-main">
-        <a href="https://www.artifactvirtual.com" target="_blank">Home</a>
-        <a href="arcx.html">ARCx</a>
-        <a href="bridge.html">Bridge</a>
+      <div class="nav-links">
+        <a href="https://www.artifactvirtual.com" target="_blank" rel="noopener">Home</a>
+        <a href="index.html" class="active">ARCx</a>
         <a href="transparency.html">Transparency</a>
-        <a href="whitepaper.html">Documentation</a>
+        <a href="bridge.html">Bridge</a>
+        <a href="documentation.html">Documentation</a>
       </div>
     </div>
   </nav>
 
-  <div class="container">
-    <div class="card">
-      <h1>ARCx</h1>
-      <div class="divider"></div>
-      <p>The genesis token for ARTIFACT VIRTUAL. A verified smart contract on Base Mainnet, engineered with constitutional intelligence principles and zero-vulnerability security architecture.</p>
-      
-      <div class="info-block">
-        <div class="contract-detail">
-          <span class="contract-label">Contract</span>
-          <span class="contract-value">0xA4093669DAFbD123E37d52e0939b3aB3C2272f44</span>
-        </div>
-        <div class="contract-detail">
-          <span class="contract-label">Network</span>
-          <span class="contract-value">Base Mainnet (8453)</span>
-        </div>
-        <div class="contract-detail">
-          <span class="contract-label">Verification</span>
-          <span class="contract-value">
-            <a href="https://basescan.org/address/0xA4093669DAFbD123E37d52e0939b3aB3C2272f44#code" target="_blank">BaseScan</a> ·
-            <a href="https://repo.sourcify.dev/contracts/full_match/8453/0xA4093669DAFbD123E37d52e0939b3aB3C2272f44/" target="_blank">Sourcify</a>
-          </span>
-        </div>
-      </div>
-
-      <div class="status-badge">Zero Vulnerabilities</div>
-      <div class="status-badge">Contract Verified</div>
-      <div class="status-badge">Production Ready</div>
-
-      <div style="margin-top: 2rem;">
-        <a href="arcx.html" class="btn">Token Details</a>
-        <a href="bridge.html" class="btn btn-secondary">Migration Bridge</a>
-      </div>
-    </div>
-
-    <!-- ARCx Roadmap Section -->
-    <div class="roadmap-section">
-      <h2>Protocol Evolution</h2>
-      <div class="roadmap-container">
-        <div class="roadmap-line"></div>
+  <!-- Main Container -->
+  <div class="main-container">
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-content">
+        <div class="hero-badge">Genesis • Base • Verified</div>
+        <h1 class="hero-title">ARCx</h1>
         
-        <div class="milestone active" data-phase="1">
-          <div class="milestone-marker"></div>
-          <div class="milestone-content" onclick="toggleMilestone(this)">
-            <h3>Genesis</h3>
-            <p>Smart contract deployment, treasury setup, initial security audit</p>
-            <span class="status">Complete</span>
-            <div class="milestone-details">
-              <ul>
-                <li>Contract deployed on Base Mainnet</li>
-                <li>Multi-signature treasury configured</li>
-                <li>Security audit completed</li>
-                <li>Contract verification on BaseScan & Sourcify</li>
-                <li>Initial documentation published</li>
-              </ul>
+        <!-- Constitutional Intelligence Story -->
+        <div class="hero-story">
+          <!-- Foundation Layer: Constitutional Intelligence -->
+          <div class="story-layer layer-foundation">
+            <div class="layer-icon icon-ci">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+              </svg>
             </div>
+            <div class="layer-subtitle">The Foundation</div>
+            <h2 class="layer-title">Constitutional Intelligence</h2>
+            <p class="layer-description">
+              Constitutional Intelligence (CI) is an autonomous, evolving governance system where intelligence is not centralized but embedded within self-modifying constitutional logic. It enables digital ecosystems to self-govern, adapt, and evolve using layers of AI-guided feedback, rule evaluation, and ethical alignment. It is the foundation of the ARC Project.
+            </p>
+          </div>
+
+          <div class="layer-connection">
+            <div class="connection-line"></div>
+          </div>
+
+          <!-- Arc Layer: The Living Constitution -->
+          <div class="story-layer layer-arc">
+            <div class="layer-icon icon-arc">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+              </svg>
+            </div>
+            <div class="layer-subtitle">The Architecture</div>
+            <h2 class="layer-title">The Arc</h2>
+            <p class="layer-description">
+              The heart of this framework is The Arc, a sovereign blockchain designed as a "living constitution". Its genesis block encodes immutable rules, and its 7-block circular architecture enables self-validation, adaptive governance, and gasless, decentralized operations.
+            </p>
+          </div>
+
+          <div class="layer-connection">
+            <div class="connection-line"></div>
+          </div>
+
+          <!-- ADAM Layer: AI Constitutional Protocol -->
+          <div class="story-layer layer-adam">
+            <div class="layer-icon icon-adam">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3.5 6L12 10.5 8.5 8 12 5.5 15.5 8zM8.5 16L12 13.5 15.5 16 12 18.5 8.5 16z"/>
+              </svg>
+            </div>
+            <div class="layer-subtitle">The Intelligence</div>
+            <h2 class="layer-title">ADAM Protocol</h2>
+            <p class="layer-description">
+              Building on The Arc, the ADAM Protocol forms the AI-powered constitutional layer: it learns from the network, proposes rule changes, and evolves ethical decision-making through feedback loops and consensus. Together, they enable a new class of systems where intelligence is not just artificial, it is also constitutional, self-aware, and aligned with the needs of its ecosystem.
+            </p>
+          </div>
+
+          <div class="layer-connection">
+            <div class="connection-line"></div>
+          </div>
+
+          <!-- FUEL Layer: Economic Substrate -->
+          <div class="story-layer layer-fuel">
+            <div class="layer-icon icon-fuel">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/>
+              </svg>
+            </div>
+            <div class="layer-subtitle">The Economy</div>
+            <h2 class="layer-title">Fuel</h2>
+            <p class="layer-description">
+              Fuel is a self-adjusting economic substrate divided into two layers: an inner simulation layer where autonomous agents earn Fuel through behavior, decay dynamics, and memory accrual, and an outer mainnet layer where Fuel acquires external value through pinned collateral like ETH or BTC. The two layers are connected by a deterministic value bridge that converts earned subnet Fuel into mainnet Fuel at variable rates governed by entropy flow, network demand, and constitutional governance. No fixed supply. Issuance and decay are continuously tuned. Hoarding is penalized, contribution is rewarded, and all economic state transitions are cryptographically recorded.
+            </p>
           </div>
         </div>
 
-        <div class="milestone current" data-phase="2">
-          <div class="milestone-marker"></div>
-          <div class="milestone-content" onclick="toggleMilestone(this)">
-            <h3>Distribution</h3>
-            <p>Token allocation to early holders and core contributors</p>
-            <span class="status">Current</span>
-            <div class="milestone-details">
-              <ul>
-                <li>Initial mint (1M ARCx) to deployer</li>
-                <li>Community allocation planning</li>
-                <li>Early contributor distributions</li>
-                <li>Vesting schedule implementation</li>
-                <li>Public allocation strategy</li>
-              </ul>
-            </div>
+        <div class="hero-actions">
+          <a href="transparency.html" class="btn btn-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            View Allocation
+          </a>
+          <a href="documentation.html" class="btn btn-secondary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+            </svg>
+            Read Docs
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+      <div class="stats-container">
+        <div class="stat-card">
+          <div class="stat-number">100M</div>
+          <div class="stat-label">Max Supply</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">1M</div>
+          <div class="stat-label">Initial Mint</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">0</div>
+          <div class="stat-label">Vulnerabilities</div>
+        </div>
+        <div class="stat-card audit-card">
+          <div class="audit-glow"></div>
+          <div class="cracked-glass">
+            <svg class="crack-svg crack-svg-1" viewBox="0 0 100 100">
+              <path d="M20 30 Q35 25 50 35 Q65 45 80 40" />
+              <path d="M25 32 L40 28" />
+            </svg>
+            <svg class="crack-svg crack-svg-2" viewBox="0 0 100 100">
+              <path d="M60 20 Q55 35 50 50 Q45 65 55 75" />
+              <path d="M58 25 L52 40" />
+            </svg>
+            <svg class="crack-svg crack-svg-3" viewBox="0 0 100 100">
+              <path d="M25 60 Q35 70 45 75 L55 80" />
+              <path d="M70 65 Q75 60 80 70" />
+              <path d="M30 72 L42 78" />
+            </svg>
+          </div>
+          <div class="glass-shards">
+            <div class="shard shard-1"></div>
+            <div class="shard shard-2"></div>
+            <div class="shard shard-3"></div>
+          </div>
+          <div class="stat-number">A+</div>
+          <div class="stat-label">Audit Rating</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Roadmap Section -->
+    <section class="roadmap-section">
+      <div class="section-header">
+        <h2 class="section-title">Genesis Roadmap</h2>
+        <p class="section-subtitle">
+          Constitutional intelligence infrastructure built through transparent, 
+          community-driven development phases.
+        </p>
+      </div>
+
+      <div class="roadmap-timeline">
+        <div class="timeline-line"></div>
+
+        <div class="roadmap-item">
+          <div class="roadmap-content">
+            <div class="roadmap-status status-complete">Complete</div>
+            <div class="roadmap-phase">Phase 1</div>
+            <h3 class="roadmap-title">Genesis Deployment</h3>
+            <p class="roadmap-description">
+              ARCx token deployed on Base Mainnet with zero vulnerabilities. 
+              Enterprise-grade security with role-based access control and emergency functions.
+            </p>
+          </div>
+          <div class="roadmap-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
           </div>
         </div>
 
-        <div class="milestone" data-phase="3">
-          <div class="milestone-marker"></div>
-          <div class="milestone-content" onclick="toggleMilestone(this)">
-            <h3>Liquidity</h3>
-            <p>DEX integration, liquidity provision, trading pairs activation</p>
-            <span class="status">Planned</span>
-            <div class="milestone-details">
-              <ul>
-                <li>DEX listing preparation</li>
-                <li>Initial liquidity pool creation</li>
-                <li>Trading pair activation</li>
-                <li>Liquidity incentive programs</li>
-                <li>Market maker partnerships</li>
-              </ul>
-            </div>
+        <div class="roadmap-item">
+          <div class="roadmap-content">
+            <div class="roadmap-status status-complete">Complete</div>
+            <div class="roadmap-phase">Phase 2</div>
+            <h3 class="roadmap-title">Vesting Infrastructure</h3>
+            <p class="roadmap-description">
+              Master vesting contract with category-based allocation tracking. 
+              Transparent schedules for all stakeholder groups with emergency controls.
+            </p>
+          </div>
+          <div class="roadmap-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4"/>
+            </svg>
           </div>
         </div>
 
-        <div class="milestone" data-phase="4">
-          <div class="milestone-marker"></div>
-          <div class="milestone-content" onclick="toggleMilestone(this)">
-            <h3>Utility</h3>
-            <p>Governance activation, partner integrations, ecosystem expansion</p>
-            <span class="status">Planned</span>
-            <div class="milestone-details">
-              <ul>
-                <li>Governance framework deployment</li>
-                <li>Voting mechanism activation</li>
-                <li>Strategic partner integrations</li>
-                <li>Ecosystem utility development</li>
-                <li>Community governance transition</li>
-              </ul>
-            </div>
+        <div class="roadmap-item">
+          <div class="roadmap-content">
+            <div class="roadmap-status status-active">Active</div>
+            <div class="roadmap-phase">Phase 3</div>
+            <h3 class="roadmap-title">Community Distribution</h3>
+            <p class="roadmap-description">
+              Token allocation to community members, early contributors, and ecosystem participants. 
+              Transparent distribution with verifiable on-chain proof.
+            </p>
+          </div>
+          <div class="roadmap-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+            </svg>
           </div>
         </div>
 
-        <div class="milestone" data-phase="5">
-          <div class="milestone-marker"></div>
-          <div class="milestone-content" onclick="toggleMilestone(this)">
-            <h3>Migration</h3>
-            <p>FUEL bridge deployment, ARCx to FUEL conversion protocol</p>
-            <span class="status">Planned</span>
-            <div class="milestone-details">
-              <ul>
-                <li>FUEL bridge contract development</li>
-                <li>Migration mechanism testing</li>
-                <li>ARCx to FUEL conversion activation</li>
-                <li>Bridge security audit</li>
-                <li>Migration documentation</li>
-              </ul>
-            </div>
+        <div class="roadmap-item">
+          <div class="roadmap-content">
+            <div class="roadmap-status status-upcoming">Upcoming</div>
+            <div class="roadmap-phase">Phase 4</div>
+            <h3 class="roadmap-title">FUEL Migration</h3>
+            <p class="roadmap-description">
+              Constitutional bridge deployment for ARCx to FUEL migration. 
+              One-way burn mechanism with cryptographic proof and transparent conversion.
+            </p>
           </div>
-        </div>
-
-        <div class="milestone" data-phase="6">
-          <div class="milestone-marker"></div>
-          <div class="milestone-content" onclick="toggleMilestone(this)">
-            <h3>Legacy</h3>
-            <p>Protocol handover, final documentation, archive transition</p>
-            <span class="status">Future</span>
-            <div class="milestone-details">
-              <ul>
-                <li>Final protocol documentation</li>
-                <li>Community handover completion</li>
-                <li>Archive system implementation</li>
-                <li>Legacy support framework</li>
-                <li>Historical record preservation</li>
-              </ul>
-            </div>
+          <div class="roadmap-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/>
+            </svg>
           </div>
         </div>
       </div>
-    </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="cta-content">
+        <h2 class="cta-title">Ready to Participate?</h2>
+        <p class="cta-description">
+          Explore transparent allocation schedules, review technical documentation, 
+          and prepare for the constitutional intelligence future.
+        </p>
+        <div class="hero-actions">
+          <a href="transparency.html" class="btn btn-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+              <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+            </svg>
+            View Transparency Portal
+          </a>
+          <a href="documentation.html" class="btn btn-secondary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
+            Technical Reference
+          </a>
+        </div>
+      </div>
+    </section>
   </div>
 
-  <style>
-    .roadmap-section {
-      margin-top: 4rem;
-      padding: 3rem 0;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .roadmap-section h2 {
-      text-align: center;
-      font-size: 2.2rem;
-      margin-bottom: 3rem;
-      background: linear-gradient(135deg, #0052ff, #00d4ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      font-weight: 400;
-    }
-
-    .roadmap-container {
-      position: relative;
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 2rem 0;
-    }
-
-    .roadmap-line {
-      position: absolute;
-      left: 50%;
-      top: 0;
-      bottom: 0;
-      width: 3px;
-      background: linear-gradient(180deg, 
-        #0052ff 0%, 
-        #00d4ff 50%, 
-        rgba(0, 212, 255, 0.3) 100%);
-      transform: translateX(-50%);
-      border-radius: 0;
-      box-shadow: 0 0 20px rgba(0, 82, 255, 0.3);
-    }
-
-    .milestone {
-      position: relative;
-      margin: 3rem 0;
-      display: flex;
-      align-items: center;
-      opacity: 0.6;
-      transition: all 0.3s ease;
-    }
-
-    .milestone.active,
-    .milestone.current {
-      opacity: 1;
-    }
-
-    .milestone:nth-child(odd) {
-      justify-content: flex-start;
-    }
-
-    .milestone:nth-child(even) {
-      justify-content: flex-end;
-    }
-
-    .milestone:nth-child(odd) .milestone-content {
-      margin-left: calc(50% + 2rem);
-      text-align: left;
-    }
-
-    .milestone:nth-child(even) .milestone-content {
-      margin-right: calc(50% + 2rem);
-      text-align: left;
-    }
-
-    .milestone-marker {
-      position: absolute;
-      left: 50%;
-      width: 16px;
-      height: 16px;
-      background: #1a1a1a;
-      border: 3px solid #666;
-      border-radius: 50%;
-      transform: translateX(-50%);
-      z-index: 2;
-      transition: all 0.3s ease;
-    }
-
-    .milestone.active .milestone-marker {
-      border-color: #0052ff;
-      background: #0052ff;
-      box-shadow: 0 0 20px rgba(0, 82, 255, 0.5);
-    }
-
-    .milestone.current .milestone-marker {
-      border-color: #00d4ff;
-      background: #00d4ff;
-      box-shadow: 0 0 25px rgba(0, 212, 255, 0.7);
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: translateX(-50%) scale(1); }
-      50% { transform: translateX(-50%) scale(1.2); }
-    }
-
-    .milestone-content {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 0;
-      padding: 1.5rem;
-      max-width: 280px;
-      transition: all 0.3s ease;
-      cursor: pointer;
-    }
-
-    .milestone:hover .milestone-content {
-      background: rgba(255, 255, 255, 0.08);
-      border-color: rgba(0, 82, 255, 0.3);
-      transform: translateY(-2px);
-    }
-
-    .milestone-content h3 {
-      font-size: 1.3rem;
-      margin: 0 0 0.5rem 0;
-      color: #ffffff;
-      font-weight: 400;
-    }
-
-    .milestone.active .milestone-content h3,
-    .milestone.current .milestone-content h3 {
-      color: #00d4ff;
-    }
-
-    .milestone-content p {
-      margin: 0 0 1rem 0;
-      color: #cccccc;
-      font-size: 0.9rem;
-      line-height: 1.4;
-    }
-
-    .milestone-details {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease;
-      margin-top: 1rem;
-    }
-
-    .milestone-content.expanded .milestone-details {
-      max-height: 200px;
-    }
-
-    .milestone-details ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .milestone-details li {
-      padding: 0.4rem 0;
-      font-size: 0.85rem;
-      color: #b8b8b8;
-      display: flex;
-      align-items: center;
-      position: relative;
-      padding-left: 1.2rem;
-    }
-
-    .milestone-details li::before {
-      content: '◦';
-      position: absolute;
-      left: 0;
-      color: #00d4ff;
-      font-size: 1rem;
-      font-weight: bold;
-    }
-
-    .milestone-content::after {
-      content: '▼';
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      font-size: 0.8rem;
-      color: #666;
-      transition: transform 0.3s ease;
-    }
-
-    .milestone-content.expanded::after {
-      transform: rotate(180deg);
-    }
-
-    .status {
-      display: inline-block;
-      padding: 0.3rem 0.8rem;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 0;
-      font-size: 0.8rem;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .milestone.active .status {
-      background: rgba(0, 82, 255, 0.2);
-      color: #0052ff;
-    }
-
-    .milestone.current .status {
-      background: rgba(0, 212, 255, 0.2);
-      color: #00d4ff;
-      animation: glow 2s infinite alternate;
-    }
-
-    @keyframes glow {
-      from { box-shadow: 0 0 5px rgba(0, 212, 255, 0.3); }
-      to { box-shadow: 0 0 15px rgba(0, 212, 255, 0.6); }
-    }
-
-    /* Mobile Responsiveness */
-    @media (max-width: 768px) {
-      .roadmap-container {
-        padding: 1rem;
-      }
-
-      .milestone:nth-child(odd),
-      .milestone:nth-child(even) {
-        justify-content: center;
-      }
-
-      .milestone:nth-child(odd) .milestone-content,
-      .milestone:nth-child(even) .milestone-content {
-        margin: 0;
-        text-align: left;
-        max-width: 250px;
-      }
-
-      .roadmap-line {
-        left: 2rem;
-      }
-
-      .milestone-marker {
-        left: 2rem;
-      }
-
-      .milestone-content {
-        margin-left: 4rem;
-      }
-
-      .roadmap-section h2 {
-        font-size: 1.8rem;
-      }
-    }
-  </style>
-
   <script>
-    function toggleMilestone(element) {
-      element.classList.toggle('expanded');
-    }
+    // Parallax effect for floating elements
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+      const rate = scrolled * -0.5;
+      
+      document.querySelector('.layer-1').style.transform = `translateY(${rate}px)`;
+      document.querySelector('.layer-2').style.transform = `translateY(${rate * 0.3}px) rotate(${scrolled * 0.05}deg)`;
+    });
+
+    // Story layers animation
+    const storyObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, {
+      threshold: 0.3,
+      rootMargin: '0px 0px -50px 0px'
+    });
+
+    document.querySelectorAll('.story-layer').forEach(layer => {
+      storyObserver.observe(layer);
+    });
+
+    // Intersection Observer for roadmap animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.roadmap-item').forEach(item => {
+      item.style.opacity = '0';
+      item.style.transform = 'translateY(50px)';
+      item.style.transition = 'all 0.6s ease';
+      observer.observe(item);
+    });
   </script>
 </body>
 </html>

@@ -3,135 +3,1027 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ARCx Bridge — Migration Protocol</title>
-  <meta name="description" content="Migrate ARCx tokens to FUEL through the constitutional bridge protocol with transparent, auditable conversion mechanics.">
-  <link rel="stylesheet" href="css/arcx-refined.css">
-  <link rel="stylesheet" href="css/animated-background.css">
+  <title>ARCx Bridge Protocol</title>
+  <meta name="description" content="Constitutional bridge infrastructure for ARCx token migration, cross-chain interoperability, and decentralized governance protocols.">
   <link rel="icon" href="css/arcx-logo.png" type="image/png">
+  
+  <style>
+    :root {
+      --pure-white: #ffffff;
+      --soft-black: #000000;
+      --ghost-black: #111111;
+      --border-gray: #1a1a1a;
+      --text-gray: #888888;
+      --accent-blue: #0052ff;
+      --accent-green: #00ff88;
+      --accent-amber: #ffaa00;
+      --accent-purple: #8b5cf6;
+      --accent-red: #ff6b6b;
+      --space-xs: 0.5rem;
+      --space-sm: 1rem;
+      --space-md: 1.5rem;
+      --space-lg: 2rem;
+      --space-xl: 3rem;
+      --space-xxl: 4rem;
+      --border-radius: 0px;
+      --font-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+      --font-weight-light: 100;
+      --font-weight-normal: 200;
+      --font-weight-medium: 300;
+      --font-weight-bold: 400;
+      --font-weight-ultra: 500;
+      --line-height-tight: 1.2;
+      --line-height-relaxed: 1.6;
+      --soft-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: var(--soft-black);
+      color: var(--pure-white);
+      overflow-x: hidden;
+      line-height: var(--line-height-relaxed);
+      font-weight: var(--font-weight-light);
+    }
+
+    /* Immersive Background */
+    .immersive-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    .bridge-pattern {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: 
+        linear-gradient(45deg, transparent 49%, rgba(0, 255, 136, 0.01) 50%, transparent 51%);
+      background-size: 80px 80px;
+      animation: bridgeFlow 40s linear infinite;
+    }
+
+    @keyframes bridgeFlow {
+      0% { background-position: 0 0, 0 0, 0 0; }
+      100% { background-position: 100px 100px, -150px 150px, 80px 80px; }
+    }
+
+    /* Navigation */
+    .main-nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      z-index: 1000;
+      padding: var(--space-sm) 0;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 var(--space-md);
+    }
+
+    .nav-logo {
+      height: 32px;
+      width: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: var(--space-xl);
+    }
+
+    .nav-links a {
+      color: var(--text-gray);
+      text-decoration: none;
+      font-weight: var(--font-weight-medium);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--pure-white);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--pure-white);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      width: 100%;
+    }
+
+    /* Main Container */
+    .main-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: calc(80px + var(--space-xl)) var(--space-md) var(--space-xl);
+    }
+
+    /* Hero Section */
+    .bridge-hero {
+      text-align: center;
+      background: linear-gradient(135deg, 
+        rgba(138, 92, 246, 0.1) 0%, 
+        rgba(0, 82, 255, 0.05) 50%,
+        rgba(0, 255, 136, 0.03) 100%);
+      border: 1px solid rgba(138, 92, 246, 0.2);
+      border-radius: var(--border-radius);
+      padding: var(--space-xxl);
+      margin-bottom: var(--space-xl);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .bridge-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-purple), var(--accent-blue), var(--accent-green));
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .bridge-hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: var(--font-weight-ultra);
+      margin-bottom: var(--space-md);
+      background: linear-gradient(135deg, var(--pure-white) 0%, rgba(255, 255, 255, 0.8) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .divider {
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent-purple), var(--accent-blue));
+      margin: var(--space-md) auto;
+    }
+
+    .bridge-subtitle {
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.8);
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: var(--line-height-relaxed);
+    }
+
+    /* Section Cards */
+    .section-card {
+      background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.03) 0%, 
+        rgba(255, 255, 255, 0.01) 100%);
+      border: 1px solid var(--border-gray);
+      border-radius: var(--border-radius);
+      padding: var(--space-xl);
+      margin-bottom: var(--space-xl);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .section-card:hover {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .section-card h2 {
+      color: var(--pure-white);
+      font-size: 2rem;
+      font-weight: var(--font-weight-ultra);
+      margin-bottom: var(--space-md);
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .section-icon {
+      width: 28px;
+      height: 28px;
+      fill: var(--accent-blue);
+      filter: drop-shadow(0 0 8px var(--accent-blue));
+    }
+
+    .section-card h3 {
+      color: var(--pure-white);
+      font-size: 1.4rem;
+      font-weight: var(--font-weight-medium);
+      margin: var(--space-lg) 0 var(--space-md) 0;
+      border-left: 3px solid var(--accent-purple);
+      padding-left: var(--space-md);
+    }
+
+    .section-card p {
+      color: var(--text-gray);
+      margin-bottom: var(--space-md);
+      line-height: var(--line-height-relaxed);
+    }
+
+    /* Bridge Types Grid */
+    .bridge-types {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: var(--space-lg);
+      margin: var(--space-lg) 0;
+    }
+
+    .bridge-type {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-gray);
+      border-radius: var(--border-radius);
+      padding: var(--space-lg);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .bridge-type::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--bridge-color, var(--border-gray));
+      transition: all 0.3s ease;
+    }
+
+    .bridge-type:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .bridge-type.internal {
+      --bridge-color: var(--accent-blue);
+    }
+
+    .bridge-type.external {
+      --bridge-color: var(--accent-green);
+    }
+
+    .bridge-type.constitutional {
+      --bridge-color: var(--accent-purple);
+    }
+
+    .bridge-type h4 {
+      color: var(--pure-white);
+      font-size: 1.2rem;
+      font-weight: var(--font-weight-medium);
+      margin-bottom: var(--space-sm);
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .bridge-icon {
+      width: 20px;
+      height: 20px;
+      fill: var(--bridge-color);
+    }
+
+    /* Code Blocks */
+    .code-block {
+      background: var(--ghost-black);
+      border: 1px solid var(--border-gray);
+      border-radius: var(--border-radius);
+      padding: var(--space-lg);
+      margin: var(--space-md) 0;
+      overflow-x: auto;
+      position: relative;
+    }
+
+    .code-block::before {
+      content: attr(data-language);
+      position: absolute;
+      top: var(--space-sm);
+      right: var(--space-sm);
+      font-size: 0.7rem;
+      color: var(--text-gray);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .code-block pre {
+      color: var(--pure-white);
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    /* Technical Specs */
+    .tech-specs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--space-lg);
+      margin: var(--space-lg) 0;
+    }
+
+    .spec-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-gray);
+      border-radius: var(--border-radius);
+      padding: var(--space-lg);
+      transition: all 0.3s ease;
+    }
+
+    .spec-card:hover {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .spec-title {
+      color: var(--pure-white);
+      font-size: 1.1rem;
+      font-weight: var(--font-weight-medium);
+      margin-bottom: var(--space-sm);
+    }
+
+    .spec-value {
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      color: var(--accent-green);
+      background: var(--soft-black);
+      padding: var(--space-xs);
+      border-radius: var(--border-radius);
+      margin-bottom: var(--space-sm);
+    }
+
+    .spec-description {
+      color: var(--text-gray);
+      font-size: 0.9rem;
+      line-height: var(--line-height-relaxed);
+    }
+
+    /* Lists */
+    .bridge-list {
+      list-style: none;
+      margin: var(--space-md) 0;
+    }
+
+    .bridge-list li {
+      color: var(--text-gray);
+      margin-bottom: var(--space-sm);
+      padding-left: var(--space-lg);
+      position: relative;
+    }
+
+    .bridge-list li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--accent-purple);
+      font-weight: bold;
+    }
+
+    /* Roadmap Styling */
+    .bridge-list li.active-phase {
+      color: var(--accent-green);
+      font-weight: var(--font-weight-medium);
+      background: rgba(0, 255, 136, 0.05);
+      border: 1px solid rgba(0, 255, 136, 0.2);
+      border-radius: var(--border-radius);
+      padding: var(--space-sm) var(--space-lg);
+      margin-bottom: var(--space-md);
+      box-shadow: 0 0 15px rgba(0, 255, 136, 0.1);
+      animation: activeGlow 2s ease-in-out infinite alternate;
+    }
+
+    .bridge-list li.active-phase::before {
+      content: '●';
+      color: var(--accent-green);
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes activeGlow {
+      0% { 
+        box-shadow: 0 0 15px rgba(0, 255, 136, 0.1);
+        border-color: rgba(0, 255, 136, 0.2);
+      }
+      100% { 
+        box-shadow: 0 0 25px rgba(0, 255, 136, 0.2);
+        border-color: rgba(0, 255, 136, 0.3);
+      }
+    }
+
+    /* Status Indicator */
+    .status-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      font-size: 0.9rem;
+      font-weight: var(--font-weight-medium);
+      margin-bottom: var(--space-md);
+    }
+
+    .status-indicator.active {
+      color: var(--accent-green);
+    }
+
+    .status-indicator.pending {
+      color: var(--accent-amber);
+    }
+
+    .status-indicator.planned {
+      color: var(--accent-blue);
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: currentColor;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.5; }
+      100% { opacity: 1; }
+    }
+
+    /* Links */
+    .bridge-link {
+      color: var(--accent-blue);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: all 0.2s ease;
+    }
+
+    .bridge-link:hover {
+      border-bottom-color: var(--accent-blue);
+      color: var(--accent-green);
+    }
+
+    /* Warning Blocks */
+    .warning-block {
+      background: rgba(255, 171, 0, 0.05);
+      border: 1px solid rgba(255, 171, 0, 0.2);
+      border-radius: var(--border-radius);
+      padding: var(--space-lg);
+      margin: var(--space-lg) 0;
+    }
+
+    .warning-block h4 {
+      color: var(--accent-amber);
+      margin-bottom: var(--space-sm);
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .warning-icon {
+      width: 20px;
+      height: 20px;
+      fill: var(--accent-amber);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .bridge-types {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        gap: var(--space-md);
+      }
+
+      .main-container {
+        padding: calc(80px + var(--space-md)) var(--space-sm) var(--space-md);
+      }
+
+      .tech-specs {
+        grid-template-columns: 1fr;
+      }
+
+      .bridge-hero h1 {
+        font-size: 2rem;
+      }
+
+      .section-card {
+        padding: var(--space-lg);
+      }
+    }
+  </style>
 </head>
 <body>
-  <!-- Animated Background -->
-  <div class="animated-background">
-    <div class="bg-pattern"></div>
-    <div class="bg-pattern"></div>
-    <div class="bg-pattern"></div>
-    <div class="bg-pattern"></div>
-    <div class="bg-pattern"></div>
-    <div class="bg-line"></div>
-    <div class="bg-line"></div>
-    <div class="bg-line"></div>
-    <div class="bg-grid"></div>
-    <div class="bg-orb"></div>
-    <div class="bg-orb"></div>
-    <div class="bg-orb"></div>
-    <div class="bg-particle"></div>
-    <div class="bg-particle"></div>
-    <div class="bg-particle"></div>
-    <div class="bg-particle"></div>
-    <div class="bg-wave"></div>
+  <!-- Immersive Background -->
+  <div class="immersive-canvas">
+    <div class="bridge-pattern"></div>
   </div>
 
+  <!-- Navigation -->
   <nav class="main-nav">
     <div class="nav-container">
       <div class="nav-brand">
         <img src="css/arcx-logo.png" alt="ARCx" class="nav-logo"/>
       </div>
-      <div class="nav-links-main">
-        <a href="https://www.artifactvirtual.com" target="_blank">Home</a>
-        <a href="index.html">Overview</a>
-        <a href="arcx.html">ARCx</a>
+      <div class="nav-links">
+        <a href="https://www.artifactvirtual.com" target="_blank" rel="noopener">Home</a>
+        <a href="index.html">ARCx</a>
         <a href="transparency.html">Transparency</a>
-        <a href="whitepaper.html">Documentation</a>
+        <a href="bridge.html" class="active">Bridge</a>
+        <a href="documentation.html">Documentation</a>
       </div>
     </div>
   </nav>
 
-  <div class="container">
-    <div class="card">
-      <h1>Migration Bridge</h1>
-      <div class="divider"></div>
-      <p>The ARCx migration protocol enables transparent, auditable conversion from ARCx tokens to FUEL through a one-way burn mechanism. Migration preserves value while transitioning to the constitutional intelligence substrate.</p>
-
-      <div class="warning">
-        <strong>Status:</strong> Bridge configuration is pending ARC network deployment. This interface will become active when the FUEL ecosystem launches.
+  <!-- Main Container -->
+  <div class="main-container">
+    <!-- Hero Section -->
+    <div class="bridge-hero">
+      <div class="hero-content">
+        <h1>Bridge Protocol</h1>
+        <div class="divider"></div>
+        <p class="bridge-subtitle">
+          Constitutional bridge infrastructure enabling seamless token migration, cross-chain interoperability, 
+          and decentralized governance protocols. Built for the future of constitutional intelligence.
+        </p>
       </div>
     </div>
 
-    <div class="card">
-      <h2>Migration Mechanics</h2>
-      <div class="divider"></div>
-      
-      <div class="info-block">
-        <div class="contract-detail">
-          <span class="contract-label">Process Type</span>
-          <span class="contract-value">Burn-to-mint with cryptographic proof</span>
+    <!-- Bridge Overview -->
+    <div class="section-card">
+      <h2>
+        <svg class="section-icon" viewBox="0 0 24 24">
+          <path d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/>
+        </svg>
+        Bridge Architecture
+      </h2>
+      <p>
+        The ARCx bridge protocol implements a multi-layered architecture supporting internal token migrations, 
+        external cross-chain transfers, and constitutional governance bridges. Each bridge type serves specific 
+        functions within the ARTIFACT VIRTUAL ecosystem while maintaining security and decentralization.
+      </p>
+
+      <div class="bridge-types">
+        <div class="bridge-type internal">
+          <h4>
+            <svg class="bridge-icon" viewBox="0 0 24 24">
+              <path d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/>
+            </svg>
+            Internal Bridge
+          </h4>
+          <p>
+            Facilitates ARCx to FUEL token migration when the ARC network launches. 
+            Implements a one-way burn mechanism with cryptographic proof and full audit trail.
+          </p>
+          <div class="status-indicator planned">
+            <div class="status-dot"></div>
+            Planned for ARC Network Launch
+          </div>
         </div>
-        <div class="contract-detail">
-          <span class="contract-label">Conversion Ratio</span>
-          <span class="contract-value">1:1 ARCx to FUEL (subject to governance)</span>
+
+        <div class="bridge-type external">
+          <h4>
+            <svg class="bridge-icon" viewBox="0 0 24 24">
+              <path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+            </svg>
+            External Bridge
+          </h4>
+          <p>
+            Enables cross-chain ARCx transfers between supported networks. 
+            Uses lock-mint/burn-release mechanisms with validator consensus.
+          </p>
+          <div class="status-indicator pending">
+            <div class="status-dot"></div>
+            Development Phase
+          </div>
         </div>
-        <div class="contract-detail">
-          <span class="contract-label">Verification</span>
-          <span class="contract-value">On-chain proof, complete audit trail</span>
-        </div>
-        <div class="contract-detail">
-          <span class="contract-label">Reversibility</span>
-          <span class="contract-value">Irreversible burn operation</span>
+
+        <div class="bridge-type constitutional">
+          <h4>
+            <svg class="bridge-icon" viewBox="0 0 24 24">
+              <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
+            Constitutional Bridge
+          </h4>
+          <p>
+            Governance-activated bridge for protocol evolution and constitutional amendments. 
+            Requires community consensus and multi-signature approval.
+          </p>
+          <div class="status-indicator active">
+            <div class="status-dot"></div>
+            Constitutional Framework Active
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="card">
-      <h2>Migration Form</h2>
-      <div class="divider"></div>
+    <!-- Internal Bridge Details -->
+    <div class="section-card">
+      <h2>
+        <svg class="section-icon" viewBox="0 0 24 24">
+          <path d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/>
+        </svg>
+        Internal Bridge: ARCx → FUEL
+      </h2>
       
-      <form class="migration-form">
-        <div class="form-group">
-          <label class="form-label" for="wallet-address">Wallet Address</label>
-          <input type="text" id="wallet-address" class="form-input" placeholder="0x..." disabled>
-        </div>
-        
-        <div class="form-group">
-          <label class="form-label" for="migration-amount">ARCx Amount</label>
-          <input type="number" id="migration-amount" class="form-input" placeholder="0.0" min="0" step="any" disabled>
-        </div>
-        
-        <div class="warning">
-          <strong>Migration Notice:</strong> This process is irreversible and will permanently burn your ARCx tokens. Ensure you understand the constitutional implications before proceeding.
-        </div>
-        
-        <button type="submit" class="btn" disabled>Bridge Not Active</button>
-      </form>
-    </div>
+      <h3>Migration Protocol</h3>
+      <p>
+        The internal bridge enables the constitutional migration from ARCx tokens on Base to FUEL tokens 
+        on the ARC network. This migration represents the evolution from genesis funding to native ecosystem currency.
+      </p>
 
-    <div class="card">
-      <h2>Technical Specifications</h2>
-      <div class="divider"></div>
-      
-      <div class="info-block">
-        <div class="contract-detail">
-          <span class="contract-label">Bridge Contract</span>
-          <span class="contract-value">Pending configuration</span>
+      <div class="tech-specs">
+        <div class="spec-card">
+          <div class="spec-title">Migration Ratio</div>
+          <div class="spec-value">1:1 ARCx → FUEL</div>
+          <div class="spec-description">Direct conversion with no dilution or inflation</div>
         </div>
-        <div class="contract-detail">
-          <span class="contract-label">Gas Estimate</span>
-          <span class="contract-value">~150,000 gas for migration transaction</span>
+
+        <div class="spec-card">
+          <div class="spec-title">Burn Mechanism</div>
+          <div class="spec-value">Irreversible</div>
+          <div class="spec-description">ARCx tokens permanently removed from circulation</div>
         </div>
-        <div class="contract-detail">
-          <span class="contract-label">Confirmation Time</span>
-          <span class="contract-value">1-3 blocks on target network</span>
+
+        <div class="spec-card">
+          <div class="spec-title">Proof System</div>
+          <div class="spec-value">Merkle Tree + ZK-SNARK</div>
+          <div class="spec-description">Cryptographic verification of migration events</div>
         </div>
-        <div class="contract-detail">
-          <span class="contract-label">Network Compatibility</span>
-          <span class="contract-value">Base → ARC network bridge</span>
+
+        <div class="spec-card">
+          <div class="spec-title">Activation</div>
+          <div class="spec-value">Community Vote</div>
+          <div class="spec-description">Governance-controlled bridge activation</div>
         </div>
       </div>
 
-      <div style="margin-top: 2rem;">
-        <a href="arcx.html" class="btn btn-secondary">ARCx Token Details</a>
-        <a href="whitepaper.html" class="btn btn-secondary">Technical Documentation</a>
+      <div class="code-block" data-language="solidity">
+        <pre>// ARCx Internal Bridge Contract
+contract ARCxInternalBridge {
+    mapping(address => uint256) public migratedAmounts;
+    bytes32 public migrationMerkleRoot;
+    bool public migrationActive;
+    
+    event TokenMigration(
+        address indexed user,
+        uint256 amount,
+        bytes32 indexed proofHash,
+        uint256 timestamp
+    );
+    
+    function migrateTo_FUEL(
+        uint256 amount,
+        bytes32[] calldata merkleProof
+    ) external whenMigrationActive {
+        require(amount > 0, "Amount must be greater than zero");
+        require(verifyMigrationProof(msg.sender, amount, merkleProof), "Invalid proof");
+        
+        // Burn ARCx tokens permanently
+        _burn(msg.sender, amount);
+        
+        // Record migration for FUEL allocation
+        migratedAmounts[msg.sender] += amount;
+        
+        emit TokenMigration(msg.sender, amount, keccak256(merkleProof), block.timestamp);
+    }
+}</pre>
+      </div>
+
+      <h3>Migration Process</h3>
+      <ul class="bridge-list">
+        <li><strong>Phase 1:</strong> Community governance vote to activate migration</li>
+        <li><strong>Phase 2:</strong> ARC network deployment and FUEL contract initialization</li>
+        <li><strong>Phase 3:</strong> Bridge activation with Merkle root commitment</li>
+        <li><strong>Phase 4:</strong> User-initiated migrations with cryptographic proofs</li>
+        <li><strong>Phase 5:</strong> FUEL allocation on ARC network based on burn events</li>
+      </ul>
+
+      <div class="warning-block">
+        <h4>
+          <svg class="warning-icon" viewBox="0 0 24 24">
+            <path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+          </svg>
+          Migration Warning
+        </h4>
+        <p>
+          Migration is irreversible and permanently burns ARCx tokens. Ensure you understand the process 
+          and have verified the FUEL allocation before proceeding. Bridge will only activate after ARC network launch.
+        </p>
+      </div>
+    </div>
+
+    <!-- External Bridge Details -->
+    <div class="section-card">
+      <h2>
+        <svg class="section-icon" viewBox="0 0 24 24">
+          <path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+        </svg>
+        External Bridge: Cross-Chain Protocol
+      </h2>
+
+      <h3>Multi-Chain Architecture</h3>
+      <p>
+        The external bridge system enables ARCx token transfers across multiple blockchain networks, 
+        providing liquidity and accessibility for the broader DeFi ecosystem while maintaining security and decentralization.
+      </p>
+
+      <div class="tech-specs">
+        <div class="spec-card">
+          <div class="spec-title">Supported Networks</div>
+          <div class="spec-value">Base, Ethereum, Polygon</div>
+          <div class="spec-description">Expanding to additional EVM-compatible chains</div>
+        </div>
+
+        <div class="spec-card">
+          <div class="spec-title">Bridge Type</div>
+          <div class="spec-value">Lock-Mint / Burn-Release</div>
+          <div class="spec-description">Canonical token on Base, wrapped on others</div>
+        </div>
+
+        <div class="spec-card">
+          <div class="spec-title">Validator Set</div>
+          <div class="spec-value">7-of-11 Multisig</div>
+          <div class="spec-description">Distributed validator network with slashing</div>
+        </div>
+
+        <div class="spec-card">
+          <div class="spec-title">Security Model</div>
+          <div class="spec-value">Optimistic + ZK Verification</div>
+          <div class="spec-description">Challenge period with cryptographic proofs</div>
+        </div>
+      </div>
+
+      <h3>Bridge Operations</h3>
+      <ul class="bridge-list">
+        <li><strong>Deposit:</strong> Lock ARCx on Base, mint wrapped ARCx on destination</li>
+        <li><strong>Withdrawal:</strong> Burn wrapped ARCx, release canonical ARCx on Base</li>
+        <li><strong>Validation:</strong> Multi-signature confirmation with fraud proofs</li>
+        <li><strong>Disputes:</strong> Challenge period with automated slashing</li>
+        <li><strong>Emergency:</strong> Pause mechanism with governance override</li>
+      </ul>
+
+      <div class="code-block" data-language="solidity">
+        <pre>// External Bridge Interface
+interface IARCxExternalBridge {
+    struct BridgeRequest {
+        address user;
+        uint256 amount;
+        uint256 destinationChain;
+        bytes32 requestHash;
+        uint256 timestamp;
+    }
+    
+    function initiateBridge(
+        uint256 amount,
+        uint256 destinationChain,
+        address recipient
+    ) external;
+    
+    function completeBridge(
+        BridgeRequest calldata request,
+        bytes[] calldata signatures
+    ) external;
+    
+    function challengeBridge(
+        bytes32 requestHash,
+        bytes calldata fraudProof
+    ) external;
+}</pre>
+      </div>
+
+      <h3>Security Mechanisms</h3>
+      <ul class="bridge-list">
+        <li><strong>Time Delays:</strong> Configurable withdrawal periods for large amounts</li>
+        <li><strong>Rate Limiting:</strong> Maximum bridge amounts per time period</li>
+        <li><strong>Circuit Breakers:</strong> Automatic pause on unusual activity</li>
+        <li><strong>Upgradability:</strong> Controlled through governance with timelock</li>
+        <li><strong>Insurance:</strong> Protocol insurance fund for potential exploits</li>
+      </ul>
+    </div>
+
+    <!-- Constitutional Bridge -->
+    <div class="section-card">
+      <h2>
+        <svg class="section-icon" viewBox="0 0 24 24">
+          <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+        </svg>
+        Constitutional Bridge: Governance Protocol
+      </h2>
+
+      <h3>Governance-Activated Bridging</h3>
+      <p>
+        The constitutional bridge represents the highest level of protocol governance, enabling fundamental 
+        changes to token economics, protocol parameters, and ecosystem evolution through community consensus.
+      </p>
+
+      <div class="tech-specs">
+        <div class="spec-card">
+          <div class="spec-title">Activation Threshold</div>
+          <div class="spec-value">67% Supermajority</div>
+          <div class="spec-description">Community consensus required for activation</div>
+        </div>
+
+        <div class="spec-card">
+          <div class="spec-title">Proposal Period</div>
+          <div class="spec-value">14 Days Minimum</div>
+          <div class="spec-description">Extended review and discussion period</div>
+        </div>
+
+        <div class="spec-card">
+          <div class="spec-title">Implementation</div>
+          <div class="spec-value">Multi-Signature</div>
+          <div class="spec-description">Treasury safe execution with timelock</div>
+        </div>
+
+        <div class="spec-card">
+          <div class="spec-title">Emergency Override</div>
+          <div class="spec-value">9-of-11 Validators</div>
+          <div class="spec-description">Critical security response mechanism</div>
+        </div>
+      </div>
+
+      <h3>Constitutional Amendments</h3>
+      <ul class="bridge-list">
+        <li><strong>Protocol Evolution:</strong> Migration to new consensus mechanisms</li>
+        <li><strong>Economic Models:</strong> Changes to tokenomics and reward structures</li>
+        <li><strong>Governance Updates:</strong> Modifications to voting mechanisms</li>
+        <li><strong>Network Upgrades:</strong> Major protocol improvements and features</li>
+        <li><strong>Emergency Responses:</strong> Critical security and stability measures</li>
+      </ul>
+
+      <div class="code-block" data-language="solidity">
+        <pre>// Constitutional Bridge Governance
+contract ConstitutionalBridge {
+    struct ConstitutionalProposal {
+        bytes32 proposalHash;
+        uint256 forVotes;
+        uint256 againstVotes;
+        uint256 proposalTime;
+        bool executed;
+        mapping(address => bool) hasVoted;
+    }
+    
+    uint256 public constant SUPERMAJORITY_THRESHOLD = 6700; // 67%
+    uint256 public constant MINIMUM_PROPOSAL_PERIOD = 14 days;
+    
+    function proposeConstitutionalChange(
+        bytes calldata proposalData,
+        string calldata description
+    ) external onlyGovernor;
+    
+    function voteOnProposal(
+        bytes32 proposalHash,
+        bool support
+    ) external onlyTokenHolder;
+    
+    function executeConstitutionalChange(
+        bytes32 proposalHash
+    ) external onlyAfterSupermajority;
+}</pre>
+      </div>
+    </div>
+
+    <!-- Technical Implementation -->
+    <div class="section-card">
+      <h2>
+        <svg class="section-icon" viewBox="0 0 24 24">
+          <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+        </svg>
+        Technical Implementation
+      </h2>
+
+      <h3>Security Architecture</h3>
+      <p>
+        All bridge protocols implement defense-in-depth security with multiple verification layers, 
+        formal verification, and extensive testing to ensure the safety of user funds and protocol integrity.
+      </p>
+
+      <div class="tech-specs">
+        <div class="spec-card">
+          <div class="spec-title">Formal Verification</div>
+          <div class="spec-value">TLA+ Specifications</div>
+          <div class="spec-description">Mathematical proof of protocol correctness</div>
+        </div>
+
+        <div class="spec-card">
+          <div class="spec-title">Audit Coverage</div>
+          <div class="spec-value">100% Code Coverage</div>
+          <div class="spec-description">Comprehensive security auditing</div>
+        </div>
+
+        <div class="spec-card">
+          <div class="spec-title">Bug Bounty</div>
+          <div class="spec-value">$500K Maximum</div>
+          <div class="spec-description">Incentivized security research</div>
+        </div>
+
+        <div class="spec-card">
+          <div class="spec-title">Monitoring</div>
+          <div class="spec-value">24/7 Automated</div>
+          <div class="spec-description">Real-time anomaly detection</div>
+        </div>
+      </div>
+
+      <h3>Development Roadmap</h3>
+      <ul class="bridge-list">
+        <li class="active-phase"><strong>Q2 2025:</strong> Protocol evolution and ecosystem expansion</li>
+        <li><strong>Q3 2025:</strong> Internal bridge design and community governance</li>
+        <li><strong>Q4 2025:</strong> External bridge development and testing</li>
+        <li><strong>Q1 2026:</strong> Constitutional bridge framework implementation</li>
+        <li><strong>Q2 2026:</strong> Cross-chain deployment and liquidity bootstrapping</li>
+      </ul>
+
+      <div class="warning-block">
+        <h4>
+          <svg class="warning-icon" viewBox="0 0 24 24">
+            <path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+          </svg>
+          Development Notice
+        </h4>
+        <p>
+          Bridge protocols are under active development. Features and timelines may change based on 
+          security audits, community feedback, and technical requirements. Always verify latest 
+          information through official channels before using bridge functionality.
+        </p>
       </div>
     </div>
   </div>
+
+  <script>
+    // Parallax effect for background
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+      const rate = scrolled * -0.3;
+      
+      document.querySelector('.bridge-pattern').style.transform = `translateY(${rate}px)`;
+    });
+
+    // Intersection Observer for card animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.section-card').forEach(card => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(30px)';
+      card.style.transition = 'all 0.6s ease';
+      observer.observe(card);
+    });
+
+    // Bridge type hover effects
+    document.querySelectorAll('.bridge-type').forEach(type => {
+      type.addEventListener('mouseenter', () => {
+        type.style.transform = 'translateY(-4px) scale(1.02)';
+      });
+      
+      type.addEventListener('mouseleave', () => {
+        type.style.transform = 'translateY(-2px) scale(1)';
+      });
+    });
+  </script>
 </body>
 </html>
