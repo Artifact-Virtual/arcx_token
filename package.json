@@ -8,6 +8,7 @@
     "test": "hardhat test"
   },
   "dependencies": {
+    "@nomicfoundation/solidity-analyzer-win32-x64-msvc": "^0.1.2",
     "dotenv": "^16.6.1"
   },
   "devDependencies": {
