@@ -137,6 +137,7 @@ ARCx is a funding instrument that bootstraps the Arc Protocol development and co
 
 **Master Vesting Contract (ARCx_MVC.sol):**
 - **Contract Address:** [`0xEEc0298bE76C9C3224eA05a34687C1a1134d550B`](https://basescan.org/address/0xEEc0298bE76C9C3224eA05a34687C1a1134d550B)
+- **Verification Status:** ✅ Verified on [BaseScan](https://basescan.org/address/0xEEc0298bE76C9C3224eA05a34687C1a1134d550B#code) and [Sourcify](https://repo.sourcify.dev/contracts/full_match/8453/0xEEc0298bE76C9C3224eA05a34687C1a1134d550B)
 - **Deployed:** August 3, 2025
 - **Block Number:** 33,724,124
 - **Transaction:** [`0x686ef0a5138cd3869070f91d3145b279bf03d8044845d432468bfddb840b0911`](https://basescan.org/tx/0x686ef0a5138cd3869070f91d3145b279bf03d8044845d432468bfddb840b0911)
