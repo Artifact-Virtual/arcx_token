@@ -354,11 +354,12 @@ REPORT_GAS=true npx hardhat test
 
 ## Project Status
 
-**Current Phase:** ✅ **DEPLOYMENT COMPLETE - TREASURY SETUP READY**
+**Current Phase:** ✅ **DEPLOYMENT COMPLETE - ALL SYSTEMS OPERATIONAL**
 
 - **Token Contract:** ✅ DEPLOYED & VERIFIED (Base Mainnet)
 - **Vesting Contract:** ✅ DEPLOYED & FUNDED (Base Mainnet)  
 - **Token Distribution:** ✅ COMPLETE (Treasury Safe: 800K, MVC: 200K)
+- **Core Team Vesting:** ✅ ACTIVE (12mo cliff, 36mo linear, ~5,556 ARCx/month)
 - **Gas Optimization:** ✅ SUB-CENT ACHIEVED (~$0.001 USD per transaction)
 - **Security:** All 568 dependencies verified secure; zero vulnerabilities.
 - **Treasury Integration:** ✅ Safe multisig controls all operations.
@@ -368,8 +369,11 @@ REPORT_GAS=true npx hardhat test
 - **MVC Contract:** `0xEEc0298bE76C9C3224eA05a34687C1a1134d550B` ✅  
 - **Treasury Safe:** `0x8F8fdBFa1AF9f53973a7003CbF26D854De9b2f38` ✅
 
-**Final Step:**
-- **Core Team Vesting:** Treasury Safe execution required (transaction data provided)
+**Vesting Schedule Active:**
+- **Start Date:** August 15, 2025
+- **Cliff Period:** 12 months (tokens unlock August 15, 2026)
+- **Total Duration:** 36 months linear vesting
+- **Monthly Release:** ~5,556 ARCx after cliff period
 
 ---
 
