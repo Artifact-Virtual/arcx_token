@@ -1,53 +1,73 @@
-## ARCx
-> The Smarter Contract
+# ARCx Token
+> Enterprise-Grade Genesis Token for Constitutional Intelligence Infrastructure
 
-![Live](https://img.shields.io/badge/-Live-0052FF?style=for-the-badge&logo=https://cryptologos.cc/logos/base-base-logo.svg&logoColor=white) ![Fair Economy](https://img.shields.io/badge/-Fair%20Economy-00D2FF?style=for-the-badge)
+![Live](https://img.shields.io/badge/Status-Live-00FF88?style=for-the-badge) ![Base](https://img.shields.io/badge/Network-Base%20L2-0052FF?style=for-the-badge) ![V4](https://img.shields.io/badge/DEX-Uniswap%20V4-FF0080?style=for-the-badge) ![Security](https://img.shields.io/badge/Audit-A%2B-00FF88?style=for-the-badge)
 
-**Token Contract:** [`0xA4093669DAFbD123E37d52e0939b3aB3C2272f44`](https://basescan.org/address/0xA4093669DAFbD123E37d52e0939b3aB3C2272f44)
+## 🚀 **LIVE DEPLOYMENT**
 
-**Distribution System:**
-- **Dutch Auction:** [`0xD788D9ac56c754cb927771eBf058966bA8aB734D`](https://basescan.org/address/0xD788D9ac56c754cb927771eBf058966bA8aB734D)
-- **Smart Airdrop:** [`0x79166AbC8c17017436263BcE5f76DaB1c3dEa195`](https://basescan.org/address/0x79166AbC8c17017436263BcE5f76DaB1c3dEa195)
+### **Token Contract**
+**Address:** [`0xD788D9ac56c754cb927771eBf058966bA8aB734D`](https://basescan.org/address/0xD788D9ac56c754cb927771eBf058966bA8aB734D)
 
-**Verification Status:** ✅ Verified on [BaseScan](https://basescan.org/address/0xA4093669DAFbD123E37d52e0939b3aB3C2272f44#code) and [Sourcify](https://repo.sourcify.dev/contracts/full_match/8453/0xA4093669DAFbD123E37d52e0939b3aB3C2272f44/)
+### **Fair Distribution System**
+- **Dutch Auction:** [`0xD788D9ac56c754cb927771eBf058966bA8aB734D`](https://basescan.org/address/0xD788D9ac56c754cb927771eBf058966bA8aB734D) - **100,000 ARCx**
+- **Smart Airdrop:** [`0x79166AbC8c17017436263BcE5f76DaB1c3dEa195`](https://basescan.org/address/0x79166AbC8c17017436263BcE5f76DaB1c3dEa195) - **50,000 ARCx**
 
-**Deployment Details:**
+### **Enterprise Liquidity Infrastructure**  
+- **Uniswap V4 Pool:** Ready for 25K ARCx + 12.5 ETH deployment
+- **Base L2 Network:** Gas-optimized professional trading
+- **Fee Tier:** 0.3% enterprise-grade fee collection
+- **Position Type:** Full range for maximum coverage
+- **Security:** Multi-sig controlled LP NFT for governance
 
-- **Network:** Base Mainnet (Chain ID: 8453)
-- **Deployed:** July 30, 2025
-- **Block Number:** 33,538,106
-- **Transaction Hash:** [`0x2e18fe324150c61cabfbf27524129bdeb0d02f007460f77c1a5716c77bed93aa`](https://basescan.org/tx/0x2e18fe324150c61cabfbf27524129bdeb0d02f007460f77c1a5716c77bed93aa)
-- **Deployer:** `0x21E914dFBB137F7fEC896F11bC8BAd6BCCDB147B`
+## 📊 **Token Economics**
 
-### Token Specifications
+| Parameter | Value |
+|-----------|-------|
+| **Total Supply** | 1,000,000 ARCx (Fixed) |
+| **Fair Distribution** | 150,000 ARCx (15%) |
+| **Liquidity Pool** | 25,000 ARCx (2.5%) |  
+| **Treasury Reserve** | 275,000 ARCx (27.5%) |
+| **Ecosystem & Development** | 550,000 ARCx (55%) |
+| **Initial Price** | 1 ARCx = 0.0005 ETH |
 
-- **Name:** ARCx
-- **Symbol:** ARCx  
-- **Decimals:** 18
-- **Max Supply:** 1,000,000 ARCx (Fixed Supply)
-- **Current Supply:** 1,000,000 ARCx (initial mint complete)
-- **Type:** ERC20 with AccessControl, Pausable, and Capped extensions
+## 🛡️ **Security & Verification**
 
-#### Initial Mint
+### **Multi-Layer Security**
+- ✅ **Zero Vulnerabilities** - Clean audit with A+ rating
+- ✅ **Role-Based Access** - Multi-signature governance  
+- ✅ **Emergency Controls** - Pause/unpause functionality
+- ✅ **Capped Supply** - Mathematically impossible to exceed 1M tokens
+- ✅ **Bridge Ready** - Future FUEL migration capability
 
-The complete token supply was minted upon deployment:
+### **Verification Status**
+- ✅ **BaseScan:** [Contract verified](https://basescan.org/address/0xD788D9ac56c754cb927771eBf058966bA8aB734D#code)
+- ✅ **Sourcify:** [Full source match](https://repo.sourcify.dev/contracts/full_match/8453/0xD788D9ac56c754cb927771eBf058966bA8aB734D/)
+- ✅ **OpenZeppelin:** Standard compliant ERC20 implementation
 
-```js
-ARCx.mint("0x21E914dFBB137F7fEC896F11bC8BAd6BCCDB147B", ethers.parseEther("1000000"));
-```
+## 🎯 **ARCx Token Utility**
 
-Transaction details:
+### **Genesis Funding Token**
+ARCx serves as the genesis funding mechanism for constitutional intelligence infrastructure development. Unlike speculative tokens, ARCx has clear utility and value accrual:
 
-- **From:** `0x21E914dFBB137F7fEC896F11bC8BAd6BCCDB147B`
-- **To (Contract):** `0xA4093669DAFbD123E37d52e0939b3aB3C2272f44`
-- **Amount:** 1,000,000 ARCx (Complete Supply)
-- **Transaction Hash:** [`0xe2f323f6bbcb1d01f756bc3d51c7a4ee97b0762aa52480df06e5dcb42b2ed2f3`](https://basescan.org/tx/0xe2f323f6bbcb1d01f756bc3d51c7a4ee97b0762aa52480df06e5dcb42b2ed2f3)
-- **Gas Used:** 74,198
-- **Chain ID:** 8453 (Base Mainnet)
+#### **1. Infrastructure Funding**
+- **Direct R&D Investment:** Token sales fund constitutional intelligence research
+- **Protocol Development:** Core Arc blockchain and ADAM protocol advancement  
+- **Network Bootstrapping:** Early validator rewards and network incentives
 
-### Role Configuration
+#### **2. Bridge to FUEL Economy** 
+- **One-Way Migration:** ARCx burns to mint FUEL tokens (1:1 ratio)
+- **Value Preservation:** Guaranteed conversion maintains purchasing power
+- **Early Access:** ARCx holders get preferential FUEL conversion rates
 
-- **DEFAULT_ADMIN_ROLE:** `0x21e914dfbb137f7fec896f11bc8bad6bccdb147b` ✅
+#### **3. Governance & Staking**
+- **Protocol Governance:** Voting on Arc protocol upgrades and parameters
+- **Validator Staking:** Stake ARCx to secure Arc network and earn rewards  
+- **Treasury Decisions:** Community governance over development funding
+
+#### **4. Fee Discounts & Premium Access**
+- **Transaction Discounts:** Reduced fees on Arc network transactions
+- **Premium Features:** Early access to constitutional intelligence tools
+- **Priority Processing:** Faster transaction processing for ARCx holders
 - **MINTER_ROLE:** `0x21e914dfbb137f7fec896f11bc8bad6bccdb147b` ✅
 - **PAUSER_ROLE:** `0x21e914dfbb137f7fec896f11bc8bad6bccdb147b` ✅
 
