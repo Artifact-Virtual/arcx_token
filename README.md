@@ -370,10 +370,17 @@ REPORT_GAS=true npx hardhat test
 - **Treasury Safe:** `0x8F8fdBFa1AF9f53973a7003CbF26D854De9b2f38` ✅
 
 **Vesting Schedule Active:**
-- **Start Date:** August 15, 2025
-- **Cliff Period:** 12 months (tokens unlock August 15, 2026)
-- **Total Duration:** 36 months linear vesting
-- **Monthly Release:** ~5,556 ARCx after cliff period
+- **Core Team (Treasury Safe):**
+  - Start Date: August 15, 2025
+  - Cliff Period: 12 months (tokens unlock August 15, 2026)
+  - Total Duration: 36 months linear vesting
+  - Monthly Release: ~5,556 ARCx after cliff period
+- **Ecosystem Bootstrap (Ecosystem Safe):**
+  - Beneficiary: `0x2ebCb38562051b02dae9cAca5ed8Ddb353d225eb`
+  - Amount: 200,000 ARCx
+  - Cliff Period: 6 months (tokens unlock February 13, 2026)
+  - Total Duration: 24 months linear vesting
+  - Monthly Release: ~10,959 ARCx after cliff period
 
 ---
 
