@@ -425,56 +425,76 @@
         // Handle purchase
         async function handlePurchase() {
             try {
+                log('🔥 Purchase button clicked!');
+                
                 if (!window.auctionApp.isConnected) {
+                    log('❌ Wallet not connected');
                     showMessage('Please connect your wallet first', 'error');
                     return;
                 }
+                log('✅ Wallet is connected');
                 
                 const ethAmount = document.getElementById('ethAmount').value;
+                log(`💰 ETH Amount entered: ${ethAmount}`);
+                
                 if (!ethAmount || parseFloat(ethAmount) <= 0) {
+                    log('❌ Invalid ETH amount');
                     showMessage('Please enter a valid ETH amount', 'error');
                     return;
                 }
+                log('✅ ETH amount is valid');
                 
                 if (!window.auctionApp.auctionData.isActive) {
+                    log('❌ Auction not active');
                     showMessage('Auction has ended', 'error');
                     return;
                 }
+                log('✅ Auction is active');
                 
                 log('Starting purchase transaction...');
                 showMessage('Initiating purchase...', 'info');
                 
                 // Create contract instance with signer
+                log('📝 Creating contract instance...');
                 const contract = new window.auctionApp.ethers.Contract(
                     AUCTION_ADDRESS, 
                     AUCTION_ABI, 
                     window.auctionApp.signer
                 );
+                log('✅ Contract instance created');
                 
                 // Send transaction
+                log('📤 Sending transaction...');
+                const ethValue = window.auctionApp.ethers.utils.parseEther(ethAmount);
+                log(`💎 Parsed ETH value: ${ethValue.toString()}`);
+                
                 const tx = await contract.purchase({
-                    value: window.auctionApp.ethers.utils.parseEther(ethAmount),
+                    value: ethValue,
                     gasLimit: 200000
                 });
                 
-                log(`Transaction sent: ${tx.hash}`);
+                log(`✅ Transaction sent: ${tx.hash}`);
                 showMessage('Transaction submitted! Waiting for confirmation...', 'info');
                 
                 // Wait for confirmation
+                log('⏳ Waiting for confirmation...');
                 const receipt = await tx.wait();
                 
-                log(`Transaction confirmed in block ${receipt.blockNumber}`);
+                log(`🎉 Transaction confirmed in block ${receipt.blockNumber}`);
                 showMessage(`Purchase successful! Transaction: ${receipt.transactionHash}`, 'success');
                 
                 // Refresh auction data
+                log('🔄 Refreshing auction data...');
                 await loadAuctionData();
                 
                 // Clear form
                 document.getElementById('ethAmount').value = '';
                 document.getElementById('arcxAmount').value = '';
+                log('✅ Purchase complete!');
                 
             } catch (error) {
                 log('❌ Purchase failed: ' + error.message);
+                log('📋 Error details:', error);
                 
                 let errorMessage = 'Transaction failed';
                 if (error.message.includes('user rejected')) {
