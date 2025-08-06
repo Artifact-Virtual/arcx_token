@@ -494,17 +494,30 @@
                 
             } catch (error) {
                 log('❌ Purchase failed: ' + error.message);
-                log('📋 Error details:', error);
+                console.error('Full error object:', error);
                 
-                let errorMessage = 'Transaction failed';
+                // Show the full error in debug
+                if (error.data && error.data.message) {
+                    log('� Contract error: ' + error.data.message);
+                }
+                if (error.reason) {
+                    log('💥 Error reason: ' + error.reason);
+                }
+                if (error.code) {
+                    log('💥 Error code: ' + error.code);
+                }
+                
+                let errorMessage = 'Transaction failed: ' + error.message;
                 if (error.message.includes('user rejected')) {
                     errorMessage = 'Transaction rejected by user';
                 } else if (error.message.includes('insufficient funds')) {
                     errorMessage = 'Insufficient ETH balance';
                 } else if (error.code === 'UNPREDICTABLE_GAS_LIMIT') {
-                    errorMessage = 'Transaction would fail - please check your inputs';
+                    errorMessage = 'Transaction would fail - check auction is still active';
                 } else if (error.message.includes('auction has ended') || error.message.includes('not active')) {
                     errorMessage = 'Auction has ended';
+                } else if (error.reason) {
+                    errorMessage = 'Contract error: ' + error.reason;
                 }
                 
                 showMessage(errorMessage, 'error');
