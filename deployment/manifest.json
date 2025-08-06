@@ -1,0 +1,18 @@
+﻿{
+  "name": "ARCx Dutch Auction Interface",
+  "version": "1.0.0",
+  "description": "Professional Web3 interface for ARCx token Dutch auction",
+  "network": "Base L2 Mainnet",
+  "contracts": {
+    "arcx_token": "0xA4093669DAFbD123E37d52e0939b3aB3C2272f44",
+    "dutch_auction": "0x5Da5F567553C8D4F12542Ba608F41626f77Aa836"
+  },
+  "features": [
+    "MetaMask wallet connection",
+    "Real-time auction pricing",
+    "Base L2 network support",
+    "Responsive design",
+    "Professional ARCx branding"
+  ],
+  "status": "LIVE"
+}

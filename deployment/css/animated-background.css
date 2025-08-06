@@ -1,0 +1,320 @@
+/* Animated Background Patterns for ARCx */
+
+/* Main animated background container */
+.animated-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
+
+/* Floating geometric patterns */
+.bg-pattern {
+  position: absolute;
+  opacity: 0.03;
+  animation: float 20s ease-in-out infinite;
+}
+
+.bg-pattern:nth-child(1) {
+  top: 10%;
+  left: 5%;
+  width: 200px;
+  height: 200px;
+  border: 1px solid #0052ff;
+  border-radius: 50%;
+  animation-delay: 0s;
+  animation-duration: 25s;
+}
+
+.bg-pattern:nth-child(2) {
+  top: 60%;
+  right: 10%;
+  width: 150px;
+  height: 150px;
+  border: 1px solid #00d4ff;
+  transform: rotate(45deg);
+  animation-delay: -5s;
+  animation-duration: 30s;
+}
+
+.bg-pattern:nth-child(3) {
+  bottom: 20%;
+  left: 15%;
+  width: 180px;
+  height: 180px;
+  border: 1px solid #0052ff;
+  border-radius: 20px;
+  animation-delay: -10s;
+  animation-duration: 22s;
+}
+
+.bg-pattern:nth-child(4) {
+  top: 30%;
+  right: 25%;
+  width: 120px;
+  height: 120px;
+  border: 1px solid #00d4ff;
+  border-radius: 50%;
+  animation-delay: -15s;
+  animation-duration: 28s;
+}
+
+.bg-pattern:nth-child(5) {
+  bottom: 40%;
+  right: 5%;
+  width: 160px;
+  height: 160px;
+  border: 1px solid #0052ff;
+  transform: rotate(30deg);
+  animation-delay: -8s;
+  animation-duration: 26s;
+}
+
+/* Flowing lines */
+.bg-line {
+  position: absolute;
+  opacity: 0.02;
+  background: linear-gradient(45deg, transparent, #0052ff, transparent);
+  animation: flow 15s linear infinite;
+}
+
+.bg-line:nth-child(6) {
+  top: 0;
+  left: 20%;
+  width: 2px;
+  height: 100vh;
+  animation-delay: 0s;
+  transform: rotate(15deg);
+}
+
+.bg-line:nth-child(7) {
+  top: 0;
+  right: 30%;
+  width: 1px;
+  height: 100vh;
+  animation-delay: -3s;
+  transform: rotate(-10deg);
+}
+
+.bg-line:nth-child(8) {
+  top: 0;
+  left: 60%;
+  width: 1px;
+  height: 100vh;
+  animation-delay: -6s;
+  transform: rotate(8deg);
+}
+
+/* Subtle grid overlay */
+.bg-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.01;
+  background-image: 
+    linear-gradient(rgba(0, 82, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 82, 255, 0.1) 1px, transparent 1px);
+  background-size: 100px 100px;
+  animation: gridShift 40s ease-in-out infinite;
+}
+
+/* Breathing orbs */
+.bg-orb {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 212, 255, 0.02), transparent);
+  animation: breathe 8s ease-in-out infinite;
+}
+
+.bg-orb:nth-child(10) {
+  top: 15%;
+  left: 80%;
+  width: 300px;
+  height: 300px;
+  animation-delay: 0s;
+}
+
+.bg-orb:nth-child(11) {
+  bottom: 10%;
+  left: 10%;
+  width: 250px;
+  height: 250px;
+  animation-delay: -4s;
+}
+
+.bg-orb:nth-child(12) {
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  height: 400px;
+  animation-delay: -2s;
+  transform: translate(-50%, -50%);
+}
+
+/* Keyframe animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0.03;
+  }
+  25% {
+    transform: translateY(-20px) rotate(2deg);
+    opacity: 0.05;
+  }
+  50% {
+    transform: translateY(-10px) rotate(-1deg);
+    opacity: 0.02;
+  }
+  75% {
+    transform: translateY(-30px) rotate(1deg);
+    opacity: 0.04;
+  }
+}
+
+@keyframes flow {
+  0% {
+    transform: translateY(-100vh) rotate(15deg);
+    opacity: 0;
+  }
+  10%, 90% {
+    opacity: 0.02;
+  }
+  100% {
+    transform: translateY(100vh) rotate(15deg);
+    opacity: 0;
+  }
+}
+
+@keyframes gridShift {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(10px, 5px);
+  }
+  50% {
+    transform: translate(-5px, 10px);
+  }
+  75% {
+    transform: translate(5px, -5px);
+  }
+}
+
+@keyframes breathe {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.02;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.04;
+  }
+}
+
+/* Particle system */
+.bg-particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: #00d4ff;
+  border-radius: 50%;
+  opacity: 0.1;
+  animation: particle 12s linear infinite;
+}
+
+.bg-particle:nth-child(13) {
+  top: 20%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.bg-particle:nth-child(14) {
+  top: 70%;
+  left: 90%;
+  animation-delay: -3s;
+}
+
+.bg-particle:nth-child(15) {
+  top: 40%;
+  left: 70%;
+  animation-delay: -6s;
+}
+
+.bg-particle:nth-child(16) {
+  top: 80%;
+  left: 30%;
+  animation-delay: -9s;
+}
+
+@keyframes particle {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  10%, 90% {
+    opacity: 0.1;
+  }
+  100% {
+    transform: translate(100px, -100px);
+    opacity: 0;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .bg-pattern {
+    opacity: 0.02;
+  }
+  
+  .bg-orb {
+    opacity: 0.8;
+  }
+  
+  .bg-grid {
+    background-size: 50px 50px;
+    opacity: 0.005;
+  }
+  
+  .bg-line {
+    opacity: 0.01;
+  }
+}
+
+/* Performance optimization */
+.animated-background * {
+  will-change: transform, opacity;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+/* Additional subtle effects for enhanced immersion */
+.bg-wave {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.008;
+  background: linear-gradient(
+    45deg,
+    transparent 49%,
+    rgba(0, 82, 255, 0.1) 50%,
+    transparent 51%
+  );
+  animation: waveMove 25s ease-in-out infinite;
+}
+
+@keyframes waveMove {
+  0%, 100% {
+    transform: translateX(-100px) skewX(0deg);
+  }
+  50% {
+    transform: translateX(100px) skewX(2deg);
+  }
+}

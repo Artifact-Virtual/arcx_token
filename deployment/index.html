@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARCx Dutch Auction - Constitutional Intelligence</title>
+    <script src="https://cdn.ethers.io/lib/ethers-5.7.2.umd.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap');
+        
+        :root {
+            --primary-green: #00FF88;
+            --primary-blue: #0052FF;
+            --dark-bg: #0a0a0f;
+            --card-bg: #1a1a2e;
+            --accent-bg: #16213e;
+            --text-primary: #ffffff;
+            --text-secondary: #b4b4b4;
+            --border-color: #333;
+            --error-color: #ff4757;
+            --warning-color: #ffa502;
+            --success-color: #2ed573;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(ellipse at 20% 50%, rgba(0, 255, 136, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(0, 82, 255, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, var(--dark-bg), #0d0d1a);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px 0;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--primary-green), var(--primary-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        .auction-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-green), var(--primary-blue));
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--primary-green);
+        }
+
+        .price-display {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .current-price {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            margin-bottom: 10px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .price-label {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        .price-trend {
+            font-size: 0.9rem;
+            color: var(--warning-color);
+        }
+
+        .auction-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+            background: var(--accent-bg);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .purchase-section {
+            grid-column: 1 / -1;
+        }
+
+        .wallet-status {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: var(--accent-bg);
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border-color);
+        }
+
+        .wallet-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--error-color);
+        }
+
+        .status-dot.connected {
+            background: var(--success-color);
+        }
+
+        .wallet-address {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-secondary);
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        .input-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 16px;
+            background: var(--accent-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 2px rgba(0, 255, 136, 0.2);
+        }
+
+        .button {
+            padding: 16px 24px;
+            border: none;
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.95rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--primary-green), var(--primary-blue));
+            color: white;
+            width: 100%;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 255, 136, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--accent-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary-green);
+        }
+
+        .button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .auction-timer {
+            text-align: center;
+            padding: 30px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 30px;
+        }
+
+        .timer-label {
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+
+        .countdown {
+            font-size: 2.5rem;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--primary-green);
+        }
+
+        .auction-ended {
+            color: var(--error-color);
+        }
+
+        .auction-info {
+            background: var(--accent-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .info-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .loading {
+            opacity: 0.6;
+        }
+
+        .error-message {
+            background: rgba(255, 71, 87, 0.1);
+            border: 1px solid var(--error-color);
+            color: var(--error-color);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .success-message {
+            background: rgba(46, 213, 115, 0.1);
+            border: 1px solid var(--success-color);
+            color: var(--success-color);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        @media (max-width: 768px) {
+            .auction-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .auction-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .current-price {
+                font-size: 2.5rem;
+            }
+            
+            .countdown {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    
+    <div class="container">
+        <header class="header">
+            <div class="logo">ARCx</div>
+            <div class="tagline">Constitutional Intelligence Infrastructure</div>
+        </header>
+        
+        <div class="auction-timer">
+            <div class="timer-label" id="timerLabel">Auction Status</div>
+            <div class="countdown" id="countdown">Loading...</div>
+        </div>
+        
+        <div class="auction-grid">
+            <div class="card">
+                <h2 class="card-title">Current Price</h2>
+                <div class="price-display">
+                    <div class="current-price" id="currentPrice">--.------</div>
+                    <div class="price-label">ETH per ARCx</div>
+                    <div class="price-trend" id="priceTrend">Price declining over time</div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2 class="card-title">Auction Statistics</h2>
+                <div class="auction-stats">
+                    <div class="stat-item">
+                        <div class="stat-value" id="tokensAvailable">---</div>
+                        <div class="stat-label">Available</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="tokensSold">---</div>
+                        <div class="stat-label">Sold</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="totalRaised">---</div>
+                        <div class="stat-label">ETH Raised</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="yourTokens">---</div>
+                        <div class="stat-label">Your ARCx</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card purchase-section">
+                <h2 class="card-title">Participate in Auction</h2>
+                
+                <div class="wallet-status">
+                    <div class="wallet-info">
+                        <div class="status-dot" id="statusDot"></div>
+                        <div>
+                            <div id="walletStatus">Not Connected</div>
+                            <div class="wallet-address" id="walletAddress"></div>
+                        </div>
+                    </div>
+                    <button id="connectWallet" class="button btn-secondary">Connect Wallet</button>
+                </div>
+                
+                <div id="purchaseForm">
+                    <div class="input-group">
+                        <label class="input-label" for="ethAmount">ETH Amount</label>
+                        <input type="number" id="ethAmount" class="input-field" placeholder="0.1" step="0.001" min="0">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label class="input-label" for="arcxAmount">ARCx Tokens (Estimated)</label>
+                        <input type="number" id="arcxAmount" class="input-field" placeholder="0" readonly>
+                    </div>
+                    
+                    <div class="auction-info">
+                        <div class="info-row">
+                            <span>Network:</span>
+                            <span>Base L2</span>
+                        </div>
+                        <div class="info-row">
+                            <span>Gas Fees:</span>
+                            <span>~$0.01</span>
+                        </div>
+                        <div class="info-row">
+                            <span>Max Purchase:</span>
+                            <span>10,000 ARCx</span>
+                        </div>
+                    </div>
+                    
+                    <button id="purchaseBtn" class="button btn-primary" disabled>
+                        Connect Wallet to Purchase
+                    </button>
+                    
+                    <div id="messageArea"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="auction-info">
+            <div class="info-row">
+                <span>Contract Address:</span>
+                <span style="font-family: 'JetBrains Mono', monospace;">0x5Da5F567553C8D4F12542Ba608F41626f77Aa836</span>
+            </div>
+            <div class="info-row">
+                <span>Token Address:</span>
+                <span style="font-family: 'JetBrains Mono', monospace;">0xA4093669DAFbD123E37d52e0939b3aB3C2272f44</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Contract configuration
+        const AUCTION_ADDRESS = "0x5Da5F567553C8D4F12542Ba608F41626f77Aa836";
+        const TOKEN_ADDRESS = "0xA4093669DAFbD123E37d52e0939b3aB3C2272f44";
+        const BASE_CHAIN_ID = 8453;
+        
+        // Contract ABIs
+        const AUCTION_ABI = [
+            "function getCurrentPrice() view returns (uint256)",
+            "function totalTokens() view returns (uint256)",
+            "function tokensSold() view returns (uint256)",
+            "function startTime() view returns (uint256)",
+            "function endTime() view returns (uint256)",
+            "function userPurchases(address) view returns (uint256)",
+            "function totalRaised() view returns (uint256)",
+            "function purchase() payable",
+            "event TokensPurchased(address indexed buyer, uint256 amount, uint256 price)"
+        ];
+        
+        let provider, signer, auctionContract;
+        let isConnected = false;
+        let auctionData = {};
+        
+        // Initialize
+        async function init() {
+            console.log('🚀 Initializing ARCx Auction Interface');
+            
+            // Check for existing wallet connection
+            if (typeof window.ethereum !== 'undefined') {
+                try {
+                    const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+                    if (accounts.length > 0) {
+                        await connectWallet(false);
+                    }
+                } catch (error) {
+                    console.error('Error checking wallet connection:', error);
+                }
+            }
+            
+            // Start data updates
+            await updateAuctionData();
+            setInterval(updateAuctionData, 15000); // Update every 15 seconds
+        }
+        
+        // Connect wallet
+        async function connectWallet(userInitiated = true) {
+            if (typeof window.ethereum === 'undefined') {
+                showMessage('Please install MetaMask or a compatible wallet', 'error');
+                return;
+            }
+            
+            try {
+                if (userInitiated) {
+                    await window.ethereum.request({ method: 'eth_requestAccounts' });
+                }
+                
+                // Switch to Base network
+                await switchToBase();
+                
+                // Set up provider
+                provider = new ethers.providers.Web3Provider(window.ethereum);
+                signer = provider.getSigner();
+                
+                const address = await signer.getAddress();
+                const network = await provider.getNetwork();
+                
+                if (network.chainId !== BASE_CHAIN_ID) {
+                    throw new Error('Please switch to Base network');
+                }
+                
+                // Update UI
+                document.getElementById('walletStatus').textContent = 'Connected';
+                document.getElementById('walletAddress').textContent = `${address.slice(0, 6)}...${address.slice(-4)}`;
+                document.getElementById('statusDot').className = 'status-dot connected';
+                document.getElementById('connectWallet').textContent = 'Disconnect';
+                document.getElementById('purchaseBtn').disabled = false;
+                document.getElementById('purchaseBtn').textContent = 'Purchase ARCx';
+                
+                // Set up contract
+                auctionContract = new ethers.Contract(AUCTION_ADDRESS, AUCTION_ABI, signer);
+                
+                isConnected = true;
+                
+                // Update user data
+                await updateUserData();
+                
+                showMessage('Wallet connected successfully', 'success');
+                
+            } catch (error) {
+                console.error('Error connecting wallet:', error);
+                showMessage(`Failed to connect wallet: ${error.message}`, 'error');
+            }
+        }
+        
+        // Disconnect wallet
+        function disconnectWallet() {
+            isConnected = false;
+            provider = null;
+            signer = null;
+            auctionContract = null;
+            
+            document.getElementById('walletStatus').textContent = 'Not Connected';
+            document.getElementById('walletAddress').textContent = '';
+            document.getElementById('statusDot').className = 'status-dot';
+            document.getElementById('connectWallet').textContent = 'Connect Wallet';
+            document.getElementById('purchaseBtn').disabled = true;
+            document.getElementById('purchaseBtn').textContent = 'Connect Wallet to Purchase';
+            document.getElementById('yourTokens').textContent = '---';
+            
+            clearMessages();
+        }
+        
+        // Switch to Base network
+        async function switchToBase() {
+            try {
+                await window.ethereum.request({
+                    method: 'wallet_switchEthereumChain',
+                    params: [{ chainId: '0x2105' }],
+                });
+            } catch (switchError) {
+                if (switchError.code === 4902) {
+                    await window.ethereum.request({
+                        method: 'wallet_addEthereumChain',
+                        params: [{
+                            chainId: '0x2105',
+                            chainName: 'Base',
+                            nativeCurrency: {
+                                name: 'ETH',
+                                symbol: 'ETH',
+                                decimals: 18
+                            },
+                            rpcUrls: ['https://mainnet.base.org'],
+                            blockExplorerUrls: ['https://basescan.org']
+                        }]
+                    });
+                }
+            }
+        }
+        
+        // Update auction data
+        async function updateAuctionData() {
+            try {
+                const readProvider = new ethers.providers.JsonRpcProvider('https://mainnet.base.org');
+                const readContract = new ethers.Contract(AUCTION_ADDRESS, AUCTION_ABI, readProvider);
+                
+                const [currentPrice, totalTokens, tokensSold, startTime, endTime, totalRaised] = await Promise.all([
+                    readContract.getCurrentPrice().catch(() => ethers.BigNumber.from(0)),
+                    readContract.totalTokens().catch(() => ethers.BigNumber.from(0)),
+                    readContract.tokensSold().catch(() => ethers.BigNumber.from(0)),
+                    readContract.startTime().catch(() => ethers.BigNumber.from(0)),
+                    readContract.endTime().catch(() => ethers.BigNumber.from(0)),
+                    readContract.totalRaised().catch(() => ethers.BigNumber.from(0))
+                ]);
+                
+                auctionData = {
+                    currentPrice,
+                    totalTokens,
+                    tokensSold,
+                    startTime,
+                    endTime,
+                    totalRaised
+                };
+                
+                // Update UI
+                document.getElementById('currentPrice').textContent = parseFloat(ethers.utils.formatEther(currentPrice)).toFixed(6);
+                
+                const tokensAvailable = totalTokens.sub(tokensSold);
+                document.getElementById('tokensAvailable').textContent = parseInt(ethers.utils.formatEther(tokensAvailable)).toLocaleString();
+                document.getElementById('tokensSold').textContent = parseInt(ethers.utils.formatEther(tokensSold)).toLocaleString();
+                document.getElementById('totalRaised').textContent = parseFloat(ethers.utils.formatEther(totalRaised)).toFixed(2);
+                
+                // Update timer
+                updateTimer();
+                
+                // Update purchase calculation
+                updatePurchaseCalculation();
+                
+            } catch (error) {
+                console.error('Error updating auction data:', error);
+                document.getElementById('currentPrice').textContent = 'Error';
+            }
+        }
+        
+        // Update timer
+        function updateTimer() {
+            const now = Math.floor(Date.now() / 1000);
+            const start = auctionData.startTime ? auctionData.startTime.toNumber() : 0;
+            const end = auctionData.endTime ? auctionData.endTime.toNumber() : 0;
+            
+            if (now < start) {
+                const timeToStart = start - now;
+                document.getElementById('timerLabel').textContent = 'Auction Starts In:';
+                document.getElementById('countdown').textContent = formatTime(timeToStart);
+                document.getElementById('countdown').className = 'countdown';
+            } else if (now >= start && now < end) {
+                const timeToEnd = end - now;
+                document.getElementById('timerLabel').textContent = 'Time Remaining:';
+                document.getElementById('countdown').textContent = formatTime(timeToEnd);
+                document.getElementById('countdown').className = 'countdown';
+            } else {
+                document.getElementById('timerLabel').textContent = 'Auction Status:';
+                document.getElementById('countdown').textContent = 'ENDED';
+                document.getElementById('countdown').className = 'countdown auction-ended';
+            }
+        }
+        
+        // Update user data
+        async function updateUserData() {
+            if (!isConnected || !auctionContract) return;
+            
+            try {
+                const userAddress = await signer.getAddress();
+                const userPurchases = await auctionContract.userPurchases(userAddress);
+                document.getElementById('yourTokens').textContent = parseInt(ethers.utils.formatEther(userPurchases)).toLocaleString();
+            } catch (error) {
+                console.error('Error updating user data:', error);
+                document.getElementById('yourTokens').textContent = 'Error';
+            }
+        }
+        
+        // Update purchase calculation
+        function updatePurchaseCalculation() {
+            const ethAmount = document.getElementById('ethAmount').value;
+            if (!ethAmount || ethAmount <= 0 || !auctionData.currentPrice) {
+                document.getElementById('arcxAmount').value = '';
+                return;
+            }
+            
+            try {
+                const ethValue = ethers.utils.parseEther(ethAmount);
+                const tokens = ethValue.mul(ethers.utils.parseEther('1')).div(auctionData.currentPrice);
+                document.getElementById('arcxAmount').value = parseInt(ethers.utils.formatEther(tokens)).toLocaleString();
+            } catch (error) {
+                document.getElementById('arcxAmount').value = '';
+            }
+        }
+        
+        // Purchase tokens
+        async function purchaseTokens() {
+            if (!isConnected || !auctionContract) {
+                showMessage('Please connect your wallet first', 'error');
+                return;
+            }
+            
+            const ethAmount = document.getElementById('ethAmount').value;
+            if (!ethAmount || ethAmount <= 0) {
+                showMessage('Please enter a valid ETH amount', 'error');
+                return;
+            }
+            
+            try {
+                document.getElementById('purchaseBtn').disabled = true;
+                document.getElementById('purchaseBtn').textContent = 'Processing...';
+                
+                const tx = await auctionContract.purchase({
+                    value: ethers.utils.parseEther(ethAmount),
+                    gasLimit: 300000
+                });
+                
+                document.getElementById('purchaseBtn').textContent = 'Confirming...';
+                showMessage('Transaction submitted, waiting for confirmation...', 'info');
+                
+                await tx.wait();
+                
+                showMessage('Purchase successful! 🎉', 'success');
+                
+                // Reset form
+                document.getElementById('ethAmount').value = '';
+                document.getElementById('arcxAmount').value = '';
+                
+                // Update data
+                await updateAuctionData();
+                await updateUserData();
+                
+            } catch (error) {
+                console.error('Purchase failed:', error);
+                let errorMessage = 'Purchase failed';
+                
+                if (error.message.includes('user rejected')) {
+                    errorMessage = 'Transaction cancelled';
+                } else if (error.message.includes('insufficient funds')) {
+                    errorMessage = 'Insufficient ETH balance';
+                } else if (error.message.includes('auction ended')) {
+                    errorMessage = 'Auction has ended';
+                }
+                
+                showMessage(errorMessage, 'error');
+            } finally {
+                document.getElementById('purchaseBtn').disabled = false;
+                document.getElementById('purchaseBtn').textContent = 'Purchase ARCx';
+            }
+        }
+        
+        // Utility functions
+        function formatTime(seconds) {
+            const days = Math.floor(seconds / 86400);
+            const hours = Math.floor((seconds % 86400) / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            const secs = seconds % 60;
+            
+            if (days > 0) return `${days}d ${hours}h ${minutes}m`;
+            if (hours > 0) return `${hours}h ${minutes}m`;
+            return `${minutes}m ${secs}s`;
+        }
+        
+        function showMessage(message, type) {
+            const messageArea = document.getElementById('messageArea');
+            const messageClass = type === 'error' ? 'error-message' : 
+                               type === 'success' ? 'success-message' : 'info-message';
+            
+            messageArea.innerHTML = `<div class="${messageClass}">${message}</div>`;
+            
+            if (type === 'success') {
+                setTimeout(() => {
+                    messageArea.innerHTML = '';
+                }, 5000);
+            }
+        }
+        
+        function clearMessages() {
+            document.getElementById('messageArea').innerHTML = '';
+        }
+        
+        // Event listeners
+        document.getElementById('connectWallet').addEventListener('click', () => {
+            if (isConnected) {
+                disconnectWallet();
+            } else {
+                connectWallet(true);
+            }
+        });
+        
+        document.getElementById('ethAmount').addEventListener('input', updatePurchaseCalculation);
+        document.getElementById('purchaseBtn').addEventListener('click', purchaseTokens);
+        
+        // Handle wallet events
+        if (typeof window.ethereum !== 'undefined') {
+            window.ethereum.on('accountsChanged', (accounts) => {
+                if (accounts.length === 0) {
+                    disconnectWallet();
+                } else if (isConnected) {
+                    connectWallet(false);
+                }
+            });
+            
+            window.ethereum.on('chainChanged', () => {
+                window.location.reload();
+            });
+        }
+        
+        // Initialize when page loads
+        window.addEventListener('load', init);
+        
+        // Update timer every second
+        setInterval(updateTimer, 1000);
+    </script>
+</body>
+</html>
