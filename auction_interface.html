@@ -401,6 +401,11 @@
                 window.auctionApp.isConnected = true;
                 log('✅ Wallet connected successfully');
                 
+                // Enable purchase functionality
+                if (window.auctionApp.auctionData.isActive) {
+                    showMessage('Wallet connected! You can now purchase ARCx tokens.', 'success');
+                }
+                
             } catch (error) {
                 log('❌ Wallet connection failed: ' + error.message);
                 showMessage('Failed to connect wallet: ' + error.message, 'error');
@@ -414,6 +419,75 @@
             
             if (type === 'success' || type === 'info') {
                 setTimeout(() => messageArea.innerHTML = '', 5000);
+            }
+        }
+        
+        // Handle purchase
+        async function handlePurchase() {
+            try {
+                if (!window.auctionApp.isConnected) {
+                    showMessage('Please connect your wallet first', 'error');
+                    return;
+                }
+                
+                const ethAmount = document.getElementById('ethAmount').value;
+                if (!ethAmount || parseFloat(ethAmount) <= 0) {
+                    showMessage('Please enter a valid ETH amount', 'error');
+                    return;
+                }
+                
+                if (!window.auctionApp.auctionData.isActive) {
+                    showMessage('Auction has ended', 'error');
+                    return;
+                }
+                
+                log('Starting purchase transaction...');
+                showMessage('Initiating purchase...', 'info');
+                
+                // Create contract instance with signer
+                const contract = new window.auctionApp.ethers.Contract(
+                    AUCTION_ADDRESS, 
+                    AUCTION_ABI, 
+                    window.auctionApp.signer
+                );
+                
+                // Send transaction
+                const tx = await contract.purchase({
+                    value: window.auctionApp.ethers.utils.parseEther(ethAmount),
+                    gasLimit: 200000
+                });
+                
+                log(`Transaction sent: ${tx.hash}`);
+                showMessage('Transaction submitted! Waiting for confirmation...', 'info');
+                
+                // Wait for confirmation
+                const receipt = await tx.wait();
+                
+                log(`Transaction confirmed in block ${receipt.blockNumber}`);
+                showMessage(`Purchase successful! Transaction: ${receipt.transactionHash}`, 'success');
+                
+                // Refresh auction data
+                await loadAuctionData();
+                
+                // Clear form
+                document.getElementById('ethAmount').value = '';
+                document.getElementById('arcxAmount').value = '';
+                
+            } catch (error) {
+                log('❌ Purchase failed: ' + error.message);
+                
+                let errorMessage = 'Transaction failed';
+                if (error.message.includes('user rejected')) {
+                    errorMessage = 'Transaction rejected by user';
+                } else if (error.message.includes('insufficient funds')) {
+                    errorMessage = 'Insufficient ETH balance';
+                } else if (error.code === 'UNPREDICTABLE_GAS_LIMIT') {
+                    errorMessage = 'Transaction would fail - please check your inputs';
+                } else if (error.message.includes('auction has ended') || error.message.includes('not active')) {
+                    errorMessage = 'Auction has ended';
+                }
+                
+                showMessage(errorMessage, 'error');
             }
         }
         
@@ -451,6 +525,9 @@
                         }
                     }
                 });
+                
+                // Set up purchase button
+                document.getElementById('purchaseBtn').addEventListener('click', handlePurchase);
                 
                 // Set up auto-refresh
                 setInterval(loadAuctionData, 30000);
