@@ -1,1337 +1,825 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ARCx — Constitutional Intelligence Genesis</title>
-  <meta name="description" content="Genesis token for constitutional intelligence infrastructure. Built on Base, verified secure, migration-ready for FUEL ecosystem.">
-  <link rel="icon" href="css/arcx-logo.png" type="image/png">
-  
-  <style>
-    :root {
-      --pure-white: #ffffff;
-      --soft-black: #000000;
-      --ghost-black: #0a0a0a;
-      --border-gray: #111111;
-      --text-gray: #666666;
-      --accent-blue: #0052ff;
-      --accent-green: #00ff88;
-      --accent-amber: #ffaa00;
-      --space-xs: 0.5rem;
-      --space-sm: 1rem;
-      --space-md: 1.5rem;
-      --space-lg: 2rem;
-      --space-xl: 3rem;
-      --space-xxl: 4rem;
-      --border-radius: 0px;
-      --font-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
-      --font-weight-light: 100;
-      --font-weight-normal: 200;
-      --font-weight-medium: 300;
-      --font-weight-bold: 400;
-      --font-weight-ultra: 100;
-      --line-height-tight: 1.2;
-      --line-height-relaxed: 1.6;
-      --soft-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      background: var(--soft-black);
-      color: var(--pure-white);
-      overflow-x: hidden;
-      line-height: var(--line-height-relaxed);
-      font-weight: var(--font-weight-light);
-    }
-
-    /* Advanced 3D Background System */
-    .immersive-canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-      z-index: -1;
-      overflow: hidden;
-    }
-
-    .layer-1 {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: 
-        radial-gradient(circle at 20% 20%, rgba(0, 82, 255, 0.03) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(0, 255, 136, 0.02) 0%, transparent 50%),
-        radial-gradient(circle at 40% 60%, rgba(255, 170, 0, 0.015) 0%, transparent 50%);
-      animation: layerDrift 20s ease-in-out infinite;
-    }
-
-    .layer-2 {
-      position: absolute;
-      width: 120%;
-      height: 120%;
-      top: -10%;
-      left: -10%;
-      background: 
-        linear-gradient(45deg, transparent 0%, rgba(255, 255, 255, 0.005) 50%, transparent 100%),
-        linear-gradient(-45deg, transparent 0%, rgba(255, 255, 255, 0.003) 50%, transparent 100%);
-      animation: layerRotate 40s linear infinite;
-    }
-
-    .floating-elements {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-    }
-
-    .float-item {
-      position: absolute;
-      width: 2px;
-      height: 2px;
-      background: var(--pure-white);
-      opacity: 0.1;
-      animation: floatUp 15s ease-in-out infinite;
-    }
-
-    .float-item:nth-child(1) { left: 10%; animation-delay: 0s; }
-    .float-item:nth-child(2) { left: 20%; animation-delay: 2s; }
-    .float-item:nth-child(3) { left: 30%; animation-delay: 4s; }
-    .float-item:nth-child(4) { left: 40%; animation-delay: 6s; }
-    .float-item:nth-child(5) { left: 50%; animation-delay: 8s; }
-    .float-item:nth-child(6) { left: 60%; animation-delay: 1s; }
-    .float-item:nth-child(7) { left: 70%; animation-delay: 3s; }
-    .float-item:nth-child(8) { left: 80%; animation-delay: 5s; }
-    .float-item:nth-child(9) { left: 90%; animation-delay: 7s; }
-
-    @keyframes layerDrift {
-      0%, 100% { transform: translate(0, 0) scale(1); }
-      25% { transform: translate(2%, -1%) scale(1.02); }
-      50% { transform: translate(-1%, 2%) scale(0.98); }
-      75% { transform: translate(1%, -2%) scale(1.01); }
-    }
-
-    @keyframes layerRotate {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    @keyframes floatUp {
-      0% { 
-        transform: translateY(100vh) scale(0) rotate(0deg); 
-        opacity: 0; 
-      }
-      10% { 
-        opacity: 0.1; 
-        transform: translateY(90vh) scale(1) rotate(45deg); 
-      }
-      90% { 
-        opacity: 0.1; 
-        transform: translateY(-10vh) scale(1) rotate(315deg); 
-      }
-      100% { 
-        transform: translateY(-20vh) scale(0) rotate(360deg); 
-        opacity: 0; 
-      }
-    }
-
-    /* Navigation */
-    .main-nav {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background: rgba(0, 0, 0, 0.95);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      z-index: 1000;
-      padding: var(--space-sm) 0;
-    }
-
-    .nav-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 var(--space-md);
-    }
-
-    .nav-logo {
-      height: 32px;
-      width: auto;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: var(--space-xl);
-    }
-
-    .nav-links a {
-      color: var(--text-gray);
-      text-decoration: none;
-      font-weight: var(--font-weight-medium);
-      transition: all 0.3s ease;
-      position: relative;
-    }
-
-    .nav-links a:hover {
-      color: var(--pure-white);
-    }
-
-    .nav-links a.active {
-      color: var(--pure-white);
-    }
-
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: -8px;
-      left: 0;
-      width: 0;
-      height: 1px;
-      background: var(--pure-white);
-      transition: width 0.3s ease;
-    }
-
-    .nav-links a:hover::after,
-    .nav-links a.active::after {
-      width: 100%;
-    }
-
-    /* Main Container */
-    .main-container {
-      padding-top: 80px;
-      min-height: 100vh;
-    }
-
-    /* Hero Section */
-    .hero-section {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      position: relative;
-      padding: var(--space-xxl) var(--space-md);
-      overflow: hidden;
-    }
-
-    .hero-content {
-      max-width: 1200px;
-      position: relative;
-      z-index: 10;
-    }
-
-    .hero-badge {
-      display: inline-block;
-      background: rgba(0, 255, 136, 0.1);
-      border: 1px solid rgba(0, 255, 136, 0.3);
-      color: var(--accent-green);
-      padding: var(--space-xs) var(--space-md);
-      border-radius: calc(var(--border-radius) * 3);
-      font-size: 0.85rem;
-      font-weight: var(--font-weight-medium);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: var(--space-lg);
-      animation: badgePulse 3s ease-in-out infinite;
-    }
-
-    .hero-title {
-      font-size: clamp(3rem, 8vw, 7rem);
-      font-weight: var(--font-weight-ultra);
-      line-height: var(--line-height-tight);
-      margin-bottom: var(--space-lg);
-      background: linear-gradient(135deg, var(--pure-white) 0%, rgba(255, 255, 255, 0.7) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    /* Constitutional Intelligence Story */
-    .hero-story {
-      margin: var(--space-xxl) 0;
-      max-width: 1000px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .story-layer {
-      margin-bottom: var(--space-xxl);
-      opacity: 0;
-      transform: translateY(50px);
-      transition: all 0.8s ease;
-      position: relative;
-    }
-
-    .story-layer.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .layer-foundation {
-      background: linear-gradient(135deg, 
-        rgba(0, 82, 255, 0.1) 0%, 
-        rgba(0, 255, 136, 0.05) 100%);
-      border: 1px solid rgba(0, 82, 255, 0.2);
-      border-radius: var(--border-radius);
-      padding: var(--space-xl);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .layer-foundation::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--accent-blue), var(--accent-green));
-      animation: layerGlow 3s ease-in-out infinite;
-    }
-
-    .layer-arc {
-      background: linear-gradient(135deg, 
-        rgba(255, 170, 0, 0.1) 0%, 
-        rgba(0, 82, 255, 0.05) 100%);
-      border: 1px solid rgba(255, 170, 0, 0.2);
-      border-radius: var(--border-radius);
-      padding: var(--space-xl);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .layer-arc::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--accent-amber), var(--accent-blue));
-      animation: layerGlow 3s ease-in-out infinite 0.5s;
-    }
-
-    .layer-adam {
-      background: linear-gradient(135deg, 
-        rgba(0, 255, 136, 0.1) 0%, 
-        rgba(255, 170, 0, 0.05) 100%);
-      border: 1px solid rgba(0, 255, 136, 0.2);
-      border-radius: var(--border-radius);
-      padding: var(--space-xl);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .layer-adam::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--accent-green), var(--accent-amber));
-      animation: layerGlow 3s ease-in-out infinite 1s;
-    }
-
-    .layer-fuel {
-      background: linear-gradient(135deg, 
-        rgba(255, 255, 255, 0.05) 0%, 
-        rgba(0, 255, 136, 0.05) 100%);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: var(--border-radius);
-      padding: var(--space-xl);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .layer-fuel::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, 
-        var(--accent-green), 
-        var(--accent-blue), 
-        var(--accent-amber), 
-        var(--pure-white));
-      animation: layerGlow 3s ease-in-out infinite 1.5s;
-    }
-
-    @keyframes layerGlow {
-      0%, 100% { opacity: 0.5; }
-      50% { opacity: 1; }
-    }
-
-    .layer-icon {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 60px;
-      height: 60px;
-      margin-bottom: var(--space-md);
-      position: relative;
-    }
-
-    .icon-ci {
-      background: linear-gradient(135deg, var(--accent-blue), var(--accent-green));
-      box-shadow: 0 0 30px rgba(0, 82, 255, 0.3);
-    }
-
-    .icon-arc {
-      background: linear-gradient(135deg, var(--accent-amber), var(--accent-blue));
-      box-shadow: 0 0 30px rgba(255, 170, 0, 0.3);
-    }
-
-    .icon-adam {
-      background: linear-gradient(135deg, var(--accent-green), var(--accent-amber));
-      box-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
-    }
-
-    .icon-fuel {
-      background: linear-gradient(135deg, 
-        var(--pure-white), 
-        var(--accent-green), 
-        var(--accent-blue));
-      box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
-    }
-
-    .layer-title {
-      font-size: 2rem;
-      font-weight: var(--font-weight-ultra);
-      margin-bottom: var(--space-md);
-      background: linear-gradient(135deg, var(--pure-white) 0%, rgba(255, 255, 255, 0.8) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .layer-subtitle {
-      font-size: 1rem;
-      color: var(--text-gray);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: var(--space-md);
-      font-weight: var(--font-weight-medium);
-    }
-
-    .layer-description {
-      font-size: 1.1rem;
-      color: rgba(255, 255, 255, 0.9);
-      line-height: var(--line-height-relaxed);
-      text-align: left;
-    }
-
-    /* Connection Lines */
-    .layer-connection {
-      display: flex;
-      justify-content: center;
-      margin: var(--space-lg) 0;
-      position: relative;
-    }
-
-    .connection-line {
-      width: 1px;
-      height: 32px;
-      background: linear-gradient(180deg, 
-        rgba(255, 255, 255, 0.1) 0%, 
-        rgba(255, 255, 255, 0.3) 50%, 
-        rgba(255, 255, 255, 0.1) 100%);
-      position: relative;
-      opacity: 0.6;
-    }
-
-    .connection-line::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 4px;
-      height: 4px;
-      background: rgba(255, 255, 255, 0.4);
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-    }
-
-    .connection-line::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -8px;
-      right: -8px;
-      height: 1px;
-      background: linear-gradient(90deg, 
-        transparent 0%, 
-        rgba(255, 255, 255, 0.1) 50%, 
-        transparent 100%);
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: var(--space-md);
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: var(--space-xxl);
-      position: relative;
-      z-index: 20;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: var(--space-xs);
-      padding: var(--space-md) var(--space-xl);
-      border: none;
-      border-radius: var(--border-radius);
-      font-weight: var(--font-weight-medium);
-      text-decoration: none;
-      transition: all 0.3s ease;
-      cursor: pointer;
-      font-size: 1rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--accent-blue) 0%, #0040cc 100%);
-      color: var(--pure-white);
-      box-shadow: 0 4px 15px rgba(0, 82, 255, 0.3);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(0, 82, 255, 0.4);
-    }
-
-    .btn-secondary {
-      background: rgba(255, 255, 255, 0.05);
-      color: var(--pure-white);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: rgba(255, 255, 255, 0.2);
-      transform: translateY(-2px);
-    }
-
-    /* Stats Section */
-    .stats-section {
-      padding: var(--space-xxl) var(--space-md);
-      background: rgba(255, 255, 255, 0.01);
-      backdrop-filter: blur(10px);
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .stats-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: var(--space-xl);
-    }
-
-    .stat-card {
-      text-align: center;
-      padding: var(--space-lg);
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: var(--border-radius);
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .stat-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--accent-blue), var(--accent-green), var(--accent-amber));
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .stat-card:hover::before {
-      opacity: 1;
-    }
-
-    .stat-card:hover {
-      transform: translateY(-5px);
-      background: rgba(255, 255, 255, 0.04);
-      border-color: rgba(255, 255, 255, 0.1);
-    }
-
-    /* Cracked Glass Effect for Audit Card */
-    .stat-card.audit-card {
-      position: relative;
-      overflow: visible;
-      background: linear-gradient(135deg, 
-        rgba(0, 255, 136, 0.1) 0%, 
-        rgba(255, 255, 255, 0.02) 50%, 
-        rgba(0, 255, 136, 0.05) 100%);
-      border: 1px solid rgba(0, 255, 136, 0.3);
-      box-shadow: 
-        0 0 20px rgba(0, 255, 136, 0.2),
-        inset 0 0 20px rgba(0, 255, 136, 0.1);
-    }
-
-    .stat-card.audit-card::before {
-      background: linear-gradient(90deg, var(--accent-green), var(--accent-green));
-      opacity: 1;
-      height: 3px;
-      box-shadow: 0 0 10px var(--accent-green);
-    }
-
-    .cracked-glass {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      pointer-events: none;
-      z-index: 5;
-    }
-
-    .crack-svg {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      opacity: 0;
-      animation: crackAppear 0.3s ease forwards;
-      top: 0;
-      left: 0;
-    }
-
-    .crack-svg path {
-      stroke: rgba(0, 255, 136, 0.6);
-      stroke-width: 1.5;
-      fill: none;
-      filter: drop-shadow(0 0 2px rgba(0, 255, 136, 0.8));
-    }
-
-    .crack-svg-1 { animation-delay: 0.5s; }
-    .crack-svg-2 { animation-delay: 0.8s; }
-    .crack-svg-3 { animation-delay: 1.1s; }
-
-    @keyframes crackAppear {
-      0% { 
-        opacity: 0;
-      }
-      100% { 
-        opacity: 0.7;
-      }
-    }
-
-    .glass-shards {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      pointer-events: none;
-      z-index: 6;
-    }
-
-    .shard {
-      position: absolute;
-      width: 0;
-      height: 0;
-      border-style: solid;
-      opacity: 0;
-      animation: shardFall 2s ease-out forwards;
-    }
-
-    .shard-1 {
-      top: 30%;
-      left: 40%;
-      border-width: 8px 6px 0 6px;
-      border-color: rgba(0, 255, 136, 0.6) transparent transparent transparent;
-      animation-delay: 1.5s;
-    }
-
-    .shard-2 {
-      top: 50%;
-      left: 60%;
-      border-width: 6px 4px 0 4px;
-      border-color: rgba(255, 255, 255, 0.7) transparent transparent transparent;
-      animation-delay: 1.7s;
-    }
-
-    .shard-3 {
-      top: 70%;
-      left: 30%;
-      border-width: 5px 3px 0 3px;
-      border-color: rgba(0, 255, 136, 0.5) transparent transparent transparent;
-      animation-delay: 1.9s;
-    }
-
-    @keyframes shardFall {
-      0% { 
-        opacity: 0;
-        transform: translateY(-10px) rotate(0deg);
-      }
-      20% {
-        opacity: 1;
-      }
-      100% { 
-        opacity: 0;
-        transform: translateY(100px) rotate(360deg);
-      }
-    }
-
-    .audit-glow {
-      position: absolute;
-      top: -10px;
-      left: -10px;
-      right: -10px;
-      bottom: -10px;
-      background: radial-gradient(circle, 
-        rgba(0, 255, 136, 0.3) 0%, 
-        rgba(0, 255, 136, 0.1) 30%, 
-        transparent 70%);
-      border-radius: calc(var(--border-radius) + 10px);
-      opacity: 0;
-      animation: auditPulse 3s ease-in-out infinite;
-      animation-delay: 2s;
-      z-index: -1;
-    }
-
-    @keyframes auditPulse {
-      0%, 100% { 
-        opacity: 0;
-        transform: scale(1);
-      }
-      50% { 
-        opacity: 0.8;
-        transform: scale(1.1);
-      }
-    }
-
-    .stat-card.audit-card:hover {
-      transform: translateY(-8px) scale(1.02);
-      box-shadow: 
-        0 10px 40px rgba(0, 255, 136, 0.4),
-        inset 0 0 30px rgba(0, 255, 136, 0.15);
-    }
-
-    .stat-card.audit-card:hover .crack-svg {
-      animation: crackGlow 1s ease-in-out infinite;
-    }
-
-    @keyframes crackGlow {
-      0%, 100% { 
-        filter: brightness(1) drop-shadow(0 0 2px rgba(0, 255, 136, 0.5));
-      }
-      50% { 
-        filter: brightness(1.5) drop-shadow(0 0 8px rgba(0, 255, 136, 0.8));
-      }
-    }
-
-    .stat-number {
-      font-size: 2.5rem;
-      font-weight: var(--font-weight-ultra);
-      color: var(--pure-white);
-      margin-bottom: var(--space-xs);
-      font-family: var(--font-mono);
-      position: relative;
-      z-index: 8;
-    }
-
-    .stat-card.audit-card .stat-number {
-      color: var(--accent-green);
-      text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
-      animation: auditGlow 2s ease-in-out infinite;
-    }
-
-    @keyframes auditGlow {
-      0%, 100% { 
-        text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
-      }
-      50% { 
-        text-shadow: 0 0 30px rgba(0, 255, 136, 0.8), 0 0 40px rgba(0, 255, 136, 0.3);
-      }
-    }
-
-    .stat-label {
-      font-size: 0.9rem;
-      color: var(--text-gray);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      font-weight: var(--font-weight-medium);
-      position: relative;
-      z-index: 8;
-    }
-
-    .stat-card.audit-card .stat-label {
-      color: var(--accent-green);
-    }
-
-    /* Roadmap Section */
-    .roadmap-section {
-      padding: var(--space-xxl) var(--space-md);
-      position: relative;
-    }
-
-    .section-header {
-      text-align: center;
-      margin-bottom: var(--space-xxl);
-    }
-
-    .section-title {
-      font-size: 3rem;
-      font-weight: var(--font-weight-ultra);
-      margin-bottom: var(--space-md);
-      background: linear-gradient(135deg, var(--pure-white) 0%, rgba(255, 255, 255, 0.6) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .section-subtitle {
-      font-size: 1.2rem;
-      color: var(--text-gray);
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    .roadmap-timeline {
-      max-width: 1000px;
-      margin: 0 auto;
-      position: relative;
-    }
-
-    .timeline-line {
-      position: absolute;
-      left: 50%;
-      top: 0;
-      bottom: 0;
-      width: 2px;
-      background: linear-gradient(180deg, 
-        var(--accent-green) 0%, 
-        var(--accent-blue) 50%, 
-        var(--accent-amber) 100%);
-      transform: translateX(-50%);
-      z-index: 1;
-    }
-
-    .roadmap-item {
-      display: flex;
-      margin-bottom: var(--space-xxl);
-      position: relative;
-      z-index: 2;
-    }
-
-    .roadmap-item:nth-child(even) {
-      flex-direction: row-reverse;
-    }
-
-    .roadmap-content {
-      width: 45%;
-      padding: var(--space-lg);
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: var(--border-radius);
-      position: relative;
-      transition: all 0.3s ease;
-    }
-
-    .roadmap-content:hover {
-      transform: translateY(-5px);
-      background: rgba(255, 255, 255, 0.04);
-      border-color: rgba(255, 255, 255, 0.1);
-    }
-
-    .roadmap-status {
-      position: absolute;
-      top: var(--space-md);
-      right: var(--space-md);
-      padding: 0.3em 0.8em;
-      border-radius: calc(var(--border-radius) * 2);
-      font-size: 0.7rem;
-      font-weight: var(--font-weight-bold);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .status-complete {
-      background: var(--accent-green);
-      color: var(--soft-black);
-    }
-
-    .status-active {
-      background: var(--accent-amber);
-      color: var(--soft-black);
-    }
-
-    .status-upcoming {
-      background: rgba(255, 255, 255, 0.1);
-      color: var(--text-gray);
-    }
-
-    .roadmap-phase {
-      font-size: 0.8rem;
-      color: var(--text-gray);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: var(--space-xs);
-    }
-
-    .roadmap-title {
-      font-size: 1.5rem;
-      font-weight: var(--font-weight-bold);
-      margin-bottom: var(--space-sm);
-      color: var(--pure-white);
-    }
-
-    .roadmap-description {
-      color: var(--text-gray);
-      line-height: var(--line-height-relaxed);
-    }
-
-    .roadmap-icon {
-      position: absolute;
-      left: 50%;
-      top: var(--space-lg);
-      transform: translateX(-50%);
-      width: 40px;
-      height: 40px;
-      background: var(--ghost-black);
-      border: 3px solid var(--roadmap-color, var(--accent-blue));
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 3;
-    }
-
-    .roadmap-item:nth-child(1) { --roadmap-color: var(--accent-green); }
-    .roadmap-item:nth-child(2) { --roadmap-color: var(--accent-green); }
-    .roadmap-item:nth-child(3) { --roadmap-color: var(--accent-amber); }
-    .roadmap-item:nth-child(4) { --roadmap-color: var(--accent-blue); }
-
-    /* CTA Section */
-    .cta-section {
-      padding: var(--space-xxl) var(--space-md);
-      text-align: center;
-      background: linear-gradient(135deg, 
-        rgba(0, 82, 255, 0.05) 0%, 
-        rgba(0, 255, 136, 0.03) 50%, 
-        rgba(255, 170, 0, 0.02) 100%);
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .cta-content {
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .cta-title {
-      font-size: 2.5rem;
-      font-weight: var(--font-weight-ultra);
-      margin-bottom: var(--space-md);
-      background: linear-gradient(135deg, var(--pure-white) 0%, rgba(255, 255, 255, 0.7) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .cta-description {
-      font-size: 1.1rem;
-      color: var(--text-gray);
-      margin-bottom: var(--space-xl);
-      line-height: var(--line-height-relaxed);
-    }
-
-    /* Responsive Design */
-    @media (max-width: 768px) {
-      .nav-links {
-        gap: var(--space-md);
-      }
-
-      .hero-title {
-        font-size: 3rem;
-      }
-
-      .stats-container {
-        grid-template-columns: 1fr;
-        gap: var(--space-md);
-      }
-
-      .timeline-line {
-        left: 20px;
-      }
-
-      .roadmap-item {
-        flex-direction: column !important;
-        padding-left: 60px;
-      }
-
-      .roadmap-content {
-        width: 100%;
-      }
-
-      .roadmap-icon {
-        left: 20px;
-      }
-
-      .hero-actions {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .btn {
-        width: 100%;
-        max-width: 300px;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARCx Dutch Auction - Constitutional Intelligence</title>
+    <script src="https://cdn.ethers.io/lib/ethers-5.7.2.umd.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap');
+        
+        :root {
+            --primary-green: #00FF88;
+            --primary-blue: #0052FF;
+            --dark-bg: #0a0a0f;
+            --card-bg: #1a1a2e;
+            --accent-bg: #16213e;
+            --text-primary: #ffffff;
+            --text-secondary: #b4b4b4;
+            --border-color: #333;
+            --error-color: #ff4757;
+            --warning-color: #ffa502;
+            --success-color: #2ed573;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(ellipse at 20% 50%, rgba(0, 255, 136, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(0, 82, 255, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, var(--dark-bg), #0d0d1a);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px 0;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--primary-green), var(--primary-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        .auction-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-green), var(--primary-blue));
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--primary-green);
+        }
+
+        .price-display {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .current-price {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            margin-bottom: 10px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .price-label {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        .price-trend {
+            font-size: 0.9rem;
+            color: var(--warning-color);
+        }
+
+        .auction-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+            background: var(--accent-bg);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .purchase-section {
+            grid-column: 1 / -1;
+        }
+
+        .wallet-status {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: var(--accent-bg);
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border-color);
+        }
+
+        .wallet-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--error-color);
+        }
+
+        .status-dot.connected {
+            background: var(--success-color);
+        }
+
+        .wallet-address {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-secondary);
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        .input-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 16px;
+            background: var(--accent-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 2px rgba(0, 255, 136, 0.2);
+        }
+
+        .button {
+            padding: 16px 24px;
+            border: none;
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.95rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--primary-green), var(--primary-blue));
+            color: white;
+            width: 100%;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 255, 136, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--accent-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary-green);
+        }
+
+        .button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .auction-timer {
+            text-align: center;
+            padding: 30px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 30px;
+        }
+
+        .timer-label {
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+
+        .countdown {
+            font-size: 2.5rem;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--primary-green);
+        }
+
+        .auction-ended {
+            color: var(--error-color);
+        }
+
+        .auction-info {
+            background: var(--accent-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .info-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .loading {
+            opacity: 0.6;
+        }
+
+        .error-message {
+            background: rgba(255, 71, 87, 0.1);
+            border: 1px solid var(--error-color);
+            color: var(--error-color);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .success-message {
+            background: rgba(46, 213, 115, 0.1);
+            border: 1px solid var(--success-color);
+            color: var(--success-color);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        @media (max-width: 768px) {
+            .auction-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .auction-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .current-price {
+                font-size: 2.5rem;
+            }
+            
+            .countdown {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <!-- Immersive 3D Background -->
-  <div class="immersive-canvas">
-    <div class="layer-1"></div>
-    <div class="layer-2"></div>
-    <div class="floating-elements">
-      <div class="float-item"></div>
-      <div class="float-item"></div>
-      <div class="float-item"></div>
-      <div class="float-item"></div>
-      <div class="float-item"></div>
-      <div class="float-item"></div>
-      <div class="float-item"></div>
-      <div class="float-item"></div>
-      <div class="float-item"></div>
-    </div>
-  </div>
-
-  <!-- Navigation -->
-  <nav class="main-nav">
-    <div class="nav-container">
-      <div class="nav-brand">
-        <img src="css/arcx-logo.png" alt="ARCx" class="nav-logo"/>
-      </div>
-      <div class="nav-links">
-        <a href="https://www.artifactvirtual.com" target="_blank" rel="noopener">Home</a>
-        <a href="index.html" class="active">ARCx</a>
-        <a href="transparency.html">Transparency</a>
-        <a href="bridge.html">Bridge</a>
-        <a href="documentation.html">Documentation</a>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Main Container -->
-  <div class="main-container">
-    <!-- Hero Section -->
-    <section class="hero-section">
-      <div class="hero-content">
-        <div class="hero-badge">Genesis • Base • Fair Distribution</div>
-        <h1 class="hero-title">ARCx</h1>
+    <div class="background"></div>
+    
+    <div class="container">
+        <header class="header">
+            <div class="logo">ARCx</div>
+            <div class="tagline">Constitutional Intelligence Infrastructure</div>
+        </header>
         
-        <!-- ARCx Funding Story -->
-        <div class="hero-story">
-          <!-- Foundation Layer: Genesis Funding -->
-          <div class="story-layer layer-foundation">
-            <div class="layer-icon icon-ci">
-              <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-              </svg>
+        <div class="auction-timer">
+            <div class="timer-label" id="timerLabel">Auction Status</div>
+            <div class="countdown" id="countdown">Loading...</div>
+        </div>
+        
+        <div class="auction-grid">
+            <div class="card">
+                <h2 class="card-title">Current Price</h2>
+                <div class="price-display">
+                    <div class="current-price" id="currentPrice">--.------</div>
+                    <div class="price-label">ETH per ARCx</div>
+                    <div class="price-trend" id="priceTrend">Price declining over time</div>
+                </div>
             </div>
-            <div class="layer-subtitle">The Genesis</div>
-            <h2 class="layer-title">ARCx Funding Token</h2>
-            <p class="layer-description">
-              ARCx is the genesis funding mechanism for constitutional intelligence infrastructure. Unlike speculative tokens, ARCx has direct utility: every token purchase funds R&D, protocol development, and network bootstrapping for the future of autonomous governance systems.
-            </p>
-          </div>
-
-          <div class="layer-connection">
-            <div class="connection-line"></div>
-          </div>
-
-          <!-- Utility Layer: Value Accrual -->
-          <div class="story-layer layer-arc">
-            <div class="layer-icon icon-arc">
-              <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-              </svg>
+            
+            <div class="card">
+                <h2 class="card-title">Auction Statistics</h2>
+                <div class="auction-stats">
+                    <div class="stat-item">
+                        <div class="stat-value" id="tokensAvailable">---</div>
+                        <div class="stat-label">Available</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="tokensSold">---</div>
+                        <div class="stat-label">Sold</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="totalRaised">---</div>
+                        <div class="stat-label">ETH Raised</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="yourTokens">---</div>
+                        <div class="stat-label">Your ARCx</div>
+                    </div>
+                </div>
             </div>
-            <div class="layer-subtitle">The Utility</div>
-            <h2 class="layer-title">Direct Value Accrual</h2>
-            <p class="layer-description">
-              ARCx holders benefit from fee discounts, governance voting, validator staking rewards, and premium access to constitutional intelligence tools. Every token represents both funding contribution and future network utility rights.
-            </p>
-          </div>
-
-          <div class="layer-connection">
-            <div class="connection-line"></div>
-          </div>
-
-          <!-- Bridge Layer: FUEL Migration -->
-          <div class="story-layer layer-adam">
-            <div class="layer-icon icon-adam">
-              <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3.5 6L12 10.5 8.5 8 12 5.5 15.5 8zM8.5 16L12 13.5 15.5 16 12 18.5 8.5 16z"/>
-              </svg>
+            
+            <div class="card purchase-section">
+                <h2 class="card-title">Participate in Auction</h2>
+                
+                <div class="wallet-status">
+                    <div class="wallet-info">
+                        <div class="status-dot" id="statusDot"></div>
+                        <div>
+                            <div id="walletStatus">Not Connected</div>
+                            <div class="wallet-address" id="walletAddress"></div>
+                        </div>
+                    </div>
+                    <button id="connectWallet" class="button btn-secondary">Connect Wallet</button>
+                </div>
+                
+                <div id="purchaseForm">
+                    <div class="input-group">
+                        <label class="input-label" for="ethAmount">ETH Amount</label>
+                        <input type="number" id="ethAmount" class="input-field" placeholder="0.1" step="0.001" min="0">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label class="input-label" for="arcxAmount">ARCx Tokens (Estimated)</label>
+                        <input type="number" id="arcxAmount" class="input-field" placeholder="0" readonly>
+                    </div>
+                    
+                    <div class="auction-info">
+                        <div class="info-row">
+                            <span>Network:</span>
+                            <span>Base L2</span>
+                        </div>
+                        <div class="info-row">
+                            <span>Gas Fees:</span>
+                            <span>~$0.01</span>
+                        </div>
+                        <div class="info-row">
+                            <span>Max Purchase:</span>
+                            <span>10,000 ARCx</span>
+                        </div>
+                    </div>
+                    
+                    <button id="purchaseBtn" class="button btn-primary" disabled>
+                        Connect Wallet to Purchase
+                    </button>
+                    
+                    <div id="messageArea"></div>
+                </div>
             </div>
-            <div class="layer-subtitle">The Bridge</div>
-            <h2 class="layer-title">FUEL Migration Ready</h2>
-            <p class="layer-description">
-              ARCx features built-in bridge functionality for seamless one-way migration to FUEL tokens when the constitutional intelligence network launches. Early ARCx holders receive preferential conversion rates and guaranteed value preservation.
-            </p>
-          </div>
-
-          <div class="layer-connection">
-            <div class="connection-line"></div>
-          </div>
-
-          <!-- Distribution Layer: Fair Launch -->
-          <div class="story-layer layer-fuel">
-            <div class="layer-icon icon-fuel">
-              <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/>
-              </svg>
+        </div>
+        
+        <div class="auction-info">
+            <div class="info-row">
+                <span>Contract Address:</span>
+                <span style="font-family: 'JetBrains Mono', monospace;">0x5Da5F567553C8D4F12542Ba608F41626f77Aa836</span>
             </div>
-            <div class="layer-subtitle">The Distribution</div>
-            <h2 class="layer-title">Fair Price Discovery</h2>
-            <p class="layer-description">
-              150,000 ARCx tokens are distributed through a transparent Dutch auction and merit-based airdrop system. No presale, no insider allocations - just fair market price discovery and community-driven distribution for everyone.
-            </p>
-          </div>
+            <div class="info-row">
+                <span>Token Address:</span>
+                <span style="font-family: 'JetBrains Mono', monospace;">0xA4093669DAFbD123E37d52e0939b3aB3C2272f44</span>
+            </div>
         </div>
+    </div>
 
-        <div class="hero-actions">
-          <a href="https://basescan.org/address/0xD788D9ac56c754cb927771eBf058966bA8aB734D" class="btn btn-primary" target="_blank">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
-            </svg>
-            Dutch Auction
-          </a>
-          <a href="https://basescan.org/address/0x79166AbC8c17017436263BcE5f76DaB1c3dEa195" class="btn btn-secondary" target="_blank">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-            </svg>
-            Smart Airdrop
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Stats Section -->
-    <section class="stats-section">
-      <div class="stats-container">
-        <div class="stat-card">
-          <div class="stat-number">100M</div>
-          <div class="stat-label">Max Supply</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number">150K</div>
-          <div class="stat-label">Fair Distribution</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number">72h</div>
-          <div class="stat-label">Dutch Auction</div>
-        </div>
-        <div class="stat-card audit-card">
-          <div class="audit-glow"></div>
-          <div class="cracked-glass">
-            <svg class="crack-svg crack-svg-1" viewBox="0 0 100 100">
-              <path d="M20 30 Q35 25 50 35 Q65 45 80 40" />
-              <path d="M25 32 L40 28" />
-            </svg>
-            <svg class="crack-svg crack-svg-2" viewBox="0 0 100 100">
-              <path d="M60 20 Q55 35 50 50 Q45 65 55 75" />
-              <path d="M58 25 L52 40" />
-            </svg>
-            <svg class="crack-svg crack-svg-3" viewBox="0 0 100 100">
-              <path d="M25 60 Q35 70 45 75 L55 80" />
-              <path d="M70 65 Q75 60 80 70" />
-              <path d="M30 72 L42 78" />
-            </svg>
-          </div>
-          <div class="glass-shards">
-            <div class="shard shard-1"></div>
-            <div class="shard shard-2"></div>
-            <div class="shard shard-3"></div>
-          </div>
-          <div class="stat-number">A+</div>
-          <div class="stat-label">Audit Rating</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Roadmap Section -->
-    <section class="roadmap-section">
-      <div class="section-header">
-        <h2 class="section-title">Genesis Roadmap</h2>
-        <p class="section-subtitle">
-          Constitutional intelligence infrastructure built through transparent, 
-          community-driven development phases.
-        </p>
-      </div>
-
-      <div class="roadmap-timeline">
-        <div class="timeline-line"></div>
-
-        <div class="roadmap-item">
-          <div class="roadmap-content">
-            <div class="roadmap-status status-complete">Complete</div>
-            <div class="roadmap-phase">Phase 1</div>
-            <h3 class="roadmap-title">Genesis Deployment</h3>
-            <p class="roadmap-description">
-              ARCx token deployed on Base Mainnet with zero vulnerabilities. 
-              Enterprise-grade security with role-based access control and emergency functions.
-            </p>
-          </div>
-          <div class="roadmap-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-            </svg>
-          </div>
-        </div>
-
-        <div class="roadmap-item">
-          <div class="roadmap-content">
-            <div class="roadmap-status status-complete">Complete</div>
-            <div class="roadmap-phase">Phase 2</div>
-            <h3 class="roadmap-title">Vesting Infrastructure</h3>
-            <p class="roadmap-description">
-              Master vesting contract with category-based allocation tracking. 
-              Transparent schedules for all stakeholder groups with emergency controls.
-            </p>
-          </div>
-          <div class="roadmap-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4"/>
-            </svg>
-          </div>
-        </div>
-
-        <div class="roadmap-item">
-          <div class="roadmap-content">
-            <div class="roadmap-status status-active">Live</div>
-            <div class="roadmap-phase">Phase 3</div>
-            <h3 class="roadmap-title">Fair Distribution System</h3>
-            <p class="roadmap-description">
-              Dutch auction with price discovery and merit-based airdrop for community contributors. 
-              Active distribution phase with transparent token allocation.
-            </p>
-          </div>
-          <div class="roadmap-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
-            </svg>
-          </div>
-        </div>
-
-        <div class="roadmap-item">
-          <div class="roadmap-content">
-            <div class="roadmap-status status-upcoming">Upcoming</div>
-            <div class="roadmap-phase">Phase 4</div>
-            <h3 class="roadmap-title">FUEL Migration</h3>
-            <p class="roadmap-description">
-              Constitutional bridge deployment for ARCx to FUEL migration. 
-              One-way burn mechanism with cryptographic proof and transparent conversion.
-            </p>
-          </div>
-          <div class="roadmap-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/>
-            </svg>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="cta-section">
-      <div class="cta-content">
-        <h2 class="cta-title">Ready to Fund the Future?</h2>
-        <p class="cta-description">
-          ARCx tokens directly fund constitutional intelligence infrastructure development. 
-          Every purchase contributes to R&D, network bootstrapping, and the future of autonomous governance.
-          Join the genesis funding round with transparent price discovery and fair distribution.
-        </p>
-        <div class="hero-actions">
-          <a href="https://basescan.org/address/0xD788D9ac56c754cb927771eBf058966bA8aB734D" class="btn btn-primary">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
-            </svg>
-            Join Dutch Auction
-          </a>
-          <a href="transparency.html" class="btn btn-secondary">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-              <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-            </svg>
-            View Fund Allocation
-          </a>
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <script>
-    // Parallax effect for floating elements
-    window.addEventListener('scroll', () => {
-      const scrolled = window.pageYOffset;
-      const rate = scrolled * -0.5;
-      
-      document.querySelector('.layer-1').style.transform = `translateY(${rate}px)`;
-      document.querySelector('.layer-2').style.transform = `translateY(${rate * 0.3}px) rotate(${scrolled * 0.05}deg)`;
-    });
-
-    // Story layers animation
-    const storyObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
+    <script>
+        // Contract configuration
+        const AUCTION_ADDRESS = "0x5Da5F567553C8D4F12542Ba608F41626f77Aa836";
+        const TOKEN_ADDRESS = "0xA4093669DAFbD123E37d52e0939b3aB3C2272f44";
+        const BASE_CHAIN_ID = 8453;
+        
+        // Contract ABIs
+        const AUCTION_ABI = [
+            "function getCurrentPrice() view returns (uint256)",
+            "function totalTokens() view returns (uint256)",
+            "function tokensSold() view returns (uint256)",
+            "function startTime() view returns (uint256)",
+            "function endTime() view returns (uint256)",
+            "function userPurchases(address) view returns (uint256)",
+            "function totalRaised() view returns (uint256)",
+            "function purchase() payable",
+            "event TokensPurchased(address indexed buyer, uint256 amount, uint256 price)"
+        ];
+        
+        let provider, signer, auctionContract;
+        let isConnected = false;
+        let auctionData = {};
+        
+        // Initialize
+        async function init() {
+            console.log('🚀 Initializing ARCx Auction Interface');
+            
+            // Check for existing wallet connection
+            if (typeof window.ethereum !== 'undefined') {
+                try {
+                    const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+                    if (accounts.length > 0) {
+                        await connectWallet(false);
+                    }
+                } catch (error) {
+                    console.error('Error checking wallet connection:', error);
+                }
+            }
+            
+            // Start data updates
+            await updateAuctionData();
+            setInterval(updateAuctionData, 15000); // Update every 15 seconds
         }
-      });
-    }, {
-      threshold: 0.3,
-      rootMargin: '0px 0px -50px 0px'
-    });
-
-    document.querySelectorAll('.story-layer').forEach(layer => {
-      storyObserver.observe(layer);
-    });
-
-    // Intersection Observer for roadmap animations
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -100px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
+        
+        // Connect wallet
+        async function connectWallet(userInitiated = true) {
+            if (typeof window.ethereum === 'undefined') {
+                showMessage('Please install MetaMask or a compatible wallet', 'error');
+                return;
+            }
+            
+            try {
+                if (userInitiated) {
+                    await window.ethereum.request({ method: 'eth_requestAccounts' });
+                }
+                
+                // Switch to Base network
+                await switchToBase();
+                
+                // Set up provider
+                provider = new ethers.providers.Web3Provider(window.ethereum);
+                signer = provider.getSigner();
+                
+                const address = await signer.getAddress();
+                const network = await provider.getNetwork();
+                
+                if (network.chainId !== BASE_CHAIN_ID) {
+                    throw new Error('Please switch to Base network');
+                }
+                
+                // Update UI
+                document.getElementById('walletStatus').textContent = 'Connected';
+                document.getElementById('walletAddress').textContent = `${address.slice(0, 6)}...${address.slice(-4)}`;
+                document.getElementById('statusDot').className = 'status-dot connected';
+                document.getElementById('connectWallet').textContent = 'Disconnect';
+                document.getElementById('purchaseBtn').disabled = false;
+                document.getElementById('purchaseBtn').textContent = 'Purchase ARCx';
+                
+                // Set up contract
+                auctionContract = new ethers.Contract(AUCTION_ADDRESS, AUCTION_ABI, signer);
+                
+                isConnected = true;
+                
+                // Update user data
+                await updateUserData();
+                
+                showMessage('Wallet connected successfully', 'success');
+                
+            } catch (error) {
+                console.error('Error connecting wallet:', error);
+                showMessage(`Failed to connect wallet: ${error.message}`, 'error');
+            }
         }
-      });
-    }, observerOptions);
-
-    document.querySelectorAll('.roadmap-item').forEach(item => {
-      item.style.opacity = '0';
-      item.style.transform = 'translateY(50px)';
-      item.style.transition = 'all 0.6s ease';
-      observer.observe(item);
-    });
-  </script>
+        
+        // Disconnect wallet
+        function disconnectWallet() {
+            isConnected = false;
+            provider = null;
+            signer = null;
+            auctionContract = null;
+            
+            document.getElementById('walletStatus').textContent = 'Not Connected';
+            document.getElementById('walletAddress').textContent = '';
+            document.getElementById('statusDot').className = 'status-dot';
+            document.getElementById('connectWallet').textContent = 'Connect Wallet';
+            document.getElementById('purchaseBtn').disabled = true;
+            document.getElementById('purchaseBtn').textContent = 'Connect Wallet to Purchase';
+            document.getElementById('yourTokens').textContent = '---';
+            
+            clearMessages();
+        }
+        
+        // Switch to Base network
+        async function switchToBase() {
+            try {
+                await window.ethereum.request({
+                    method: 'wallet_switchEthereumChain',
+                    params: [{ chainId: '0x2105' }],
+                });
+            } catch (switchError) {
+                if (switchError.code === 4902) {
+                    await window.ethereum.request({
+                        method: 'wallet_addEthereumChain',
+                        params: [{
+                            chainId: '0x2105',
+                            chainName: 'Base',
+                            nativeCurrency: {
+                                name: 'ETH',
+                                symbol: 'ETH',
+                                decimals: 18
+                            },
+                            rpcUrls: ['https://mainnet.base.org'],
+                            blockExplorerUrls: ['https://basescan.org']
+                        }]
+                    });
+                }
+            }
+        }
+        
+        // Update auction data
+        async function updateAuctionData() {
+            try {
+                const readProvider = new ethers.providers.JsonRpcProvider('https://mainnet.base.org');
+                const readContract = new ethers.Contract(AUCTION_ADDRESS, AUCTION_ABI, readProvider);
+                
+                const [currentPrice, totalTokens, tokensSold, startTime, endTime, totalRaised] = await Promise.all([
+                    readContract.getCurrentPrice().catch(() => ethers.BigNumber.from(0)),
+                    readContract.totalTokens().catch(() => ethers.BigNumber.from(0)),
+                    readContract.tokensSold().catch(() => ethers.BigNumber.from(0)),
+                    readContract.startTime().catch(() => ethers.BigNumber.from(0)),
+                    readContract.endTime().catch(() => ethers.BigNumber.from(0)),
+                    readContract.totalRaised().catch(() => ethers.BigNumber.from(0))
+                ]);
+                
+                auctionData = {
+                    currentPrice,
+                    totalTokens,
+                    tokensSold,
+                    startTime,
+                    endTime,
+                    totalRaised
+                };
+                
+                // Update UI
+                document.getElementById('currentPrice').textContent = parseFloat(ethers.utils.formatEther(currentPrice)).toFixed(6);
+                
+                const tokensAvailable = totalTokens.sub(tokensSold);
+                document.getElementById('tokensAvailable').textContent = parseInt(ethers.utils.formatEther(tokensAvailable)).toLocaleString();
+                document.getElementById('tokensSold').textContent = parseInt(ethers.utils.formatEther(tokensSold)).toLocaleString();
+                document.getElementById('totalRaised').textContent = parseFloat(ethers.utils.formatEther(totalRaised)).toFixed(2);
+                
+                // Update timer
+                updateTimer();
+                
+                // Update purchase calculation
+                updatePurchaseCalculation();
+                
+            } catch (error) {
+                console.error('Error updating auction data:', error);
+                document.getElementById('currentPrice').textContent = 'Error';
+            }
+        }
+        
+        // Update timer
+        function updateTimer() {
+            const now = Math.floor(Date.now() / 1000);
+            const start = auctionData.startTime ? auctionData.startTime.toNumber() : 0;
+            const end = auctionData.endTime ? auctionData.endTime.toNumber() : 0;
+            
+            if (now < start) {
+                const timeToStart = start - now;
+                document.getElementById('timerLabel').textContent = 'Auction Starts In:';
+                document.getElementById('countdown').textContent = formatTime(timeToStart);
+                document.getElementById('countdown').className = 'countdown';
+            } else if (now >= start && now < end) {
+                const timeToEnd = end - now;
+                document.getElementById('timerLabel').textContent = 'Time Remaining:';
+                document.getElementById('countdown').textContent = formatTime(timeToEnd);
+                document.getElementById('countdown').className = 'countdown';
+            } else {
+                document.getElementById('timerLabel').textContent = 'Auction Status:';
+                document.getElementById('countdown').textContent = 'ENDED';
+                document.getElementById('countdown').className = 'countdown auction-ended';
+            }
+        }
+        
+        // Update user data
+        async function updateUserData() {
+            if (!isConnected || !auctionContract) return;
+            
+            try {
+                const userAddress = await signer.getAddress();
+                const userPurchases = await auctionContract.userPurchases(userAddress);
+                document.getElementById('yourTokens').textContent = parseInt(ethers.utils.formatEther(userPurchases)).toLocaleString();
+            } catch (error) {
+                console.error('Error updating user data:', error);
+                document.getElementById('yourTokens').textContent = 'Error';
+            }
+        }
+        
+        // Update purchase calculation
+        function updatePurchaseCalculation() {
+            const ethAmount = document.getElementById('ethAmount').value;
+            if (!ethAmount || ethAmount <= 0 || !auctionData.currentPrice) {
+                document.getElementById('arcxAmount').value = '';
+                return;
+            }
+            
+            try {
+                const ethValue = ethers.utils.parseEther(ethAmount);
+                const tokens = ethValue.mul(ethers.utils.parseEther('1')).div(auctionData.currentPrice);
+                document.getElementById('arcxAmount').value = parseInt(ethers.utils.formatEther(tokens)).toLocaleString();
+            } catch (error) {
+                document.getElementById('arcxAmount').value = '';
+            }
+        }
+        
+        // Purchase tokens
+        async function purchaseTokens() {
+            if (!isConnected || !auctionContract) {
+                showMessage('Please connect your wallet first', 'error');
+                return;
+            }
+            
+            const ethAmount = document.getElementById('ethAmount').value;
+            if (!ethAmount || ethAmount <= 0) {
+                showMessage('Please enter a valid ETH amount', 'error');
+                return;
+            }
+            
+            try {
+                document.getElementById('purchaseBtn').disabled = true;
+                document.getElementById('purchaseBtn').textContent = 'Processing...';
+                
+                const tx = await auctionContract.purchase({
+                    value: ethers.utils.parseEther(ethAmount),
+                    gasLimit: 300000
+                });
+                
+                document.getElementById('purchaseBtn').textContent = 'Confirming...';
+                showMessage('Transaction submitted, waiting for confirmation...', 'info');
+                
+                await tx.wait();
+                
+                showMessage('Purchase successful! 🎉', 'success');
+                
+                // Reset form
+                document.getElementById('ethAmount').value = '';
+                document.getElementById('arcxAmount').value = '';
+                
+                // Update data
+                await updateAuctionData();
+                await updateUserData();
+                
+            } catch (error) {
+                console.error('Purchase failed:', error);
+                let errorMessage = 'Purchase failed';
+                
+                if (error.message.includes('user rejected')) {
+                    errorMessage = 'Transaction cancelled';
+                } else if (error.message.includes('insufficient funds')) {
+                    errorMessage = 'Insufficient ETH balance';
+                } else if (error.message.includes('auction ended')) {
+                    errorMessage = 'Auction has ended';
+                }
+                
+                showMessage(errorMessage, 'error');
+            } finally {
+                document.getElementById('purchaseBtn').disabled = false;
+                document.getElementById('purchaseBtn').textContent = 'Purchase ARCx';
+            }
+        }
+        
+        // Utility functions
+        function formatTime(seconds) {
+            const days = Math.floor(seconds / 86400);
+            const hours = Math.floor((seconds % 86400) / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            const secs = seconds % 60;
+            
+            if (days > 0) return `${days}d ${hours}h ${minutes}m`;
+            if (hours > 0) return `${hours}h ${minutes}m`;
+            return `${minutes}m ${secs}s`;
+        }
+        
+        function showMessage(message, type) {
+            const messageArea = document.getElementById('messageArea');
+            const messageClass = type === 'error' ? 'error-message' : 
+                               type === 'success' ? 'success-message' : 'info-message';
+            
+            messageArea.innerHTML = `<div class="${messageClass}">${message}</div>`;
+            
+            if (type === 'success') {
+                setTimeout(() => {
+                    messageArea.innerHTML = '';
+                }, 5000);
+            }
+        }
+        
+        function clearMessages() {
+            document.getElementById('messageArea').innerHTML = '';
+        }
+        
+        // Event listeners
+        document.getElementById('connectWallet').addEventListener('click', () => {
+            if (isConnected) {
+                disconnectWallet();
+            } else {
+                connectWallet(true);
+            }
+        });
+        
+        document.getElementById('ethAmount').addEventListener('input', updatePurchaseCalculation);
+        document.getElementById('purchaseBtn').addEventListener('click', purchaseTokens);
+        
+        // Handle wallet events
+        if (typeof window.ethereum !== 'undefined') {
+            window.ethereum.on('accountsChanged', (accounts) => {
+                if (accounts.length === 0) {
+                    disconnectWallet();
+                } else if (isConnected) {
+                    connectWallet(false);
+                }
+            });
+            
+            window.ethereum.on('chainChanged', () => {
+                window.location.reload();
+            });
+        }
+        
+        // Initialize when page loads
+        window.addEventListener('load', init);
+        
+        // Update timer every second
+        setInterval(updateTimer, 1000);
+    </script>
 </body>
 </html>
