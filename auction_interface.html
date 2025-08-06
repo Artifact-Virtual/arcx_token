@@ -471,17 +471,19 @@
         const TOKEN_ADDRESS = "0xA4093669DAFbD123E37d52e0939b3aB3C2272f44";
         const BASE_CHAIN_ID = 8453;
         
-        // Contract ABIs
+        // Contract ABIs - Updated to match actual contract
         const AUCTION_ABI = [
+            "function getAuctionStatus() view returns (uint256 _currentPrice, uint256 _tokensSold, uint256 _tokensRemaining, uint256 _totalRaised, uint256 _timeRemaining, bool _isActive)",
             "function getCurrentPrice() view returns (uint256)",
             "function totalTokens() view returns (uint256)",
-            "function tokensSold() view returns (uint256)",
+            "function tokensSold() view returns (uint256)", 
             "function startTime() view returns (uint256)",
             "function endTime() view returns (uint256)",
             "function userPurchases(address) view returns (uint256)",
             "function totalRaised() view returns (uint256)",
             "function purchase() payable",
-            "event TokensPurchased(address indexed buyer, uint256 amount, uint256 price)"
+            "function owner() view returns (address)",
+            "event TokensPurchased(address indexed buyer, uint256 amount, uint256 price, uint8 tier)"
         ];
         
         let provider, signer, auctionContract;
@@ -610,41 +612,42 @@
                 const readProvider = new ethers.providers.JsonRpcProvider('https://mainnet.base.org');
                 const readContract = new ethers.Contract(AUCTION_ADDRESS, AUCTION_ABI, readProvider);
                 
-                const [currentPrice, totalTokens, tokensSold, startTime, endTime, totalRaised] = await Promise.all([
-                    readContract.getCurrentPrice().catch(() => ethers.BigNumber.from(0)),
-                    readContract.totalTokens().catch(() => ethers.BigNumber.from(0)),
-                    readContract.tokensSold().catch(() => ethers.BigNumber.from(0)),
-                    readContract.startTime().catch(() => ethers.BigNumber.from(0)),
-                    readContract.endTime().catch(() => ethers.BigNumber.from(0)),
-                    readContract.totalRaised().catch(() => ethers.BigNumber.from(0))
-                ]);
+                // Use the correct getAuctionStatus function
+                const auctionStatus = await readContract.getAuctionStatus();
+                const startTime = await readContract.startTime();
+                const endTime = await readContract.endTime();
                 
                 auctionData = {
-                    currentPrice,
-                    totalTokens,
-                    tokensSold,
-                    startTime,
-                    endTime,
-                    totalRaised
+                    currentPrice: auctionStatus._currentPrice,
+                    tokensSold: auctionStatus._tokensSold,
+                    tokensRemaining: auctionStatus._tokensRemaining,
+                    totalRaised: auctionStatus._totalRaised,
+                    timeRemaining: auctionStatus._timeRemaining,
+                    isActive: auctionStatus._isActive,
+                    startTime: startTime,
+                    endTime: endTime
                 };
                 
                 // Update UI
-                document.getElementById('currentPrice').textContent = parseFloat(ethers.utils.formatEther(currentPrice)).toFixed(6);
+                document.getElementById('currentPrice').textContent = parseFloat(ethers.utils.formatEther(auctionStatus._currentPrice)).toFixed(6);
                 
-                const tokensAvailable = totalTokens.sub(tokensSold);
-                document.getElementById('tokensAvailable').textContent = parseInt(ethers.utils.formatEther(tokensAvailable)).toLocaleString();
-                document.getElementById('tokensSold').textContent = parseInt(ethers.utils.formatEther(tokensSold)).toLocaleString();
-                document.getElementById('totalRaised').textContent = parseFloat(ethers.utils.formatEther(totalRaised)).toFixed(2);
+                document.getElementById('tokensAvailable').textContent = parseInt(ethers.utils.formatEther(auctionStatus._tokensRemaining)).toLocaleString();
+                document.getElementById('tokensSold').textContent = parseInt(ethers.utils.formatEther(auctionStatus._tokensSold)).toLocaleString();
+                document.getElementById('totalRaised').textContent = parseFloat(ethers.utils.formatEther(auctionStatus._totalRaised)).toFixed(2);
                 
-                // Update timer
+                // Update timer with correct status
                 updateTimer();
                 
                 // Update purchase calculation
                 updatePurchaseCalculation();
                 
+                console.log('✅ Auction data updated successfully', auctionData);
+                
             } catch (error) {
                 console.error('Error updating auction data:', error);
                 document.getElementById('currentPrice').textContent = 'Error';
+                document.getElementById('countdown').textContent = 'ERROR';
+                document.getElementById('countdown').className = 'countdown auction-ended';
             }
         }
         
@@ -654,20 +657,20 @@
             const start = auctionData.startTime ? auctionData.startTime.toNumber() : 0;
             const end = auctionData.endTime ? auctionData.endTime.toNumber() : 0;
             
-            if (now < start) {
+            if (!auctionData.isActive) {
+                document.getElementById('timerLabel').textContent = 'Auction Status:';
+                document.getElementById('countdown').textContent = 'ENDED';
+                document.getElementById('countdown').className = 'countdown auction-ended';
+            } else if (now < start) {
                 const timeToStart = start - now;
                 document.getElementById('timerLabel').textContent = 'Auction Starts In:';
                 document.getElementById('countdown').textContent = formatTime(timeToStart);
                 document.getElementById('countdown').className = 'countdown';
-            } else if (now >= start && now < end) {
-                const timeToEnd = end - now;
+            } else if (auctionData.isActive) {
+                const timeRemaining = auctionData.timeRemaining ? auctionData.timeRemaining.toNumber() : 0;
                 document.getElementById('timerLabel').textContent = 'Time Remaining:';
-                document.getElementById('countdown').textContent = formatTime(timeToEnd);
+                document.getElementById('countdown').textContent = formatTime(timeRemaining);
                 document.getElementById('countdown').className = 'countdown';
-            } else {
-                document.getElementById('timerLabel').textContent = 'Auction Status:';
-                document.getElementById('countdown').textContent = 'ENDED';
-                document.getElementById('countdown').className = 'countdown auction-ended';
             }
         }
         
