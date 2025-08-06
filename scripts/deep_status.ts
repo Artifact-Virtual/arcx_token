@@ -4,7 +4,7 @@ async function main() {
     console.log("🔧 ARCx Deep Status Analysis");
     console.log("============================");
     
-    const tokenAddress = "0xD788D9ac56c754cb927771eBf058966bA8aB734D";
+    const tokenAddress = "0xA4093669DAFbD123E37d52e0939b3aB3C2272f44";
     const provider = ethers.provider;
     
     console.log(`📍 Token Contract: ${tokenAddress}`);

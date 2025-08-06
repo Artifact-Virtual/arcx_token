@@ -6,7 +6,7 @@ async function main() {
     
     try {
         // Connect to live contracts
-        const tokenAddress = "0xD788D9ac56c754cb927771eBf058966bA8aB734D";
+        const tokenAddress = "0xA4093669DAFbD123E37d52e0939b3aB3C2272f44";
         const airdropAddress = "0x79166AbC8c17017436263BcE5f76DaB1c3dEa195";
         const vestingAddress = "0xEEc0298bE76C9C3224eA05a34687C1a1134d550B";
         const treasuryAddress = "0x8F8fdBFa1AF9f53973a7003CbF26D854De9b2f38";

@@ -6,7 +6,7 @@ async function main() {
     
     // Contract addresses from README (LIVE)
     const addresses = {
-        token: "0xD788D9ac56c754cb927771eBf058966bA8aB734D",
+        token: "0xA4093669DAFbD123E37d52e0939b3aB3C2272f44",
         airdrop: "0x79166AbC8c17017436263BcE5f76DaB1c3dEa195", 
         vesting: "0xEEc0298bE76C9C3224eA05a34687C1a1134d550B",
         treasury: "0x8F8fdBFa1AF9f53973a7003CbF26D854De9b2f38"

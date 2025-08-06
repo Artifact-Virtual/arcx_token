@@ -6,14 +6,14 @@ async function main() {
     
     const addresses = {
         treasury: "0x8F8fdBFa1AF9f53973a7003CbF26D854De9b2f38",
-        arcxToken: "0xA4093669DAFbD123E37d52e0939b3aB3C2272f44", // Wrong - should be D788D9ac
+        arcxToken: "0xA4093669DAFbD123E37d52e0939b3aB3C2272f44", // Correct - Live deployment address
         weth: "0x4200000000000000000000000000000000000006",
         poolManager: "0x498581ff718922c3f8e6a244956af099b2652b2b",
         positionManager: "0x7c5f5a4bfd8fd63184577525326123b519429bdc"
     };
     
     // Correct the ARCx token address
-    addresses.arcxToken = "0xD788D9ac56c754cb927771eBf058966bA8aB734D";
+    addresses.arcxToken = "0xA4093669DAFbD123E37d52e0939b3aB3C2272f44";
     
     const provider = ethers.provider;
     
