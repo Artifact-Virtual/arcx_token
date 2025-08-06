@@ -11,12 +11,8 @@ const CONFIG = {
 
 // Contract ABI with correct function names
 const AUCTION_ABI = [
-    "function getAuctionStatus() view returns (bool, uint256, uint256, uint256, uint256)",
-    "function getCurrentPrice() view returns (uint256)",
-    "function buyTokens() payable",
-    "function tokensAvailable() view returns (uint256)",
-    "function tokensSold() view returns (uint256)",
-    "function auctionEndTime() view returns (uint256)"
+    "function getAuctionStatus() view returns (uint256 _currentPrice, uint256 _tokensSold, uint256 _tokensRemaining, uint256 _totalRaised, uint256 _timeRemaining, bool _isActive)",
+    "function purchase() payable"
 ];
 
 let provider = null;
@@ -240,14 +236,14 @@ async function purchaseTokens() {
         addDebugInfo(`ETH value in wei: ${ethValue.toString()}`);
 
         // Estimate gas
-        const gasEstimate = await auctionContract.estimateGas.buyTokens({
+        const gasEstimate = await auctionContract.estimateGas.purchase({
             value: ethValue
         });
         addDebugInfo(`Gas estimate: ${gasEstimate.toString()}`);
 
         // Send transaction
         showMessage('Please confirm the transaction in MetaMask...', 'info');
-        const tx = await auctionContract.buyTokens({
+        const tx = await auctionContract.purchase({
             value: ethValue,
             gasLimit: gasEstimate.mul(120).div(100) // 20% buffer
         });
@@ -293,7 +289,8 @@ async function updateTokenEstimate() {
 
     try {
         if (auctionContract) {
-            const currentPrice = await auctionContract.getCurrentPrice();
+            const status = await auctionContract.getAuctionStatus();
+            const currentPrice = status._currentPrice;
             const ethValue = ethers.utils.parseEther(ethAmount);
             const tokenAmount = ethValue.div(currentPrice);
             arcxAmountField.value = ethers.utils.formatEther(tokenAmount);
@@ -312,19 +309,18 @@ async function refreshAuctionData() {
         addDebugInfo('Refreshing auction data...');
         
         // Get auction status
-        const [isActive, currentPrice, tokensAvailable, tokensSold, endTime] = await auctionContract.getAuctionStatus();
+        const status = await auctionContract.getAuctionStatus();
         
         // Update current price
-        const priceInEth = ethers.utils.formatEther(currentPrice);
+        const priceInEth = ethers.utils.formatEther(status._currentPrice);
         document.getElementById('currentPrice').textContent = parseFloat(priceInEth).toFixed(6);
         
         // Update stats
-        document.getElementById('tokensAvailable').textContent = ethers.utils.formatEther(tokensAvailable);
-        document.getElementById('tokensSold').textContent = ethers.utils.formatEther(tokensSold);
+        document.getElementById('tokensAvailable').textContent = parseInt(ethers.utils.formatEther(status._tokensRemaining)).toLocaleString();
+        document.getElementById('tokensSold').textContent = parseInt(ethers.utils.formatEther(status._tokensSold)).toLocaleString();
         
         // Calculate time remaining
-        const now = Math.floor(Date.now() / 1000);
-        const timeLeft = endTime - now;
+        const timeLeft = status._timeRemaining.toNumber();
         
         if (timeLeft > 0) {
             const hours = Math.floor(timeLeft / 3600);
@@ -334,9 +330,9 @@ async function refreshAuctionData() {
             document.getElementById('timeRemaining').textContent = 'Ended';
         }
         
-        // Update total raised (approximate)
-        const totalRaised = tokensSold.mul(currentPrice);
-        document.getElementById('totalRaised').textContent = parseFloat(ethers.utils.formatEther(totalRaised)).toFixed(2);
+        // Update total raised
+        const totalRaised = parseFloat(ethers.utils.formatEther(status._totalRaised)).toFixed(2);
+        document.getElementById('totalRaised').textContent = totalRaised;
         
         addDebugInfo('Auction data refreshed');
         
