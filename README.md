@@ -1,9 +1,13 @@
 ## ARCx
 > The Smarter Contract
 
-![Live](https://img.shields.io/badge/-Live-0052FF?style=for-the-badge&logo=https://cryptologos.cc/logos/base-base-logo.svg&logoColor=white)
+![Live](https://img.shields.io/badge/-Live-0052FF?style=for-the-badge&logo=https://cryptologos.cc/logos/base-base-logo.svg&logoColor=white) ![Fair Economy](https://img.shields.io/badge/-Fair%20Economy-00D2FF?style=for-the-badge)
 
-**Contract Address:** [`0xA4093669DAFbD123E37d52e0939b3aB3C2272f44`](https://basescan.org/address/0xA4093669DAFbD123E37d52e0939b3aB3C2272f44)
+**Token Contract:** [`0xA4093669DAFbD123E37d52e0939b3aB3C2272f44`](https://basescan.org/address/0xA4093669DAFbD123E37d52e0939b3aB3C2272f44)
+
+**Distribution System:**
+- **Dutch Auction:** [`0xD788D9ac56c754cb927771eBf058966bA8aB734D`](https://basescan.org/address/0xD788D9ac56c754cb927771eBf058966bA8aB734D)
+- **Smart Airdrop:** [`0x79166AbC8c17017436263BcE5f76DaB1c3dEa195`](https://basescan.org/address/0x79166AbC8c17017436263BcE5f76DaB1c3dEa195)
 
 **Verification Status:** ✅ Verified on [BaseScan](https://basescan.org/address/0xA4093669DAFbD123E37d52e0939b3aB3C2272f44#code) and [Sourcify](https://repo.sourcify.dev/contracts/full_match/8453/0xA4093669DAFbD123E37d52e0939b3aB3C2272f44/)
 
@@ -46,6 +50,20 @@ Transaction details:
 - **DEFAULT_ADMIN_ROLE:** `0x21e914dfbb137f7fec896f11bc8bad6bccdb147b` ✅
 - **MINTER_ROLE:** `0x21e914dfbb137f7fec896f11bc8bad6bccdb147b` ✅
 - **PAUSER_ROLE:** `0x21e914dfbb137f7fec896f11bc8bad6bccdb147b` ✅
+
+### Fair Distribution System
+
+**Dutch Auction** - *100,000 ARCx*
+- **Contract Address:** [`0xD788D9ac56c754cb927771eBf058966bA8aB734D`](https://basescan.org/address/0xD788D9ac56c754cb927771eBf058966bA8aB734D)
+- **Price Discovery:** Dynamic pricing from $0.20 to $0.05 over 72 hours
+- **Anti-Whale Protection:** 15% discount for smaller purchases
+- **Early Supporter Bonuses:** Tier-based contribution rewards
+
+**Smart Airdrop** - *50,000 ARCx*  
+- **Contract Address:** [`0x79166AbC8c17017436263BcE5f76DaB1c3dEa195`](https://basescan.org/address/0x79166AbC8c17017436263BcE5f76DaB1c3dEa195)
+- **Merit-Based Distribution:** Seven contribution categories with weighted rewards
+- **Anti-Sybil Protection:** Account age and contribution verification
+- **Claim Period:** 30 days from deployment
 
 ### Contract Status
 
