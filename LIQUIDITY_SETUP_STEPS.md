@@ -1,6 +1,7 @@
-# 🚀 ARCx Liquidity Setup - EXACT EXECUTION STEPS
+# 🚀 ARCx Liquidity Setup - UPDATED EXECUTION STEPS
 **Date**: August 6, 2025  
 **Treasury Safe**: `0x8F8fdBFa1AF9f53973a7003CbF26D854De9b2f38`
+**Updated LP Amount**: ~$4 USD equivalent (0.0016 ETH at $2500/ETH)
 
 ## 📋 PRE-REQUIREMENTS CHECKLIST
 
@@ -8,13 +9,13 @@
 - [x] Auction is LIVE and ACTIVE
 - [x] ARCx Token deployed: `0xD788D9ac56c754cb927771eBf058966bA8aB734D`
 - [x] Treasury Safe exists: `0x8F8fdBFa1AF9f53973a7003CbF26D854De9b2f38`
-- [ ] **Treasury has 12.5 ETH** ❌ (Currently 0 ETH)
-- [ ] **Treasury has 25,000 ARCx** ❌ (Need to verify/transfer)
+- [ ] **Treasury has 0.0016 ETH** ❌ (Currently 0 ETH)
+- [ ] **Treasury has 3.2 ARCx** ❌ (Need to verify/transfer)
 
 ### 🚨 IMMEDIATE ACTION REQUIRED:
 **STEP 0: Fund the Treasury Safe**
-1. Send **12.5 ETH** to `0x8F8fdBFa1AF9f53973a7003CbF26D854De9b2f38`
-2. Transfer **25,000 ARCx** tokens to treasury (if not already there)
+1. Send **0.0016 ETH** to `0x8F8fdBFa1AF9f53973a7003CbF26D854De9b2f38`
+2. Transfer **3.2 ARCx** tokens to treasury (if not already there)
 
 ---
 
@@ -26,7 +27,7 @@
 
 **Transaction Details:**
 - **To**: `0x4200000000000000000000000000000000000006` (Base WETH)
-- **Value**: `12.5 ETH` (12500000000000000000 wei)
+- **Value**: `0.0016 ETH` (1600000000000000 wei)
 - **Function**: `deposit()`
 - **Data**: `0xd0e30db0`
 - **Gas Estimate**: ~30,000
@@ -36,10 +37,10 @@
 - **To**: `0xD788D9ac56c754cb927771eBf058966bA8aB734D` (ARCx Token)
 - **Value**: `0 ETH`
 - **Function**: `approve(address spender, uint256 amount)`
-- **Data**: `0x095ea7b30000000000000000000000007c5f5a4bfd8fd63184577525326123b519429bdc0000000000000000000000000000000000000000000054b40b1f852bda00000`
+- **Data**: `0x095ea7b30000000000000000000000007c5f5a4bfd8fd63184577525326123b519429bdc0000000000000000000000000000000000000000000000002b5e3af16b1880000`
 - **Parameters**:
   - spender: `0x7c5f5a4bfd8fd63184577525326123b519429bdc` (Position Manager)
-  - amount: `25000000000000000000000` (25,000 ARCx)
+  - amount: `3200000000000000000` (3.2 ARCx)
 - **Gas Estimate**: ~50,000
 
 ### STEP 3: Approve WETH Tokens
@@ -47,7 +48,7 @@
 - **To**: `0x4200000000000000000000000000000000000006` (Base WETH)
 - **Value**: `0 ETH`
 - **Function**: `approve(address spender, uint256 amount)`
-- **Data**: `0x095ea7b30000000000000000000000007c5f5a4bfd8fd63184577525326123b519429bdc0000000000000000000000000000000000000000000000000ad78ebc5ac620000`
+- **Data**: `0x095ea7b30000000000000000000000007c5f5a4bfd8fd63184577525326123b519429bdc0000000000000000000000000000000000000000000000000005af3107a4000`
 - **Parameters**:
   - spender: `0x7c5f5a4bfd8fd63184577525326123b519429bdc` (Position Manager)
   - amount: `12500000000000000000` (12.5 WETH)
