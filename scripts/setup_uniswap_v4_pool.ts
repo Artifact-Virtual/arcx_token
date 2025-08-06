@@ -17,7 +17,7 @@ async function main() {
   const UNIVERSAL_ROUTER = "0x6ff5693b99212da76ad316178a184ab56d299b43";
   
   // Token Addresses (Verified Production)
-  const ARCX_TOKEN = "0xD788D9ac56c754cb927771eBf058966bA8aB734D"; // ARCx Genesis Token
+  const ARCX_TOKEN = "0xA4093669DAFbD123E37d52e0939b3aB3C2272f44"; // ARCx Genesis Token
   const WETH_BASE = "0x4200000000000000000000000000000000000006"; // Base WETH
   
   // Pool Parameters - Enterprise-Grade 0.3% Fee Tier

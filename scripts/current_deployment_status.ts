@@ -10,7 +10,7 @@ async function main() {
     
     // Known addresses from README and deployment
     const addresses = {
-        "Token Contract (from README)": "0xD788D9ac56c754cb927771eBf058966bA8aB734D",
+        "Token Contract (from README)": "0xA4093669DAFbD123E37d52e0939b3aB3C2272f44",
         "New Dutch Auction (just deployed)": "0xB66e928C556362c513BB999dF4a4Ed2e76A8ACA3", 
         "Smart Airdrop (from README)": "0x79166AbC8c17017436263BcE5f76DaB1c3dEa195",
         "Vesting Contract": "0xEEc0298bE76C9C3224eA05a34687C1a1134d550B",
@@ -44,7 +44,7 @@ async function main() {
     console.log("This is incorrect - they should be different contracts.");
     console.log("");
     console.log("ACTUAL SITUATION:");
-    console.log("✅ Token Contract: 0xD788D9ac56c754cb927771eBf058966bA8aB734D");
+    console.log("✅ Token Contract: 0xA4093669DAFbD123E37d52e0939b3aB3C2272f44");
     console.log("✅ NEW Dutch Auction: 0xB66e928C556362c513BB999dF4a4Ed2e76A8ACA3");
     console.log("✅ Smart Airdrop: 0x79166AbC8c17017436263BcE5f76DaB1c3dEa195");
     

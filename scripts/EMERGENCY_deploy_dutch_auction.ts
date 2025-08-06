@@ -15,7 +15,7 @@ async function main() {
     console.log("Balance:", ethers.formatEther(await ethers.provider.getBalance(deployer.address)));
     
     // Configuration
-    const ARCX_TOKEN_ADDRESS = process.env.ARCX_TOKEN_ADDRESS || "0xD788D9ac56c754cb927771eBf058966bA8aB734D";
+    const ARCX_TOKEN_ADDRESS = process.env.ARCX_TOKEN_ADDRESS || "0xA4093669DAFbD123E37d52e0939b3aB3C2272f44";
     const TREASURY_ADDRESS = process.env.TREASURY_SAFE_ADDRESS || "0x8F8fdBFa1AF9f53973a7003CbF26D854De9b2f38";
     
     // Auction parameters - LIVE PARAMETERS

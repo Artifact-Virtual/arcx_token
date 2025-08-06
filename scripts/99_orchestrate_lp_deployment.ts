@@ -35,8 +35,8 @@ async function main() {
     console.log("✅ Fee Collection: ACTIVE (0.3%)");
     console.log("✅ Base L2 Network: OPTIMIZED");
     console.log("\n🏛️  Treasury Status:");
-    console.log("- 25,000 ARCx committed to LP");
-    console.log("- 12.5 ETH committed to LP"); 
+    console.log("- 8 ARCx committed to LP");
+    console.log("- 0.0015 ETH (~$4 USD) committed to LP"); 
     console.log("- Full range coverage for maximum trading");
     console.log("- LP NFT secured for governance control");
     console.log("\n🚀 ARCx is now trading-ready with professional-grade liquidity!");

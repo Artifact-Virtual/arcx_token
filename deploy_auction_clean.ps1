@@ -140,3 +140,4 @@ Write-Host "3. GitHub Pages: Push deployment folder to repository" -ForegroundCo
 Write-Host "4. Local Test: Run 'cd deployment && .\start_test_server.ps1'" -ForegroundColor White
 Write-Host ""
 Write-Host "ARCx auction interface is LIVE READY!" -ForegroundColor Green
+

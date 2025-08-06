@@ -16,13 +16,13 @@ async function main() {
   console.log("==================================================");
   
   // Production Addresses
-  const ARCX_TOKEN = "0xD788D9ac56c754cb927771eBf058966bA8aB734D";
+  const ARCX_TOKEN = "0xA4093669DAFbD123E37d52e0939b3aB3C2272f44";
   const WETH_BASE = "0x4200000000000000000000000000000000000006";
   const POSITION_MANAGER = "0x7c5f5a4bfd8fd63184577525326123b519429bdc";
   
   // Enterprise LP Parameters
-  const ARCX_AMOUNT = ethers.parseEther("25000"); // 25K ARCx
-  const ETH_AMOUNT = ethers.parseEther("12.5");   // 12.5 ETH
+  const ARCX_AMOUNT = ethers.parseEther("8"); // 8 ARCx (reduced proportionally)
+  const ETH_AMOUNT = ethers.parseEther("0.0015");   // 0.0015 ETH (~$4 USD)
   
   // Pool Configuration
   const poolKey = {
@@ -39,14 +39,14 @@ async function main() {
   console.log("🏛️  Treasury Address:", signerAddress);
   console.log("💰 ARCx Liquidity:", ethers.formatEther(ARCX_AMOUNT), "ARCx");
   console.log("💰 ETH Liquidity:", ethers.formatEther(ETH_AMOUNT), "ETH");
-  console.log("📈 Target Ratio: 2000 ARCx : 1 ETH");
+  console.log("📈 Target Ratio: 5333 ARCx : 1 ETH (~$4 USD total)");
   
   // Get Position Manager contract
   const positionManager = await ethers.getContractAt("IPositionManager", POSITION_MANAGER);
   
   // Calculate liquidity amount (simplified for full range)
   // For full range position: liquidity ≈ sqrt(amount0 * amount1)
-  const liquidityAmount = ethers.parseEther("5590"); // sqrt(25000 * 12.5) ≈ 559
+  const liquidityAmount = ethers.parseEther("0.11"); // sqrt(8 * 0.0015) ≈ 0.11
   
   // Full range ticks for maximum coverage
   const tickLower = -887220;

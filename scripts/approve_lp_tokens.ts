@@ -5,13 +5,13 @@ async function main() {
   console.log("============================================");
   
   // Production Contract Addresses
-  const ARCX_TOKEN = "0xD788D9ac56c754cb927771eBf058966bA8aB734D";
+  const ARCX_TOKEN = "0xA4093669DAFbD123E37d52e0939b3aB3C2272f44";
   const WETH_BASE = "0x4200000000000000000000000000000000000006";
   const POSITION_MANAGER = "0x7c5f5a4bfd8fd63184577525326123b519429bdc";
   
   // Precision LP Amounts
-  const ARCX_AMOUNT = ethers.parseEther("25000"); // 25K ARCx
-  const ETH_AMOUNT = ethers.parseEther("12.5");   // 12.5 ETH
+  const ARCX_AMOUNT = ethers.parseEther("8"); // 8 ARCx
+  const ETH_AMOUNT = ethers.parseEther("0.0015");   // 0.0015 ETH (~$4 USD)
   
   // Get signer and contracts
   const [signer] = await ethers.getSigners();

@@ -1,4 +1,4 @@
-﻿# ARCx Dutch Auction Interface - LIVE DEPLOYMENT
+# ARCx Dutch Auction Interface - LIVE DEPLOYMENT
 
 ## Quick Start
 The auction interface is ready for live deployment!
@@ -54,3 +54,4 @@ Check live auction status at the interface or via:
 - BaseScan: https://basescan.org/address/0x5Da5F567553C8D4F12542Ba608F41626f77Aa836
 
 The interface is production-ready and fully functional!
+

@@ -5,12 +5,12 @@ async function main() {
   console.log("=====================================================");
   
   // Production Contract Addresses  
-  const ARCX_TOKEN = "0xD788D9ac56c754cb927771eBf058966bA8aB734D";
+  const ARCX_TOKEN = "0xA4093669DAFbD123E37d52e0939b3aB3C2272f44";
   const WETH_BASE = "0x4200000000000000000000000000000000000006";
   
   // Enterprise LP Configuration
-  const ARCX_AMOUNT = ethers.parseEther("25000"); // 25K ARCx
-  const ETH_AMOUNT = ethers.parseEther("12.5");   // 12.5 ETH
+  const ARCX_AMOUNT = ethers.parseEther("8"); // 8 ARCx
+  const ETH_AMOUNT = ethers.parseEther("0.0015");   // 0.0015 ETH (~$4 USD)
   
   const [signer] = await ethers.getSigners();
   const signerAddress = await signer.getAddress();
@@ -19,8 +19,8 @@ async function main() {
   console.log("💎 Target LP Composition:");
   console.log("- ARCx Tokens:", ethers.formatEther(ARCX_AMOUNT), "ARCx");
   console.log("- ETH Value:", ethers.formatEther(ETH_AMOUNT), "ETH");
-  console.log("- Total USD Value: ~$31,250 (at $2500/ETH)");
-  console.log("- Target Ratio: 2000 ARCx : 1 ETH");
+  console.log("- Total USD Value: ~$4 USD (at $2600/ETH)");
+  console.log("- Target Ratio: 5333 ARCx : 1 ETH");
   
   // Uniswap V4 Pool Parameters
   console.log("\n🎯 Uniswap V4 Pool Configuration:");

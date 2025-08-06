@@ -1,4 +1,4 @@
-﻿{
+{
   "name": "ARCx Dutch Auction Interface",
   "version": "1.0.0",
   "description": "Professional Web3 interface for ARCx token Dutch auction",
@@ -16,3 +16,4 @@
   ],
   "status": "LIVE"
 }
+

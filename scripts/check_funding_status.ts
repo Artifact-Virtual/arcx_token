@@ -9,7 +9,7 @@ async function main() {
     console.log("Time:", new Date().toISOString());
     
     // Contract addresses
-    const TOKEN_ADDRESS = "0xD788D9ac56c754cb927771eBf058966bA8aB734D";
+    const TOKEN_ADDRESS = "0xA4093669DAFbD123E37d52e0939b3aB3C2272f44";
     const DUTCH_AUCTION_ADDRESS = "0xB66e928C556362c513BB999dF4a4Ed2e76A8ACA3";
     const SMART_AIRDROP_ADDRESS = "0x79166AbC8c17017436263BcE5f76DaB1c3dEa195";
     

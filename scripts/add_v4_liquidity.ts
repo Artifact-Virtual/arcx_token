@@ -21,10 +21,10 @@ async function main() {
     hooks: "0x0000000000000000000000000000000000000000",
   };
   
-  // Liquidity amounts - 25K ARCx + 12.5 ETH
+  // Liquidity amounts - 8 ARCx + 0.0015 ETH (~$4 USD)
   const liquidityAmounts = {
-    weth: ethers.parseEther("12.5"), // 12.5 WETH
-    arcx: ethers.parseEther("25000"), // 25K ARCx
+    weth: ethers.parseEther("0.0015"), // 0.0015 WETH (~$4 USD)
+    arcx: ethers.parseEther("8"), // 8 ARCx
   };
   
   console.log("\n💧 Liquidity Parameters:");
