@@ -1,13 +1,13 @@
-# 🚀 ARCx Uniswap V4 Deployment Summary
+# ARCx Uniswap V4 Deployment Summary
 
-## ✅ COMPLETED TASKS
+## COMPLETED TASKS
 1. **Contracts Deployed & Funded**
-   - Dutch Auction: 100,000 ARCx ✅
-   - Smart Airdrop: 50,000 ARCx ✅
-   - Website Status: "Live" ✅
-   - Auction Timer: Active (17 minutes remaining) ✅
+   - Dutch Auction: 100,000 ARCx
+   - Smart Airdrop: 50,000 ARCx
+   - Website Status: "Live"
+   - Auction Timer: Active (17 minutes remaining)
 
-## 📋 UNISWAP V4 LP SETUP - NEXT ACTIONS
+## UNISWAP V4 LP SETUP - NEXT ACTIONS
 
 ### Step 1: Initialize Pool
 Execute this transaction via Treasury Safe (`0x8F8fdBFa1AF9f53973a7003CbF26D854De9b2f38`):
@@ -45,7 +45,7 @@ Execute via Treasury Safe:
 ### Step 4: Add Liquidity Position
 This requires V4 SDK integration for proper position management.
 
-## 🔗 Key Addresses
+## Key Addresses
 - **Treasury Safe**: `0x8F8fdBFa1AF9f53973a7003CbF26D854De9b2f38`
 - **ARCx Token**: `0xA4093669DAFbD123E37d52e0939b3aB3C2272f44`
 - **WETH Base**: `0x4200000000000000000000000000000000000006`
@@ -53,15 +53,15 @@ This requires V4 SDK integration for proper position management.
 - **Position Manager**: `0x7c5f5a4bfd8fd63184577525326123b519429bdc`
 - **Universal Router**: `0x6ff5693b99212da76ad316178a184ab56d299b43`
 
-## ⏰ CRITICAL TIMING
+## CRITICAL TIMING
 - **Auction Goes Live**: 17 minutes remaining
 - **Fair Distribution**: 72-hour window active
 - **LP Setup**: Execute after auction launch
 
-## 🎯 IMMEDIATE PRIORITY
-1. ✅ Contracts funded and ready
-2. 🔄 Initialize V4 Pool (execute Safe transaction above)
-3. 🔄 Acquire 12.5 WETH for liquidity
-4. 🔄 Add initial liquidity position
+## IMMEDIATE PRIORITY
+1. Contracts funded and ready
+2. Initialize V4 Pool (execute Safe transaction above)
+3. Acquire 12.5 WETH for liquidity
+4. Add initial liquidity position
 
-**Status**: Ready for V4 LP deployment! 🚀
+**Status**: Ready for V4 LP deployment!
