@@ -3,186 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARCx Dutch Auction - Live Interface</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap');
-        
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body {
-            font-family: 'JetBrains Mono', monospace;
-            background: linear-gradient(135deg, #0a0a0f, #1a1a2e);
-            color: white;
-            min-height: 100vh;
-            padding: 20px;
-        }
-        
-        .container { max-width: 1200px; margin: 0 auto; }
-        
-        .header { text-align: center; margin-bottom: 40px; }
-        .logo { font-size: 3rem; color: #00FF88; margin-bottom: 10px; }
-        .subtitle { color: #888; font-size: 1.2rem; }
-        
-        .status-card {
-            background: #1a1a2e;
-            border: 1px solid #333;
-            border-radius: 12px;
-            padding: 30px;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-        
-        .status-title { font-size: 1.5rem; color: #00FF88; margin-bottom: 15px; }
-        .status-value { font-size: 4rem; font-weight: 700; margin: 20px 0; }
-        .status-error { color: #ff4757; }
-        .status-success { color: #00FF88; }
-        .status-loading { color: #ffa502; }
-        
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        
-        .card {
-            background: #1a1a2e;
-            border: 1px solid #333;
-            border-radius: 12px;
-            padding: 25px;
-            border-top: 2px solid #00FF88;
-        }
-        
-        .card-title { color: #00FF88; font-size: 1.3rem; margin-bottom: 20px; }
-        
-        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .info-item { text-align: center; padding: 15px; background: #16213e; border-radius: 8px; }
-        .info-value { font-size: 1.5rem; font-weight: 600; color: white; }
-        .info-label { color: #888; font-size: 0.9rem; margin-top: 5px; }
-        
-        .button {
-            background: linear-gradient(45deg, #00FF88, #0052FF);
-            border: none;
-            padding: 15px 30px;
-            border-radius: 8px;
-            color: white;
-            font-family: inherit;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.2s;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        .button:hover { transform: translateY(-2px); }
-        .button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-        
-        .wallet-section {
-            background: #16213e;
-            border: 1px solid #333;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-        
-        .wallet-status { display: flex; justify-content: space-between; align-items: center; }
-        .wallet-info { display: flex; align-items: center; gap: 10px; }
-        .status-dot { width: 12px; height: 12px; border-radius: 50%; background: #ff4757; }
-        .status-dot.connected { background: #00FF88; }
-        
-        .input-group { margin-bottom: 20px; }
-        .input-label { display: block; margin-bottom: 8px; color: #00FF88; font-weight: 600; }
-        .input-field {
-            width: 100%;
-            padding: 15px;
-            background: #16213e;
-            border: 1px solid #333;
-            border-radius: 8px;
-            color: white;
-            font-family: inherit;
-        }
-        .input-field:focus { outline: none; border-color: #00FF88; }
-        
-        .message-area { margin-top: 20px; }
-        .message { padding: 15px; border-radius: 8px; margin: 10px 0; }
-        .message.error { background: rgba(255, 71, 87, 0.1); border: 1px solid #ff4757; color: #ff4757; }
-        .message.success { background: rgba(0, 255, 136, 0.1); border: 1px solid #00FF88; color: #00FF88; }
-        .message.info { background: rgba(255, 165, 2, 0.1); border: 1px solid #ffa502; color: #ffa502; }
-        
-        .debug-info {
-            background: #0d0d1a;
-            border: 1px solid #333;
-            border-radius: 8px;
-            padding: 15px;
-            margin-top: 20px;
-            font-size: 0.9rem;
-            color: #888;
-        }
-        
-        @media (max-width: 768px) {
-            .grid { grid-template-columns: 1fr; }
-            .info-grid { grid-template-columns: 1fr; }
-            .logo { font-size: 2rem; }
-            .status-value { font-size: 2.5rem; }
-        }
-    </style>
+    <title>ARCx Dutch Auction - Constitutional Intelligence</title>
+    <link rel="stylesheet" href="css/arcx-universal.css">
 </head>
 <body>
-    <div class="container">
-        <header class="header">
-            <div class="logo">ARCx</div>
-            <div class="subtitle">Dutch Auction - Live Interface</div>
-        </header>
-        
-        <div class="status-card">
-            <div class="status-title">System Status</div>
-            <div id="systemStatus" class="status-value status-loading">LOADING...</div>
-            <div id="systemMessage">Initializing interface...</div>
+    <!-- Immersive Background -->
+    <div class="immersive-canvas">
+        <div class="layer-1"></div>
+        <div class="layer-2"></div>
+        <div class="floating-elements">
+            <!-- Floating particles will be added dynamically -->
         </div>
-        
-        <div class="grid">
-            <div class="card">
-                <h2 class="card-title">Current Price</h2>
-                <div style="text-align: center;">
-                    <div id="currentPrice" style="font-size: 3rem; font-weight: 700; color: #00FF88; margin: 20px 0;">...</div>
-                    <div style="color: #888;">ETH per ARCx</div>
-                    <div style="color: #ffa502; font-size: 0.9rem; margin-top: 10px;">Price declining over time</div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">ARCx</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="auction_interface.html" class="active">Auction</a></li>
+                <li><a href="airdrop_interface.html">Airdrop</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <div class="container">
+            <!-- Header -->
+            <header class="text-center mb-xxl">
+                <div class="badge mb-lg">Live Dutch Auction</div>
+                <h1 class="hero-title mb-md">ARCx Auction</h1>
+                <p class="text-large">Constitutional Intelligence Infrastructure Genesis</p>
+            </header>
+            
+            <!-- Status Card -->
+            <div class="card status-card mb-xl">
+                <div class="card-title">System Status</div>
+                <div id="systemStatus" class="status-value status-loading">LOADING...</div>
+                <div id="systemMessage" class="text-small">Initializing interface...</div>
+            </div>
+            
+            <!-- Main Grid -->
+            <div class="grid grid-2 mb-xl">
+                <!-- Current Price -->
+                <div class="card">
+                    <h2 class="card-title">Current Price</h2>
+                    <div class="text-center">
+                        <div id="currentPrice" class="status-value status-success mb-sm">...</div>
+                        <div class="text-small mb-sm">ETH per ARCx</div>
+                        <div class="badge badge-amber">Price declining over time</div>
+                    </div>
+                </div>
+                
+                <!-- Auction Stats -->
+                <div class="card">
+                    <h2 class="card-title">Auction Statistics</h2>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div id="tokensAvailable" class="info-value">...</div>
+                            <div class="info-label">Available</div>
+                        </div>
+                        <div class="info-item">
+                            <div id="tokensSold" class="info-value">...</div>
+                            <div class="info-label">Sold</div>
+                        </div>
+                        <div class="info-item">
+                            <div id="totalRaised" class="info-value">...</div>
+                            <div class="info-label">ETH Raised</div>
+                        </div>
+                        <div class="info-item">
+                            <div id="timeRemaining" class="info-value">...</div>
+                            <div class="info-label">Time Left</div>
+                        </div>
+                    </div>
                 </div>
             </div>
             
-            <div class="card">
-                <h2 class="card-title">Auction Stats</h2>
-                <div class="info-grid">
-                    <div class="info-item">
-                        <div id="tokensAvailable" class="info-value">...</div>
-                        <div class="info-label">Available</div>
-                    </div>
-                    <div class="info-item">
-                        <div id="tokensSold" class="info-value">...</div>
-                        <div class="info-label">Sold</div>
-                    </div>
-                    <div class="info-item">
-                        <div id="totalRaised" class="info-value">...</div>
-                        <div class="info-label">ETH Raised</div>
-                    </div>
-                    <div class="info-item">
-                        <div id="timeRemaining" class="info-value">...</div>
-                        <div class="info-label">Time Left</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="card" style="grid-column: 1 / -1;">
+            <!-- Purchase Section -->
+            <div class="card card-highlight mb-xl">
                 <h2 class="card-title">Purchase Tokens</h2>
                 
+                <!-- Wallet Status -->
                 <div class="wallet-section">
                     <div class="wallet-status">
                         <div class="wallet-info">
                             <div id="statusDot" class="status-dot"></div>
                             <div>
                                 <div id="walletStatus">Not Connected</div>
-                                <div id="walletAddress" style="font-size: 0.8rem; color: #888;"></div>
+                                <div id="walletAddress" class="wallet-address"></div>
                             </div>
                         </div>
-                        <button id="connectWallet" class="button">Connect Wallet</button>
+                        <button id="connectWallet" class="button button-secondary">Connect Wallet</button>
                     </div>
                 </div>
                 
+                <!-- Purchase Form -->
                 <div id="purchaseForm">
                     <div class="input-group">
                         <label class="input-label">ETH Amount</label>
@@ -194,18 +110,62 @@
                         <input type="text" id="arcxAmount" class="input-field" placeholder="0" readonly>
                     </div>
                     
-                    <button id="purchaseBtn" class="button" disabled style="width: 100%;">
+                    <!-- Network Info -->
+                    <div class="info-grid mb-lg">
+                        <div class="info-item">
+                            <div class="info-value text-small">Base L2</div>
+                            <div class="info-label">Network</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-value text-small">~$0.01</div>
+                            <div class="info-label">Gas Fees</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-value text-small">10,000</div>
+                            <div class="info-label">Max Purchase</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-value text-small text-mono">0x5Da5...836</div>
+                            <div class="info-label">Contract</div>
+                        </div>
+                    </div>
+                    
+                    <button id="purchaseBtn" class="button full-width" disabled>
                         Connect Wallet to Purchase
                     </button>
                     
                     <div id="messageArea" class="message-area"></div>
                 </div>
             </div>
-        </div>
-        
-        <div class="debug-info">
-            <div><strong>Debug Info:</strong></div>
-            <div id="debugInfo">Starting initialization...</div>
+            
+            <!-- Contract Information -->
+            <div class="card">
+                <h3 class="card-title">Contract Information</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-value text-small text-mono">0x5Da5...836</div>
+                        <div class="info-label">Auction Contract</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-value text-small text-mono">0xA409...244</div>
+                        <div class="info-label">ARCx Token</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-value text-small">Base L2</div>
+                        <div class="info-label">Network</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-value text-small">Verified</div>
+                        <div class="info-label">Status</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Debug Info -->
+            <div class="debug-info">
+                <div><strong>Debug Information:</strong></div>
+                <div id="debugInfo">Starting initialization...</div>
+            </div>
         </div>
     </div>
 
