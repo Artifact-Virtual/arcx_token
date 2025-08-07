@@ -1,15 +1,10 @@
 // ARCx Dutch Auction Interface - JavaScript Module
 // Constitutional Intelligence Token Sale System
 
-// Configuration with multiple RPC fallbacks for GitHub Pages reliability
+// Configuration
 const CONFIG = {
     CHAIN_ID: 8453, // Base L2
-    RPC_URLS: [
-        'https://mainnet.base.org',
-        'https://base-mainnet.public.blastapi.io',
-        'https://base.gateway.tenderly.co',
-        'https://base-rpc.publicnode.com'
-    ],
+    RPC_URL: 'https://mainnet.base.org',
     AUCTION_CONTRACT: '0x5Da5F567553C8D4F12542Ba608F41626f77Aa836',
     ARCX_TOKEN: '0xA4093669DAFbD123E37d52e0939b3aB3C2272f44'
 };
@@ -32,8 +27,17 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize background animations
     initializeBackgroundAnimations();
     
-    // Use enhanced initialization with fallback
-    initializeWithFallback();
+    // Load ethers.js with fallback CDNs
+    loadEthersJS().then(() => {
+        addDebugInfo('Ethers.js loaded successfully');
+        initializeWeb3();
+        setupEventListeners();
+        startDataUpdater();
+    }).catch(error => {
+        console.error('Failed to load ethers.js:', error);
+        addDebugInfo(`Failed to load ethers.js: ${error.message}`);
+        updateSystemStatus('ERROR', 'Failed to load Web3 libraries');
+    });
 });
 
 function initializeBackgroundAnimations() {
@@ -51,12 +55,10 @@ function initializeBackgroundAnimations() {
 }
 
 async function loadEthersJS() {
-    // Multiple CDN options for better GitHub Pages compatibility
     const cdnUrls = [
-        'https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js',
-        'https://unpkg.com/ethers@5.7.2/dist/ethers.umd.min.js',
         'https://cdn.ethers.io/lib/ethers-5.7.2.umd.min.js',
-        'https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js'
+        'https://unpkg.com/ethers@5.7.2/dist/ethers.umd.min.js',
+        'https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js'
     ];
 
     for (const url of cdnUrls) {
@@ -68,11 +70,11 @@ async function loadEthersJS() {
             }
         } catch (error) {
             console.warn(`Failed to load from ${url}:`, error);
-            addDebugInfo(`Failed CDN: ${url} - ${error.message}`);
+            addDebugInfo(`Failed CDN: ${url}`);
         }
     }
     
-    throw new Error('All ethers.js CDN attempts failed - check internet connection');
+    throw new Error('All ethers.js CDN attempts failed');
 }
 
 function loadScript(src) {
@@ -93,25 +95,8 @@ async function initializeWeb3() {
             provider = new ethers.providers.Web3Provider(window.ethereum);
             addDebugInfo('MetaMask provider initialized');
         } else {
-            // Try multiple RPC endpoints for better reliability on GitHub Pages
-            let providerConnected = false;
-            for (const rpcUrl of CONFIG.RPC_URLS) {
-                try {
-                    provider = new ethers.providers.JsonRpcProvider(rpcUrl);
-                    // Test the connection
-                    await provider.getNetwork();
-                    addDebugInfo(`Fallback RPC provider initialized: ${rpcUrl}`);
-                    providerConnected = true;
-                    break;
-                } catch (error) {
-                    addDebugInfo(`RPC ${rpcUrl} failed: ${error.message}`);
-                    continue;
-                }
-            }
-            
-            if (!providerConnected) {
-                throw new Error('All RPC endpoints failed');
-            }
+            provider = new ethers.providers.JsonRpcProvider(CONFIG.RPC_URL);
+            addDebugInfo('Fallback RPC provider initialized');
         }
         
         auctionContract = new ethers.Contract(CONFIG.AUCTION_CONTRACT, AUCTION_ABI, provider);
@@ -122,7 +107,7 @@ async function initializeWeb3() {
     } catch (error) {
         console.error('Web3 initialization failed:', error);
         addDebugInfo(`Web3 init failed: ${error.message}`);
-        updateSystemStatus('ERROR', `Failed to connect: ${error.message}`);
+        updateSystemStatus('ERROR', 'Failed to connect to blockchain');
     }
 }
 
@@ -216,7 +201,7 @@ async function ensureBaseNetwork() {
                                 symbol: 'ETH',
                                 decimals: 18
                             },
-                            rpcUrls: CONFIG.RPC_URLS,
+                            rpcUrls: [CONFIG.RPC_URL],
                             blockExplorerUrls: ['https://basescan.org/']
                         }]
                     });
@@ -318,24 +303,13 @@ async function updateTokenEstimate() {
 }
 
 async function refreshAuctionData() {
-    if (!auctionContract) {
-        addDebugInfo('Cannot refresh data - auction contract not initialized');
-        return;
-    }
+    if (!auctionContract) return;
 
     try {
         addDebugInfo('Refreshing auction data...');
         
-        // Add timeout to prevent hanging on GitHub Pages
-        const timeoutPromise = new Promise((_, reject) => 
-            setTimeout(() => reject(new Error('Request timeout')), 10000)
-        );
-        
-        // Get auction status with timeout
-        const status = await Promise.race([
-            auctionContract.getAuctionStatus(),
-            timeoutPromise
-        ]);
+        // Get auction status
+        const status = await auctionContract.getAuctionStatus();
         
         // Update current price
         const priceInEth = ethers.utils.formatEther(status._currentPrice);
@@ -352,30 +326,19 @@ async function refreshAuctionData() {
             const hours = Math.floor(timeLeft / 3600);
             const minutes = Math.floor((timeLeft % 3600) / 60);
             document.getElementById('timeRemaining').textContent = `${hours}h ${minutes}m`;
-            updateSystemStatus('ACTIVE', `Auction active - ${hours}h ${minutes}m remaining`);
         } else {
             document.getElementById('timeRemaining').textContent = 'Ended';
-            updateSystemStatus('ENDED', 'Auction has ended');
         }
         
         // Update total raised
         const totalRaised = parseFloat(ethers.utils.formatEther(status._totalRaised)).toFixed(2);
         document.getElementById('totalRaised').textContent = totalRaised;
         
-        addDebugInfo(`Auction data refreshed - Price: ${priceInEth} ETH/ARCx, Active: ${status._isActive}`);
+        addDebugInfo('Auction data refreshed');
         
     } catch (error) {
         console.error('Failed to refresh auction data:', error);
         addDebugInfo(`Data refresh failed: ${error.message}`);
-        
-        // Set fallback values to show something instead of blank
-        document.getElementById('currentPrice').textContent = 'Loading...';
-        document.getElementById('tokensAvailable').textContent = 'Loading...';
-        document.getElementById('tokensSold').textContent = 'Loading...';
-        document.getElementById('timeRemaining').textContent = 'Loading...';
-        document.getElementById('totalRaised').textContent = 'Loading...';
-        
-        updateSystemStatus('ERROR', `Connection failed: ${error.message}`);
     }
 }
 
@@ -420,65 +383,9 @@ function showMessage(message, type = 'info') {
 function addDebugInfo(message) {
     const debugDiv = document.getElementById('debugInfo');
     const timestamp = new Date().toLocaleTimeString();
-    
-    // Create a new line element safely without innerHTML
-    const lineBreak = document.createElement('br');
-    const textNode = document.createTextNode(`[${timestamp}] ${message}`);
-    
-    debugDiv.appendChild(lineBreak);
-    debugDiv.appendChild(textNode);
+    // Use textContent to safely add debug info without HTML injection
+    debugDiv.textContent += `[${timestamp}] ${message}\n`;
     
     // Scroll to bottom
     debugDiv.scrollTop = debugDiv.scrollHeight;
-}
-
-// Fallback display for GitHub Pages when blockchain calls fail
-function displayFallbackData() {
-    addDebugInfo('Displaying fallback data for GitHub Pages');
-    
-    // Show approximate current auction data based on our monitoring
-    document.getElementById('currentPrice').textContent = '0.000628';
-    document.getElementById('tokensAvailable').textContent = '100,000';
-    document.getElementById('tokensSold').textContent = '0';
-    document.getElementById('totalRaised').textContent = '0.00';
-    document.getElementById('timeRemaining').textContent = '55h 15m';
-    
-    updateSystemStatus('ACTIVE', 'Auction is live (fallback data)');
-    
-    // Show informational message
-    const messageArea = document.getElementById('messageArea');
-    const infoDiv = document.createElement('div');
-    infoDiv.className = 'message message-info';
-    
-    // Create content safely without innerHTML
-    const noteText = document.createElement('strong');
-    noteText.textContent = 'Note:';
-    
-    const messageText = document.createTextNode(' Real-time data unavailable. ');
-    
-    const link = document.createElement('a');
-    link.href = 'https://basescan.org/address/0x5Da5F567553C8D4F12542Ba608F41626f77Aa836';
-    link.target = '_blank';
-    link.rel = 'noopener';
-    link.textContent = 'View live auction on BaseScan';
-    
-    infoDiv.appendChild(noteText);
-    infoDiv.appendChild(messageText);
-    infoDiv.appendChild(link);
-    messageArea.appendChild(infoDiv);
-}
-
-// Enhanced initialization that falls back gracefully
-async function initializeWithFallback() {
-    try {
-        await loadEthersJS();
-        await initializeWeb3();
-        setupEventListeners();
-        startDataUpdater();
-    } catch (error) {
-        console.error('Primary initialization failed, using fallback:', error);
-        addDebugInfo(`Primary init failed: ${error.message}`);
-        displayFallbackData();
-        setupEventListeners(); // Still setup wallet connection
-    }
 }
