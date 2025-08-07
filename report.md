@@ -1,4 +1,5 @@
-# ARCx Ecosystem Technical Analysis Report
+# ARCx Ecosystem Technical Analysis 
+
 
 **Report Generated:** August 7, 2025  
 **Network:** Base Mainnet (Chain ID: 8453)  
