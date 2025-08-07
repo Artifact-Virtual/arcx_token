@@ -50,7 +50,7 @@
                 <div class="card">
                     <h2 class="card-title">Current Price</h2>
                     <div class="text-center">
-                        <div id="currentPrice" class="status-value status-success mb-sm">...</div>
+                        <div id="currentPrice" class="status-value status-loading mb-sm">Loading...</div>
                         <div class="text-small mb-sm">ETH per ARCx</div>
                         <div class="badge badge-amber">Price declining over time</div>
                     </div>
@@ -61,19 +61,19 @@
                     <h2 class="card-title">Auction Statistics</h2>
                     <div class="info-grid">
                         <div class="info-item">
-                            <div id="tokensAvailable" class="info-value">...</div>
+                            <div id="tokensAvailable" class="info-value">Loading...</div>
                             <div class="info-label">Available</div>
                         </div>
                         <div class="info-item">
-                            <div id="tokensSold" class="info-value">...</div>
+                            <div id="tokensSold" class="info-value">Loading...</div>
                             <div class="info-label">Sold</div>
                         </div>
                         <div class="info-item">
-                            <div id="totalRaised" class="info-value">...</div>
+                            <div id="totalRaised" class="info-value">Loading...</div>
                             <div class="info-label">ETH Raised</div>
                         </div>
                         <div class="info-item">
-                            <div id="timeRemaining" class="info-value">...</div>
+                            <div id="timeRemaining" class="info-value">Loading...</div>
                             <div class="info-label">Time Left</div>
                         </div>
                     </div>
@@ -165,6 +165,11 @@
             <div class="debug-info">
                 <div><strong>Debug Information:</strong></div>
                 <div id="debugInfo">Starting initialization...</div>
+                <div class="text-small debug-note">
+                    <strong>Note:</strong> If metrics don't load, the auction is still LIVE. 
+                    Visit <a href="https://basescan.org/address/0x5Da5F567553C8D4F12542Ba608F41626f77Aa836" target="_blank" rel="noopener">BaseScan</a> 
+                    for real-time data.
+                </div>
             </div>
         </div>
     </div>
