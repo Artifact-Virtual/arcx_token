@@ -28,15 +28,19 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeBackgroundAnimations();
     
     // Load ethers.js with fallback CDNs
+    console.log('Starting ethers.js loading...');
     loadEthersJS().then(() => {
+        console.log('Ethers.js loaded successfully, initializing Web3...');
         addDebugInfo('Ethers.js loaded successfully');
-        initializeWeb3();
+        return initializeWeb3();
+    }).then(() => {
+        console.log('Web3 initialized, setting up event listeners...');
         setupEventListeners();
         startDataUpdater();
     }).catch(error => {
-        console.error('Failed to load ethers.js:', error);
-        addDebugInfo(`Failed to load ethers.js: ${error.message}`);
-        updateSystemStatus('ERROR', 'Failed to load Web3 libraries');
+        console.error('Initialization failed:', error);
+        addDebugInfo(`Initialization failed: ${error.message}`);
+        updateSystemStatus('ERROR', `Failed to initialize: ${error.message}`);
     });
 });
 
@@ -55,36 +59,24 @@ function initializeBackgroundAnimations() {
 }
 
 async function loadEthersJS() {
-    // Try the most reliable CDN first
-    const cdnUrls = [
-        'https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js',
-        'https://unpkg.com/ethers@5.7.2/dist/ethers.umd.min.js'
-    ];
-
-    for (const url of cdnUrls) {
-        try {
-            console.log(`Trying to load ethers from: ${url}`);
-            await loadScript(url);
-            if (typeof ethers !== 'undefined') {
-                console.log(`Ethers.js loaded successfully from: ${url}`);
-                addDebugInfo(`Ethers.js loaded from: ${url}`);
-                return;
-            }
-        } catch (error) {
-            console.error(`Failed to load from ${url}:`, error);
-            addDebugInfo(`Failed CDN: ${url}`);
-        }
-    }
+    // Simple and reliable ethers.js loading
+    console.log('Loading ethers.js...');
     
-    throw new Error('All ethers.js CDN attempts failed');
-}
-
-function loadScript(src) {
     return new Promise((resolve, reject) => {
         const script = document.createElement('script');
-        script.src = src;
-        script.onload = resolve;
-        script.onerror = reject;
+        script.src = 'https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js';
+        script.onload = () => {
+            if (typeof ethers !== 'undefined') {
+                console.log('Ethers.js loaded successfully');
+                addDebugInfo('Ethers.js loaded successfully');
+                resolve();
+            } else {
+                reject(new Error('Ethers.js loaded but not available'));
+            }
+        };
+        script.onerror = () => {
+            reject(new Error('Failed to load ethers.js from CDN'));
+        };
         document.head.appendChild(script);
     });
 }
