@@ -128,6 +128,12 @@ npx hardhat run scripts/quick-audit.ts --network base
 
 # Token allocation summary
 npx hardhat run scripts/token-allocation-summary.ts --network base
+
+# Live auction monitoring and verification
+npx hardhat run scripts/auction-monitor.ts --network base
+
+# Live comprehensive system monitoring
+npx hardhat run scripts/live-monitor.ts --network base
 ```
 
 #### **Verified Token Flow**
