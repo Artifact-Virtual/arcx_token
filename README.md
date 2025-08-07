@@ -37,7 +37,7 @@
 
 ### **Multi-Layer Security**
 - **Zero Vulnerabilities** - Clean audit with A+ rating
-- **Role-Based Access** - Multi-signature governance
+- **Role-Based Access** - Battle-tested multi-signature governance
 - **Emergency Controls** - Pause/unpause functionality
 - **Capped Supply** - Mathematically impossible to exceed 1M tokens
 - **Bridge Ready** - Future FUEL migration capability
@@ -45,7 +45,7 @@
 ### **Verification Status**
 - **BaseScan:** [Contract verified](https://basescan.org/address/0xA4093669DAFbD123E37d52e0939b3aB3C2272f44#code)
 - **Sourcify:** [Full source match](https://repo.sourcify.dev/contracts/full_match/8453/0xA4093669DAFbD123E37d52e0939b3aB3C2272f44/)
-- **OpenZeppelin:** Standard compliant ERC20 implementation
+- **OpenZeppelin:** Battle-tested standard compliant ERC20 implementation
 
 ## **ARCx Token Utility**
 
