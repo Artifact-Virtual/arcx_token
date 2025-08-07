@@ -12,7 +12,7 @@ const CONFIG = {
 // Contract ABI with correct function names
 const AUCTION_ABI = [
     "function getAuctionStatus() view returns (uint256 _currentPrice, uint256 _tokensSold, uint256 _tokensRemaining, uint256 _totalRaised, uint256 _timeRemaining, bool _isActive)",
-    "function purchase() payable"
+    "function purchaseTokens() payable"
 ];
 
 let provider = null;
@@ -230,14 +230,14 @@ async function purchaseTokens() {
         addDebugInfo(`ETH value in wei: ${ethValue.toString()}`);
 
         // Estimate gas
-        const gasEstimate = await auctionContract.estimateGas.purchase({
+        const gasEstimate = await auctionContract.estimateGas.purchaseTokens({
             value: ethValue
         });
         addDebugInfo(`Gas estimate: ${gasEstimate.toString()}`);
 
         // Send transaction
         showMessage('Please confirm the transaction in MetaMask...', 'info');
-        const tx = await auctionContract.purchase({
+        const tx = await auctionContract.purchaseTokens({
             value: ethValue,
             gasLimit: gasEstimate.mul(120).div(100) // 20% buffer
         });
