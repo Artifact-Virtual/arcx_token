@@ -119,6 +119,10 @@ ARCx maintains 100% token accountability with comprehensive audit trails trackin
 | **Unknown Address** | 100,000 ARCx | 9.09% | **PENDING IDENTIFICATION** |
 | **Smart Airdrop** | 50,000 ARCx | 4.55% | Merit-based distribution |
 
+**Identified Addresses:**
+- **Reserve Wallet:** `0x8F0b552065f120cF273CC077cdE4cD4578b5556c` - 100,000 ARCx
+- **Unknown Address:** `0xD788D9ac56c754cb927771eBf058966bA8aB734D` - 100,000 ARCx
+
 #### **Audit Tools**
 ```bash
 # Complete audit trail (every transaction from deployment)
