@@ -55,21 +55,23 @@ function initializeBackgroundAnimations() {
 }
 
 async function loadEthersJS() {
+    // Try the most reliable CDN first
     const cdnUrls = [
-        'https://cdn.ethers.io/lib/ethers-5.7.2.umd.min.js',
-        'https://unpkg.com/ethers@5.7.2/dist/ethers.umd.min.js',
-        'https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js'
+        'https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js',
+        'https://unpkg.com/ethers@5.7.2/dist/ethers.umd.min.js'
     ];
 
     for (const url of cdnUrls) {
         try {
+            console.log(`Trying to load ethers from: ${url}`);
             await loadScript(url);
             if (typeof ethers !== 'undefined') {
+                console.log(`Ethers.js loaded successfully from: ${url}`);
                 addDebugInfo(`Ethers.js loaded from: ${url}`);
                 return;
             }
         } catch (error) {
-            console.warn(`Failed to load from ${url}:`, error);
+            console.error(`Failed to load from ${url}:`, error);
             addDebugInfo(`Failed CDN: ${url}`);
         }
     }
