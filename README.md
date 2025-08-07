@@ -102,6 +102,7 @@ ARCx serves as the genesis funding mechanism for constitutional intelligence inf
 - **Ecosystem Vesting:** ACTIVE - 200,000 ARCx (6mo cliff, 24mo total)
 - **Reserve Fund:** ALLOCATED - 100,000 ARCx
 - **Treasury Control:** OPERATIONAL - 150,000 ARCx remaining
+- **Reserve Wallet:** `0x8F0b552065f120cF273CC077cdE4cD4578b5556c` - 100,000 ARCx
 
 ### **Complete Token Accountability**
 
@@ -114,8 +115,8 @@ ARCx maintains 100% token accountability with comprehensive audit trails trackin
 | **Token Contract** | 200,000 ARCx | 18.18% | Treasury-controlled reserves |
 | **Treasury Safe** | 150,000 ARCx | 13.64% | Active treasury operations |
 | **Dutch Auction** | 100,000 ARCx | 9.09% | Public sale allocation |
-| **Unknown Address 1** | 100,000 ARCx | 9.09% | Private allocation |
-| **Unknown Address 2** | 100,000 ARCx | 9.09% | Private allocation |
+| **Reserve Wallet** | 100,000 ARCx | 9.09% | Strategic reserves |
+| **Unknown Address** | 100,000 ARCx | 9.09% | **PENDING IDENTIFICATION** |
 | **Smart Airdrop** | 50,000 ARCx | 4.55% | Merit-based distribution |
 
 #### **Audit Tools**
