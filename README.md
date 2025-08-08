@@ -16,7 +16,7 @@
 - **Smart Airdrop:** [`0x79166AbC8c17017436263BcE5f76DaB1c3dEa195`](https://basescan.org/address/0x79166AbC8c17017436263BcE5f76DaB1c3dEa195) - **50,000 ARCx**
 
 ### **Enterprise Liquidity Infrastructure**
-- **Uniswap V4 Pool:** Ready for 25K ARCx + 12.5 ETH deployment
+- **Uniswap V4 Pool:** Ready for 25K ARCx + $4 USD worth ETH deployment
 - **Base L2 Network:** Gas-optimized professional trading
 - **Fee Tier:** 0.3% enterprise-grade fee collection
 - **Position Type:** Full range for maximum coverage
@@ -94,7 +94,8 @@ ARCx serves as the genesis funding mechanism for constitutional intelligence inf
 - **Minting Finalized:** Yes (Ultra-scarce tokenomics active)
 - **Contract Status:** LIVE
 - **Total Supply:** 1,100,000 ARCx (Fixed forever)
-- **Max Supply:** 100,000,000 ARCx (Theoretical ceiling, minting disabled)
+- **Effective Max Supply:** 1,100,000 ARCx (Minting finalized - no more can be created)
+- **Contract Max Supply:** 100,000,000 ARCx (Immutable variable - cannot be changed)
 - **Vesting System:** FULLY OPERATIONAL
 - **Treasury Safe:** `0x8F8fdBFa1AF9f53973a7003CbF26D854De9b2f38`
 - **MVC Contract:** LIVE - `0xEEc0298bE76C9C3224eA05a34687C1a1134d550B`
@@ -233,10 +234,12 @@ ARCx is a funding instrument that bootstraps the Arc Protocol development and co
 **Public Read Functions:**
 - `name()` → "ARCx"
 - `symbol()` → "ARCx"
-- `totalSupply()` → Current circulating supply
+- `totalSupply()` → Current circulating supply (1,100,000 ARCx)
 - `balanceOf(address)` → Token balance of address
-- `MAX_SUPPLY()` → Maximum supply (1,000,000 ARCx)
+- `MAX_SUPPLY()` → Contract max supply (100,000,000 ARCx - immutable, cannot be changed)
 - `paused()` → Contract pause status
+
+**Note:** While the contract shows MAX_SUPPLY as 100M ARCx, minting has been permanently finalized at 1.1M ARCx total supply. The immutable MAX_SUPPLY variable cannot be changed post-deployment.
 
 **Admin Functions (Role Required):**
 - `mint(address, amount)` → Mint tokens (MINTER_ROLE)

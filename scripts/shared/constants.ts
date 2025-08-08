@@ -41,7 +41,7 @@ export const AMOUNTS = {
   AUCTION_TOKENS: "100000", // 100K ARCx
   AIRDROP_TOKENS: "50000", // 50K ARCx
   LP_ARCX: "25000", // 25K ARCx
-  LP_ETH: "12.5", // 12.5 ETH
+  LP_ETH: "0.0016", // $4 USD worth ETH (at $2500/ETH = 0.0016 ETH)
   
   // Vesting amounts
   CORE_TEAM_VESTING: "200000", // 200K ARCx

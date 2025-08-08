@@ -61,7 +61,7 @@ This requires V4 SDK integration for proper position management.
 ## IMMEDIATE PRIORITY
 1. Contracts funded and ready
 2. Initialize V4 Pool (execute Safe transaction above)
-3. Acquire 12.5 WETH for liquidity
+3. Acquire $4 USD worth of ETH (≈0.0016 ETH) for liquidity
 4. Add initial liquidity position
 
-**Status**: Ready for V4 LP deployment!
+**Status**: Ready for V4 LP deployment with reduced ETH requirement!

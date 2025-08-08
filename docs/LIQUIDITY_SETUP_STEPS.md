@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-
-# 🚀 ARCx Liquidity Setup - EXACT EXECUTION STEPS
-=======
 # 🚀 ARCx Liquidity Setup - UPDATED EXECUTION STEPS
->>>>>>> b9ce25f696111cf8cca3a542729bd8086947396b
 **Date**: August 6, 2025  
 **Treasury Safe**: `0x8F8fdBFa1AF9f53973a7003CbF26D854De9b2f38`
 **Updated LP Amount**: ~$4 USD equivalent (0.0016 ETH at $2500/ETH)
@@ -46,7 +41,7 @@
 - **Data**: `0x095ea7b30000000000000000000000007c5f5a4bfd8fd63184577525326123b519429bdc0000000000000000000000000000000000000000000000002b5e3af16b1880000`
 - **Parameters**:
   - spender: `0x7c5f5a4bfd8fd63184577525326123b519429bdc` (Position Manager)
-  - amount: `3200000000000000000` (3.2 ARCx)
+  - amount: `25000000000000000000000` (25,000 ARCx)
 - **Gas Estimate**: ~50,000
 
 ### STEP 3: Approve WETH Tokens
@@ -57,7 +52,7 @@
 - **Data**: `0x095ea7b30000000000000000000000007c5f5a4bfd8fd63184577525326123b519429bdc0000000000000000000000000000000000000000000000000005af3107a4000`
 - **Parameters**:
   - spender: `0x7c5f5a4bfd8fd63184577525326123b519429bdc` (Position Manager)
-  - amount: `12500000000000000000` (12.5 WETH)
+  - amount: `1600000000000000` (0.0016 WETH)
 - **Gas Estimate**: ~45,000
 
 
@@ -122,7 +117,7 @@
 
 ## 🚨 CRITICAL NOTES
 
-1. **Execute Step 0 FIRST** - Treasury needs 12.5 ETH before anything else
+1. **Execute Step 0 FIRST** - Treasury needs 0.0016 ETH before anything else
 2. **Check if pool exists** before Step 4 - it might already be initialized
 3. **Step 5 is complex** - may require custom transaction or V4 SDK
 4. **All gas estimates** are for Base L2 (very low cost)
