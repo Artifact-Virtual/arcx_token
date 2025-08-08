@@ -1,0 +1,126 @@
+{
+  "version": "1.0",
+  "chainId": "8453",
+  "createdAt": 1723142400000,
+  "meta": {
+    "name": "ARCx Uniswap V4 Liquidity Pool Creation",
+    "description": "Initialize ARCx/WETH pool and approve tokens for liquidity provision",
+    "txBuilderVersion": "1.16.5"
+  },
+  "transactions": [
+    {
+      "to": "0x498581ff718922c3f8e6a244956af099b2652b2b",
+      "value": "0",
+      "data": "0x695c5bf5000000000000000000000000a4093669dafbd123e37d52e0939b3ab3c2272f44000000000000000000000000420000000000000000000000000000000000000060000000000000000000000000000000000000000000000000000000000000bb8000000000000000000000000000000000000000000000000000000000000003c0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000039ed1a9ffe09ba0000000000000000000000000000000000000000000000000000000000000000e00000000000000000000000000000000000000000000000000000000000000000",
+      "contractMethod": {
+        "inputs": [
+          {
+            "internalType": "struct PoolKey",
+            "name": "key",
+            "type": "tuple",
+            "components": [
+              {
+                "internalType": "Currency",
+                "name": "currency0",
+                "type": "address"
+              },
+              {
+                "internalType": "Currency", 
+                "name": "currency1",
+                "type": "address"
+              },
+              {
+                "internalType": "uint24",
+                "name": "fee",
+                "type": "uint24"
+              },
+              {
+                "internalType": "int24",
+                "name": "tickSpacing",
+                "type": "int24"
+              },
+              {
+                "internalType": "IHooks",
+                "name": "hooks",
+                "type": "address"
+              }
+            ]
+          },
+          {
+            "internalType": "uint160",
+            "name": "sqrtPriceX96",
+            "type": "uint160"
+          },
+          {
+            "internalType": "bytes",
+            "name": "hookData", 
+            "type": "bytes"
+          }
+        ],
+        "name": "initialize",
+        "payable": false
+      },
+      "contractInputsValues": {
+        "key": {
+          "currency0": "0xA4093669DAFbD123E37d52e0939b3aB3C2272f44",
+          "currency1": "0x4200000000000000000000000000000000000006",
+          "fee": "3000",
+          "tickSpacing": "60",
+          "hooks": "0x0000000000000000000000000000000000000000"
+        },
+        "sqrtPriceX96": "1120455419495722814493687808",
+        "hookData": "0x"
+      }
+    },
+    {
+      "to": "0xA4093669DAFbD123E37d52e0939b3aB3C2272f44",
+      "value": "0", 
+      "data": "0x095ea7b30000000000000000000000006ff5693b99212da76ad316178a184ab56d299b43000000000000000000000000000000000000000000000054b40b1f852bda00000",
+      "contractMethod": {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "spender",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256", 
+            "name": "amount",
+            "type": "uint256"
+          }
+        ],
+        "name": "approve",
+        "payable": false
+      },
+      "contractInputsValues": {
+        "spender": "0x6ff5693b99212da76ad316178a184ab56d299b43",
+        "amount": "25000000000000000000000"
+      }
+    },
+    {
+      "to": "0x4200000000000000000000000000000000000006",
+      "value": "0",
+      "data": "0x095ea7b30000000000000000000000006ff5693b99212da76ad316178a184ab56d299b43000000000000000000000000000000000000000000000000004563918244f40000",
+      "contractMethod": {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "spender", 
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256"
+          }
+        ],
+        "name": "approve",
+        "payable": false
+      },
+      "contractInputsValues": {
+        "spender": "0x6ff5693b99212da76ad316178a184ab56d299b43",
+        "amount": "5000000000000000000"
+      }
+    }
+  ]
+}
