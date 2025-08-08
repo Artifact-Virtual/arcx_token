@@ -147,29 +147,26 @@ async function setupPool(dryRun: boolean) {
   console.log(`- Target Price: 1 ARCx = ${AMOUNTS.INITIAL_PRICE_ETH} ETH`);
   console.log(`- SqrtPriceX96: ${sqrtPriceX96}`);
 
+  // Prepare Safe-ready calldata for PoolManager.initialize
+  const poolManagerIface = new ethers.Interface([
+    "function initialize((address,address,uint24,int24,address), uint160)"
+  ]);
+  const initData = poolManagerIface.encodeFunctionData("initialize", [
+    [poolKey.currency0, poolKey.currency1, poolKey.fee, poolKey.tickSpacing, poolKey.hooks],
+    sqrtPriceX96
+  ]);
+
+  console.log("\n📋 SAFE TX: INITIALIZE POOL");
+  console.log(`To:   ${CONTRACTS.POOL_MANAGER}`);
+  console.log(`Value: 0`);
+  console.log(`Data: ${initData}`);
+
   if (dryRun) {
     console.log("\n🧪 DRY RUN: Would initialize pool with above parameters");
-    console.log("📋 Required Steps:");
-    console.log("1. Call PoolManager.initialize() with pool key and sqrt price");
-    console.log("2. Verify pool is created and active");
     return;
   }
 
-  try {
-    console.log("\n🚀 Initializing pool...");
-    
-    // Note: This requires actual V4 integration which may not be available
-    // For now, show the required transaction data
-    
-    console.log("⚠️ Pool initialization requires V4 SDK integration");
-    console.log("📋 Manual steps needed:");
-    console.log("1. Use Uniswap V4 SDK to initialize pool");
-    console.log("2. Call PoolManager.initialize() with pool parameters");
-    console.log("3. Verify pool creation on explorer");
-
-  } catch (error: any) {
-    console.log(`❌ Pool setup failed: ${error.message}`);
-  }
+  console.log("\n⚠️ Execute the SAFE TX above to initialize the pool");
 }
 
 async function addLiquidity(dryRun: boolean) {
@@ -185,15 +182,21 @@ async function addLiquidity(dryRun: boolean) {
   console.log(`- ARCx: ${ethers.formatEther(liquidityAmounts.arcx)} ARCx`);
   console.log(`- WETH: ${ethers.formatEther(liquidityAmounts.weth)} WETH`);
 
-  // Generate approval transactions for Safe
   console.log("\n📋 Required Safe Transactions:");
 
-  // WETH approval
-  const wethInterface = new ethers.Interface([
+  // 0) Wrap ETH -> WETH via WETH.deposit()
+  const wethIface = new ethers.Interface([
+    "function deposit() payable",
     "function approve(address spender, uint256 amount) returns (bool)"
   ]);
-  
-  const wethApprovalData = wethInterface.encodeFunctionData("approve", [
+  const wethDepositData = wethIface.encodeFunctionData("deposit", []);
+  console.log("\n0. WRAP ETH TO WETH:");
+  console.log(`   To: ${CONTRACTS.WETH_BASE}`);
+  console.log(`   Value: ${liquidityAmounts.weth.toString()} wei`);
+  console.log(`   Data: ${wethDepositData}`);
+
+  // 1) WETH approval to Position Manager
+  const wethApprovalData = wethIface.encodeFunctionData("approve", [
     CONTRACTS.POSITION_MANAGER,
     liquidityAmounts.weth
   ]);
@@ -203,12 +206,11 @@ async function addLiquidity(dryRun: boolean) {
   console.log(`   Value: 0`);
   console.log(`   Data: ${wethApprovalData}`);
 
-  // ARCx approval
-  const arcxInterface = new ethers.Interface([
+  // 2) ARCx approval to Position Manager
+  const arcxIface = new ethers.Interface([
     "function approve(address spender, uint256 amount) returns (bool)"
   ]);
-  
-  const arcxApprovalData = arcxInterface.encodeFunctionData("approve", [
+  const arcxApprovalData = arcxIface.encodeFunctionData("approve", [
     CONTRACTS.POSITION_MANAGER,
     liquidityAmounts.arcx
   ]);
@@ -221,15 +223,14 @@ async function addLiquidity(dryRun: boolean) {
   console.log("\n3. ADD LIQUIDITY POSITION:");
   console.log(`   To: ${CONTRACTS.POSITION_MANAGER}`);
   console.log(`   Value: 0`);
-  console.log(`   Note: Requires V4 SDK integration for position minting`);
+  console.log("   Note: Use Uniswap v4 Position Manager to mint position (SDK/UI). Approvals above must target the correct Position Manager address on Base.");
 
   if (dryRun) {
     console.log("\n🧪 DRY RUN: Would execute above transactions");
     return;
   }
 
-  console.log("\n⚠️ Liquidity addition requires manual Safe execution");
-  console.log("📋 Execute the transactions above in the Treasury Safe");
+  console.log("\n⚠️ Liquidity addition requires manual Safe execution of the transactions above");
 }
 
 async function removeLiquidity(dryRun: boolean) {
