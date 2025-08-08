@@ -94,9 +94,8 @@ ARCx serves as the genesis funding mechanism for constitutional intelligence inf
 - **Paused:** No
 - **Minting Finalized:** Yes (Ultra-scarce tokenomics active)
 - **Contract Status:** LIVE
-- **Total Supply:** 1,100,000 ARCx (Fixed forever)
-- **Effective Max Supply:** 1,100,000 ARCx (Minting finalized - no more can be created)
-- **Contract Max Supply:** 100,000,000 ARCx (Immutable variable - cannot be changed)
+- **Total Supply:** 1,000,000 ARCx (Fixed)
+- **Contract Max Supply:** 1,000,000 ARCx (Immutable)
 - **Vesting System:** FULLY OPERATIONAL
 - **Treasury Safe:** `0x8F8fdBFa1AF9f53973a7003CbF26D854De9b2f38`
 - **MVC Contract:** LIVE - `0xEEc0298bE76C9C3224eA05a34687C1a1134d550B`
@@ -110,22 +109,24 @@ ARCx serves as the genesis funding mechanism for constitutional intelligence inf
 
 ARCx maintains 100% token accountability with comprehensive audit trails tracking every token from deployment to current state.
 
-#### **Current Token Distribution (1,100,000 ARCx Total)**
+#### **Current Token Distribution (1,000,000 ARCx Total)**
+
 | Holder | Amount | Percentage | Purpose |
 |--------|--------|------------|---------|
-| **Master Vesting** | 400,000 ARCx | 36.36% | Team & Ecosystem vesting |
-| **Token Contract** | 200,000 ARCx | 18.18% | Treasury-controlled reserves |
-| **Treasury Safe** | 150,000 ARCx | 13.64% | Active treasury operations |
-| **Dutch Auction** | 100,000 ARCx | 9.09% | Public sale allocation |
-| **Reserve Wallet** | 100,000 ARCx | 9.09% | Strategic reserves |
-| **Unknown Address** | 100,000 ARCx | 9.09% | **PENDING IDENTIFICATION** |
-| **Smart Airdrop** | 50,000 ARCx | 4.55% | Merit-based distribution |
+| **Master Vesting** | 400,000 ARCx | 40.00% | Team & Ecosystem vesting |
+| **Token Contract** | 200,000 ARCx | 20.00% | Treasury-controlled reserves |
+| **Treasury Safe** | 150,000 ARCx | 15.00% | Active treasury operations |
+| **Dutch Auction** | 100,000 ARCx | 10.00% | Public sale allocation |
+| **Reserve Wallet** | 100,000 ARCx | 10.00% | Strategic reserves |
+| **Smart Airdrop** | 50,000 ARCx | 5.00% | Merit-based distribution |
 
 **Identified Addresses:**
+
 - **Reserve Wallet:** `0x8F0b552065f120cF273CC077cdE4cD4578b5556c` - 100,000 ARCx
 - **Unknown Address:** `0xD788D9ac56c754cb927771eBf058966bA8aB734D` - 100,000 ARCx
 
 #### **Audit Tools**
+
 ```bash
 # Complete audit trail (every transaction from deployment)
 npx hardhat run scripts/audit-trail.ts --network base
@@ -144,20 +145,22 @@ npx hardhat run scripts/live-monitor.ts --network base
 ```
 
 #### **Verified Token Flow**
-1. **Initial Mint:** 1,000,000 ARCx to Deployer (Block 33538313)
-2. **Vesting Allocation:** 200,000 ARCx to Master Vesting (Block 33724417)
-3. **Treasury Funding:** 800,000 ARCx to Treasury Safe (Block 33724578)
-4. **Distribution Phase:** Treasury distributed tokens to various addresses
-5. **Auction Mint:** Additional 100,000 ARCx minted to Dutch Auction (Block 33858797)
-6. **Minting Finalized:** No further tokens can ever be created
+
+1. **Initial Mint:** 1,000,000 ARCx to Deployer
+2. **Vesting Allocation:** Tokens allocated to Master Vesting per schedules
+3. **Treasury Funding:** Treasury Safe funded per distribution plan
+4. **Distribution Phase:** Treasury distributed tokens to designated contracts and wallets
+5. **Minting Finalized:** No further tokens can ever be created
 
 #### **Security Features**
+
 - **Perfect Integrity:** All balances match transfer history (verified)
 - **Zero Token Loss:** Every token tracked from deployment forward
 - **Immutable Supply:** Minting permanently disabled for ultra-scarcity
 - **Multi-Sig Security:** Treasury operations require multiple signatures
 
 ### **Overview**
+
 ARCx is a funding instrument that bootstraps the Arc Protocol development and constitutional engine deployment. Built as a fixed-supply ERC20, ARCx provides essential funding to develop governance systems that embed constitutional principles directly into code, ensuring transparent, predictable operations that preserve human agency in an AI-driven future.
 
 <!-- Badges -->
@@ -196,7 +199,7 @@ ARCx is a funding instrument that bootstraps the Arc Protocol development and co
     - [**Fair Distribution System**](#fair-distribution-system-1)
     - [**Contract Status**](#contract-status)
     - [**Complete Token Accountability**](#complete-token-accountability)
-      - [**Current Token Distribution (1,100,000 ARCx Total)**](#current-token-distribution-1100000-arcx-total)
+      - [**Current Token Distribution (1,000,000 ARCx Total)**](#current-token-distribution-1000000-arcx-total)
       - [**Audit Tools**](#audit-tools)
       - [**Verified Token Flow**](#verified-token-flow)
       - [**Security Features**](#security-features)
@@ -235,12 +238,12 @@ ARCx is a funding instrument that bootstraps the Arc Protocol development and co
 **Public Read Functions:**
 - `name()` → "ARCx"
 - `symbol()` → "ARCx"
-- `totalSupply()` → Current circulating supply (1,100,000 ARCx)
+- `totalSupply()` → Current circulating supply (1,000,000 ARCx)
 - `balanceOf(address)` → Token balance of address
-- `MAX_SUPPLY()` → Contract max supply (100,000,000 ARCx - immutable, cannot be changed)
+- `MAX_SUPPLY()` → Contract max supply (1,000,000 ARCx - immutable)
 - `paused()` → Contract pause status
 
-**Note:** While the contract shows MAX_SUPPLY as 100M ARCx, minting has been permanently finalized at 1.1M ARCx total supply. The immutable MAX_SUPPLY variable cannot be changed post-deployment.
+**Note:** MAX_SUPPLY is immutable at 1,000,000 ARCx in this deployment.
 
 **Admin Functions (Role Required):**
 - `mint(address, amount)` → Mint tokens (MINTER_ROLE)
@@ -503,4 +506,16 @@ REPORT_GAS=true npx hardhat test
 
 **Core Team Vesting (Treasury Safe):**
 - **Amount:** 200,000 ARCx
-- **Start:** August 15, 2025 00:00:00
+- **Start:** August 15, 2025 00:00:00 UTC
+- **Cliff:** 12 months
+- **Duration:** 36 months
+- **Vesting Type:** Linear
+- **Emergency Controls:** Revocable by admin, with audit trail
+
+**Ecosystem Vesting (Ecosystem Safe):**
+- **Amount:** 200,000 ARCx
+- **Start:** August 15, 2025 00:00:00 UTC
+- **Cliff:** 6 months
+- **Duration:** 24 months
+- **Vesting Type:** Linear
+- **Emergency Controls:** Revocable by admin, with audit trail
