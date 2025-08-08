@@ -22,6 +22,7 @@ async function main() {
     { label: "Master Vesting", address: CONTRACTS.MASTER_VESTING },
     { label: "Token Contract", address: CONTRACTS.ARCX_TOKEN },
     { label: "Treasury Safe", address: CONTRACTS.TREASURY_SAFE },
+    { label: "Position Manager", address: CONTRACTS.POSITION_MANAGER },
     { label: "Unknown Address 1", address: "0x8F0b552065f120cF273CC077cdE4cD4578b5556c" },
     { label: "Unknown Address 2", address: "0xD788D9ac56c754cb927771eBf058966bA8aB734D" },
     { label: "Dutch Auction", address: CONTRACTS.DUTCH_AUCTION },
