@@ -1,12 +1,12 @@
 import { expect } from "chai";
 import { ethers } from "hardhat";
-import { ARCxToken, ARCxSmartAirdrop } from "../typechain-types";
+// Removed specific contract type imports to avoid typing mismatch with generic factories
 import { HardhatEthersSigner } from "@nomicfoundation/hardhat-ethers/signers";
 import { time } from "@nomicfoundation/hardhat-network-helpers";
 
 describe("ARCxSmartAirdrop", function () {
-    let arcxToken: ARCxToken;
-    let airdrop: ARCxSmartAirdrop;
+    let arcxToken: any;
+    let airdrop: any;
     let owner: HardhatEthersSigner;
     let claimer1: HardhatEthersSigner;
     let claimer2: HardhatEthersSigner;
@@ -22,13 +22,13 @@ describe("ARCxSmartAirdrop", function () {
         [owner, claimer1, claimer2] = await ethers.getSigners();
         
         // Deploy ARCx Token
-        const ARCxToken = await ethers.getContractFactory("ARCxToken");
-        arcxToken = await ARCxToken.deploy("ARCx Token", "ARCx", ethers.parseEther("1000000"), owner.address);
+        const ARCxTokenFactory = await ethers.getContractFactory("ARCxToken");
+        arcxToken = await ARCxTokenFactory.deploy("ARCx Token", "ARCx", ethers.parseEther("1000000"), owner.address);
         await arcxToken.waitForDeployment();
 
         // Deploy Smart Airdrop
-        const ARCxSmartAirdrop = await ethers.getContractFactory("ARCxSmartAirdrop");
-        airdrop = await ARCxSmartAirdrop.deploy(
+        const ARCxSmartAirdropFactory = await ethers.getContractFactory("ARCxSmartAirdrop");
+        airdrop = await ARCxSmartAirdropFactory.deploy(
             await arcxToken.getAddress(),
             AIRDROP_TOKENS,
             CLAIM_DURATION,
@@ -103,9 +103,12 @@ describe("ARCxSmartAirdrop", function () {
             expect(await airdrop.merkleRoot()).to.equal(newRoot);
         });
 
-        it("Should allow admin to set contribution scores", async function () {
-            await airdrop.setContributionScore(claimer1.address, 0, 100); // DEVELOPER, score 100
-            
+        it("Should allow admin to set contribution scores (batch)", async function () {
+            await airdrop.batchSetContributionScores(
+                [claimer1.address],
+                [0], // DEVELOPER
+                [100]
+            );
             expect(await airdrop.userContributionScores(claimer1.address)).to.be.gt(0);
         });
 
@@ -177,14 +180,14 @@ describe("ARCxSmartAirdrop", function () {
             const initialBalance = await arcxToken.balanceOf(owner.address);
             const contractBalance = await arcxToken.balanceOf(await airdrop.getAddress());
             
-            await airdrop.withdrawUnclaimedTokens();
+            await airdrop.withdrawUnclaimedTokens(owner.address);
             
             const finalBalance = await arcxToken.balanceOf(owner.address);
             expect(finalBalance - initialBalance).to.equal(contractBalance);
         });
 
         it("Should not allow withdrawal before deadline", async function () {
-            await expect(airdrop.withdrawUnclaimedTokens())
+            await expect(airdrop.withdrawUnclaimedTokens(owner.address))
                 .to.be.revertedWith("Claim period not ended");
         });
     });
