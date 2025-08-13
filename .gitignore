@@ -50,3 +50,6 @@ out/
 
 # Ignore sdas (accidental file)
 sdas
+
+# Ignore temp directory
+temp/

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Survival Guide</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background: #1a1026;
+      color: #e0e6f0;
+      font-family: 'Orbitron', Arial, sans-serif;
+      min-height: 100vh;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      background: linear-gradient(180deg, #1a1026 0%, #2d1b47 100%);
+    }
+    .banner {
+      width: 100vw;
+      max-width: 100%;
+      min-height: 60vh;
+      background: url('survival_guide_banner.jpg') center/cover no-repeat;
+      position: relative;
+      box-shadow: 0 0 40px 10px #0ff2, 0 0 0 8px #1a1026 inset;
+      border-bottom: 4px solid #2d1b47;
+    }
+    .overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(20, 10, 40, 0.45);
+      z-index: 1;
+    }
+    .content {
+      z-index: 2;
+      position: relative;
+      margin-top: -80px;
+      background: rgba(26,16,38,0.85);
+      border-radius: 18px;
+      box-shadow: 0 0 24px 4px #0ff4, 0 0 0 2px #2d1b47 inset;
+      padding: 2.5rem 2rem 2rem 2rem;
+      max-width: 700px;
+      width: 90vw;
+      text-align: center;
+      color: #e0e6f0;
+    }
+    h1 {
+      font-size: 3rem;
+      letter-spacing: 0.1em;
+      color: #7df9ff;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 0 16px #0ff, 0 0 2px #fff;
+    }
+    h2 {
+      font-size: 1.5rem;
+      color: #ff6fff;
+      margin-top: 0;
+      margin-bottom: 1.5rem;
+      text-shadow: 0 0 8px #f0f, 0 0 2px #fff;
+    }
+    p {
+      font-size: 1.1rem;
+      color: #e0e6f0;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+    .neon {
+      color: #7df9ff;
+      text-shadow: 0 0 8px #0ff, 0 0 2px #fff;
+    }
+    @media (max-width: 700px) {
+      .content { padding: 1.2rem 0.5rem; }
+      h1 { font-size: 2rem; }
+      h2 { font-size: 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="banner">
+    <!-- Place your banner image in the project root as 'survival_guide_banner.jpg' -->
+    <div class="overlay"></div>
+  </div>
+  <div class="content">
+    <h1>Survival Guide</h1>
+    <h2 class="neon">Post-Apocalyptic Blockchain Wisdom</h2>
+    <p>
+      Welcome to the Survival Guide. In a world where the internet is gone and only the chain remains, this guide is your beacon. Every NFT minted here is a link in an unbreakable onchain chain—each one unique, each one a survivor.<br><br>
+      <span class="neon">No servers. No offchain. Just pure, verifiable, onchain knowledge.</span>
+    </p>
+    <p>
+      <strong>How it works:</strong><br>
+      <ul style="text-align:left; max-width:500px; margin:0 auto;">
+        <li>Each NFT is a new link in the chain, referencing the last.</li>
+        <li>All data and history are stored onchain, forever accessible.</li>
+        <li>The more the chain grows, the more valuable each link becomes.</li>
+      </ul>
+    </p>
+    <p style="font-size:0.95rem; color:#aaa;">
+      <em>Powered by OCSH NFT &mdash; The One Cent Short Handbook for the end of the world.</em>
+    </p>
+  </div>
+</body>
+</html>
