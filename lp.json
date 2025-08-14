@@ -1,0 +1,57 @@
+{
+  "version": "1.0",
+  "chainId": "8453",
+  "createdAt": 1723126800000,
+  "meta": {
+    "name": "ARCx Liquidity Pool Setup",
+    "description": "Initialize Uniswap V4 pool and prepare for LP position"
+  },
+  "transactions": [
+    {
+      "to": "0xA4093669DAFbD123E37d52e0939b3aB3C2272f44",
+      "value": "0",
+      "data": "0x095ea7b30000000000000000000000007c5f5a4bfd8fd63184577525326123b519429bdc0000000000000000000000000000000000000000000000056bc75e2d630eb0000",
+      "contractMethod": {
+        "inputs": [
+          {
+            "name": "spender",
+            "type": "address"
+          },
+          {
+            "name": "amount",
+            "type": "uint256"
+          }
+        ],
+        "name": "approve",
+        "payable": false
+      },
+      "contractInputsValues": {
+        "spender": "0x7c5f5a4bfd8fd63184577525326123b519429bdc",
+        "amount": "25000000000000000000000"
+      }
+    },
+    {
+      "to": "0x4200000000000000000000000000000000000006",
+      "value": "0",
+      "data": "0x095ea7b30000000000000000000000007c5f5a4bfd8fd63184577525326123b519429bdc00000000000000000000000000000000000000000000000000005af3107a4000",
+      "contractMethod": {
+        "inputs": [
+          {
+            "name": "spender",
+            "type": "address"
+          },
+          {
+            "name": "amount",
+            "type": "uint256"
+          }
+        ],
+        "name": "approve",
+        "payable": false
+      },
+      "contractInputsValues": {
+        "spender": "0x7c5f5a4bfd8fd63184577525326123b519429bdc",
+        "amount": "1600000000000000"
+      }
+    }
+  ]
+}
