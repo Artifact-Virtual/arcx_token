@@ -1,12 +1,84 @@
 {
-  "version": "1.0",
+  "version": "2.0",
   "chainId": "8453",
-  "createdAt": 1723126800000,
+  "createdAt": 1734163200000,
   "meta": {
-    "name": "ARCx Liquidity Pool Setup",
-    "description": "Initialize Uniswap V4 pool and prepare for LP position"
+    "name": "ARCx Complete Liquidity Pool Setup",
+    "description": "Complete Uniswap V4 pool initialization and liquidity provision - All required transactions",
+    "totalTransactions": 5,
+    "estimatedGas": "~500,000",
+    "requirements": [
+      "Treasury must have 25,000 ARCx tokens",
+      "Treasury must have 0.0016 ETH",
+      "Pool Manager contract must be deployed",
+      "Position Manager contract must be deployed"
+    ]
   },
   "transactions": [
+    {
+      "to": "0x498581ff718922c3f8e6a244956af099b2652b2b",
+      "value": "0",
+      "data": "0xf637731d000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000001771845812700903892492542091776000000000000000000000000000000000000000000000000000000000000000a0000000000000000000000004200000000000000000000000000000000000006000000000000000000000000a4093669dafbd123e37d52e0939b3ab3c2272f440000000000000000000000000000000000000000000000000000000000000bb80000000000000000000000000000000000000000000000000000000000000003c0000000000000000000000000000000000000000000000000000000000000000",
+      "contractMethod": {
+        "inputs": [
+          {
+            "components": [
+              {
+                "name": "currency0",
+                "type": "address"
+              },
+              {
+                "name": "currency1", 
+                "type": "address"
+              },
+              {
+                "name": "fee",
+                "type": "uint24"
+              },
+              {
+                "name": "tickSpacing",
+                "type": "int24"
+              },
+              {
+                "name": "hooks",
+                "type": "address"
+              }
+            ],
+            "name": "key",
+            "type": "tuple"
+          },
+          {
+            "name": "sqrtPriceX96",
+            "type": "uint160"
+          }
+        ],
+        "name": "initialize",
+        "payable": false
+      },
+      "contractInputsValues": {
+        "key": {
+          "currency0": "0x4200000000000000000000000000000000000006",
+          "currency1": "0xA4093669DAFbD123E37d52e0939b3aB3C2272f44",
+          "fee": "3000",
+          "tickSpacing": "60",
+          "hooks": "0x0000000000000000000000000000000000000000"
+        },
+        "sqrtPriceX96": "1771845812700903892492542091776"
+      },
+      "description": "Initialize ARCx/WETH Uniswap V4 pool with 0.3% fee tier"
+    },
+    {
+      "to": "0x4200000000000000000000000000000000000006",
+      "value": "1600000000000000",
+      "data": "0xd0e30db0",
+      "contractMethod": {
+        "inputs": [],
+        "name": "deposit",
+        "payable": true
+      },
+      "contractInputsValues": {},
+      "description": "Convert 0.0016 ETH to WETH for liquidity provision"
+    },
     {
       "to": "0xA4093669DAFbD123E37d52e0939b3aB3C2272f44",
       "value": "0",
@@ -28,7 +100,8 @@
       "contractInputsValues": {
         "spender": "0x7c5f5a4bfd8fd63184577525326123b519429bdc",
         "amount": "25000000000000000000000"
-      }
+      },
+      "description": "Approve 25,000 ARCx tokens to Position Manager"
     },
     {
       "to": "0x4200000000000000000000000000000000000006",
@@ -51,7 +124,144 @@
       "contractInputsValues": {
         "spender": "0x7c5f5a4bfd8fd63184577525326123b519429bdc",
         "amount": "1600000000000000"
-      }
+      },
+      "description": "Approve 0.0016 WETH to Position Manager"
+    },
+    {
+      "to": "0x7c5f5a4bfd8fd63184577525326123b519429bdc",
+      "value": "0",
+      "data": "0x88316456000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000001600000000000000000000000000000000000000000000000000000000000000240000000000000000000000000000000000000000000000000000000006707c93f000000000000000000000000000000000000000000000000000000000000000a0000000000000000000000004200000000000000000000000000000000000006000000000000000000000000a4093669dafbd123e37d52e0939b3ab3c2272f440000000000000000000000000000000000000000000000000000000000000bb80000000000000000000000000000000000000000000000000000000000000003c0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000c000000000000000000000000000000000000000000000000000000000000001200000000000000000000000000000000000000000000000000000000000000180000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000005af3107a40000000000000000000000000000000000000000000000000056bc75e2d630eb0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "contractMethod": {
+        "inputs": [
+          {
+            "components": [
+              {
+                "name": "currency0",
+                "type": "address"
+              },
+              {
+                "name": "currency1",
+                "type": "address"
+              },
+              {
+                "name": "fee",
+                "type": "uint24"
+              },
+              {
+                "name": "tickSpacing",
+                "type": "int24"
+              },
+              {
+                "name": "hooks",
+                "type": "address"
+              }
+            ],
+            "name": "poolKey",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "name": "tickLower",
+                "type": "int24"
+              },
+              {
+                "name": "tickUpper",
+                "type": "int24"
+              },
+              {
+                "name": "liquidityDelta",
+                "type": "uint256"
+              },
+              {
+                "name": "hookData",
+                "type": "bytes"
+              }
+            ],
+            "name": "params",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "name": "currency",
+                "type": "address"
+              },
+              {
+                "name": "amount",
+                "type": "uint256"
+              }
+            ],
+            "name": "settleUsingTransfer",
+            "type": "tuple[]"
+          },
+          {
+            "name": "deadline",
+            "type": "uint256"
+          }
+        ],
+        "name": "modifyLiquidities",
+        "payable": false
+      },
+      "contractInputsValues": {
+        "poolKey": {
+          "currency0": "0x4200000000000000000000000000000000000006",
+          "currency1": "0xA4093669DAFbD123E37d52e0939b3aB3C2272f44",
+          "fee": "3000",
+          "tickSpacing": "60",
+          "hooks": "0x0000000000000000000000000000000000000000"
+        },
+        "params": {
+          "tickLower": "-887220",
+          "tickUpper": "887220",
+          "liquidityDelta": "25000000000000000000000",
+          "hookData": "0x"
+        },
+        "settleUsingTransfer": [
+          {
+            "currency": "0x4200000000000000000000000000000000000006",
+            "amount": "1600000000000000"
+          },
+          {
+            "currency": "0xA4093669DAFbD123E37d52e0939b3aB3C2272f44",
+            "amount": "25000000000000000000000"
+          }
+        ],
+        "deadline": "1734250800"
+      },
+      "description": "Add liquidity: 25,000 ARCx + 0.0016 WETH to create LP position"
+    }
+  ],
+  "executionOrder": [
+    {
+      "step": 1,
+      "action": "Initialize Pool",
+      "transaction": 0,
+      "note": "Must be executed first - creates the pool"
+    },
+    {
+      "step": 2,
+      "action": "Convert ETH to WETH", 
+      "transaction": 1,
+      "note": "Convert ETH to WETH for liquidity"
+    },
+    {
+      "step": 3,
+      "action": "Approve ARCx",
+      "transaction": 2,
+      "note": "Allow Position Manager to spend ARCx"
+    },
+    {
+      "step": 4,
+      "action": "Approve WETH",
+      "transaction": 3,
+      "note": "Allow Position Manager to spend WETH"
+    },
+    {
+      "step": 5,
+      "action": "Add Liquidity",
+      "transaction": 4,
+      "note": "Create LP position - must be last"
     }
   ]
 }
