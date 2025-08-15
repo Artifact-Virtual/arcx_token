@@ -492,16 +492,6 @@
       justify-content: center;
     }
 
-    .constitution-base {
-      z-index: 1;
-    }
-
-    .constitution-icon {
-      width: 120px;
-      height: 120px;
-      opacity: 0.8;
-    }
-
     .intelligence-web {
       z-index: 2;
       animation: intelligenceFloat 8s ease-in-out infinite;
@@ -1076,34 +1066,6 @@
             </div>
             <!-- Constitutional Intelligence Symbol -->
             <div class="constitution-layers">
-              <div class="layer constitution-base">
-                <svg class="constitution-icon" viewBox="0 0 200 200">
-                  <defs>
-                    <linearGradient id="constitutionGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" style="stop-color:#FF4500;stop-opacity:0.8" />
-                      <stop offset="100%" style="stop-color:#FF6B35;stop-opacity:0.4" />
-                    </linearGradient>
-                  </defs>
-                  <!-- Constitutional framework representation -->
-                  <rect x="40" y="30" width="120" height="140" fill="none" stroke="url(#constitutionGrad)" stroke-width="2" rx="8"/>
-                  <rect x="50" y="50" width="100" height="2" fill="url(#constitutionGrad)" opacity="0.7"/>
-                  <rect x="50" y="65" width="80" height="2" fill="url(#constitutionGrad)" opacity="0.5"/>
-                  <rect x="50" y="80" width="90" height="2" fill="url(#constitutionGrad)" opacity="0.6"/>
-                  <rect x="50" y="95" width="70" height="2" fill="url(#constitutionGrad)" opacity="0.4"/>
-                  <rect x="50" y="110" width="85" height="2" fill="url(#constitutionGrad)" opacity="0.5"/>
-                  <rect x="50" y="125" width="75" height="2" fill="url(#constitutionGrad)" opacity="0.6"/>
-                  <rect x="50" y="140" width="95" height="2" fill="url(#constitutionGrad)" opacity="0.7"/>
-                  <rect x="50" y="155" width="60" height="2" fill="url(#constitutionGrad)" opacity="0.4"/>
-                  <!-- Intelligence nodes -->
-                  <circle cx="170" cy="60" r="8" fill="url(#constitutionGrad)" opacity="0.8"/>
-                  <circle cx="30" cy="90" r="6" fill="url(#constitutionGrad)" opacity="0.6"/>
-                  <circle cx="170" cy="130" r="7" fill="url(#constitutionGrad)" opacity="0.7"/>
-                  <circle cx="30" cy="150" r="5" fill="url(#constitutionGrad)" opacity="0.5"/>
-                  <!-- Connecting neural networks -->
-                  <path d="M 30 90 Q 100 70 170 60" stroke="url(#constitutionGrad)" stroke-width="1" fill="none" opacity="0.3"/>
-                  <path d="M 30 150 Q 100 140 170 130" stroke="url(#constitutionGrad)" stroke-width="1" fill="none" opacity="0.3"/>
-                </svg>
-              </div>
               <div class="layer intelligence-web">
                 <svg class="intelligence-nodes" viewBox="0 0 200 200">
                   <!-- Neural network representation -->
@@ -1221,7 +1183,7 @@
   <script>
     // Interactive Token - Mouse-Only Animations with Energy Rays
     document.addEventListener('DOMContentLoaded', function() {
-      const hero = document.querySelector('.hero');
+      const hero = document.querySelector('.hero-content');
       const interactiveToken = document.getElementById('interactiveToken');
       const glitchTitle = document.querySelector('.glitch');
       const particles = document.querySelectorAll('.particle');
