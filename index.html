@@ -3,36 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ARCx — Constitutional Intelligence Genesis</title>
-  <meta name="description" content="Genesis token for constitutional intelligence infrastructure. Built on Base, verified secure, migration-ready for FUEL ecosystem.">
+  <title>ARCx — Constitutional Intelligence Token</title>
+  <meta name="description" content="ARCx: The genesis token powering constitutional intelligence infrastructure. Built on Base, fully live, and transforming onchain governance.">
   <link rel="icon" href="css/arcx-logo.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100;200;300;400;500;600;700&family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   
   <style>
     :root {
-      --pure-white: #ffffff;
-      --soft-black: #000000;
-      --ghost-black: #0a0a0a;
-      --border-gray: #111111;
-      --text-gray: #666666;
-      --accent-blue: #0052ff;
-      --accent-green: #00ff88;
-      --accent-amber: #ffaa00;
-      --space-xs: 0.5rem;
-      --space-sm: 1rem;
-      --space-md: 1.5rem;
-      --space-lg: 2rem;
-      --space-xl: 3rem;
-      --space-xxl: 4rem;
-      --border-radius: 0px;
-      --font-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
-      --font-weight-light: 100;
-      --font-weight-normal: 200;
-      --font-weight-medium: 300;
-      --font-weight-bold: 400;
-      --font-weight-ultra: 100;
-      --line-height-tight: 1.2;
-      --line-height-relaxed: 1.6;
-      --soft-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      --bg-primary: #0a0505;
+      --bg-secondary: #1a0f0f;
+      --bg-tertiary: #2a1515;
+      --accent-primary: #ff6600;
+      --accent-secondary: #ff3300;
+      --accent-tertiary: #ff9944;
+      --accent-glow: #ff660033;
+      --accent-glow-intense: #ff660066;
+      --text-primary: #ffffff;
+      --text-secondary: #cccccc;
+      --text-muted: #888888;
+      --glass-light: rgba(255, 255, 255, 0.1);
+      --glass-dark: rgba(255, 255, 255, 0.05);
+      --border-glow: rgba(255, 102, 0, 0.3);
+      --shadow-intense: 0 0 40px rgba(255, 102, 0, 0.4);
+      --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.3);
+      --glitch-1: #ff0040;
+      --glitch-2: #00ffff;
     }
 
     * {
@@ -42,497 +39,619 @@
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      background: var(--soft-black);
-      color: var(--pure-white);
+      font-family: 'Lexend', 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-weight: 200;
+      background: radial-gradient(ellipse at center, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+      color: var(--text-primary);
       overflow-x: hidden;
-      line-height: var(--line-height-relaxed);
-      font-weight: var(--font-weight-light);
+      line-height: 1.6;
+      min-height: 100vh;
+      position: relative;
     }
 
-    /* Advanced 3D Background System */
-    .immersive-canvas {
+    /* Enhanced animated background */
+    .bg-particles {
       position: fixed;
       top: 0;
       left: 0;
-      width: 100vw;
-      height: 100vh;
+      width: 100%;
+      height: 100%;
       pointer-events: none;
-      z-index: -1;
-      overflow: hidden;
-    }
-
-    .layer-1 {
-      position: absolute;
-      width: 100%;
-      height: 100%;
+      z-index: 1;
       background: 
-        radial-gradient(circle at 20% 20%, rgba(0, 82, 255, 0.03) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(0, 255, 136, 0.02) 0%, transparent 50%),
-        radial-gradient(circle at 40% 60%, rgba(255, 170, 0, 0.015) 0%, transparent 50%);
-      animation: layerDrift 20s ease-in-out infinite;
+        radial-gradient(circle at 20% 30%, var(--accent-glow) 0%, transparent 60%),
+        radial-gradient(circle at 80% 70%, var(--accent-glow) 0%, transparent 60%),
+        radial-gradient(circle at 40% 80%, var(--accent-glow) 0%, transparent 60%);
+      animation: particle-float 25s ease-in-out infinite alternate;
     }
 
-    .layer-2 {
-      position: absolute;
-      width: 120%;
-      height: 120%;
-      top: -10%;
-      left: -10%;
-      background: 
-        linear-gradient(45deg, transparent 0%, rgba(255, 255, 255, 0.005) 50%, transparent 100%),
-        linear-gradient(-45deg, transparent 0%, rgba(255, 255, 255, 0.003) 50%, transparent 100%);
-      animation: layerRotate 40s linear infinite;
-    }
-
-    .floating-elements {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-    }
-
-    .float-item {
-      position: absolute;
-      width: 2px;
-      height: 2px;
-      background: var(--pure-white);
-      opacity: 0.1;
-      animation: floatUp 15s ease-in-out infinite;
-    }
-
-    .float-item:nth-child(1) { left: 10%; animation-delay: 0s; }
-    .float-item:nth-child(2) { left: 20%; animation-delay: 2s; }
-    .float-item:nth-child(3) { left: 30%; animation-delay: 4s; }
-    .float-item:nth-child(4) { left: 40%; animation-delay: 6s; }
-    .float-item:nth-child(5) { left: 50%; animation-delay: 8s; }
-    .float-item:nth-child(6) { left: 60%; animation-delay: 1s; }
-    .float-item:nth-child(7) { left: 70%; animation-delay: 3s; }
-    .float-item:nth-child(8) { left: 80%; animation-delay: 5s; }
-    .float-item:nth-child(9) { left: 90%; animation-delay: 7s; }
-
-    @keyframes layerDrift {
-      0%, 100% { transform: translate(0, 0) scale(1); }
-      25% { transform: translate(2%, -1%) scale(1.02); }
-      50% { transform: translate(-1%, 2%) scale(0.98); }
-      75% { transform: translate(1%, -2%) scale(1.01); }
-    }
-
-    @keyframes layerRotate {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    @keyframes floatUp {
+    @keyframes particle-float {
       0% { 
-        transform: translateY(100vh) scale(0) rotate(0deg); 
-        opacity: 0; 
-      }
-      10% { 
-        opacity: 0.1; 
-        transform: translateY(90vh) scale(1) rotate(45deg); 
-      }
-      90% { 
-        opacity: 0.1; 
-        transform: translateY(-10vh) scale(1) rotate(315deg); 
+        transform: translateY(0px) rotate(0deg);
+        filter: brightness(1);
       }
       100% { 
-        transform: translateY(-20vh) scale(0) rotate(360deg); 
-        opacity: 0; 
+        transform: translateY(-30px) rotate(8deg);
+        filter: brightness(1.3);
       }
     }
 
-    /* Navigation */
-    .main-nav {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background: rgba(0, 0, 0, 0.95);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      z-index: 1000;
-      padding: var(--space-sm) 0;
+    /* 3D Hero Element */
+    .hero-3d-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 400px;
+      height: 400px;
+      perspective: 1000px;
+      z-index: 5;
     }
 
-    .nav-container {
-      max-width: 1200px;
-      margin: 0 auto;
+    .hero-orb {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.1s ease-out;
+    }
+
+    .orb-layer {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, var(--accent-primary), var(--accent-secondary));
+      box-shadow: 
+        0 0 60px var(--accent-glow-intense),
+        inset 0 0 60px rgba(255, 255, 255, 0.1);
+      animation: orb-pulse 4s ease-in-out infinite alternate;
+    }
+
+    .orb-layer:nth-child(1) {
+      transform: translateZ(0px);
+      opacity: 1;
+    }
+
+    .orb-layer:nth-child(2) {
+      transform: translateZ(-20px) scale(0.9);
+      opacity: 0.7;
+      animation-delay: -1s;
+    }
+
+    .orb-layer:nth-child(3) {
+      transform: translateZ(-40px) scale(0.8);
+      opacity: 0.4;
+      animation-delay: -2s;
+    }
+
+    @keyframes orb-pulse {
+      0% { 
+        transform: scale(1) rotateY(0deg);
+        box-shadow: 
+          0 0 60px var(--accent-glow-intense),
+          inset 0 0 60px rgba(255, 255, 255, 0.1);
+      }
+      100% { 
+        transform: scale(1.1) rotateY(180deg);
+        box-shadow: 
+          0 0 100px var(--accent-glow-intense),
+          inset 0 0 80px rgba(255, 255, 255, 0.2);
+      }
+    }
+
+    .orb-core {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 120px;
+      height: 120px;
+      background: linear-gradient(45deg, var(--accent-primary), var(--accent-tertiary));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      box-shadow: 0 0 40px var(--accent-glow-intense);
+      padding: 20px;
+    }
+
+    .orb-logo {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: brightness(2) contrast(1.2);
+      animation: logo-glow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes logo-glow {
+      0% { 
+        filter: brightness(2) contrast(1.2) drop-shadow(0 0 10px rgba(255, 255, 255, 0.8));
+      }
+      100% { 
+        filter: brightness(2.5) contrast(1.5) drop-shadow(0 0 20px rgba(255, 255, 255, 1));
+      }
+    }
+
+    .orb-symbol {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 2.5rem;
+      color: white;
+      text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+      -webkit-user-select: none;
+      user-select: none;
+      display: none; /* Hide when using logo */
+    }
+
+    /* Glitch Effects */
+    .glitch {
+      position: relative;
+    }
+
+    .glitch::before,
+    .glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+    }
+
+    .glitch::before {
+      animation: glitch-1 0.3s ease-in-out infinite alternate;
+      color: var(--glitch-1);
+      z-index: -1;
+    }
+
+    .glitch::after {
+      animation: glitch-2 0.3s ease-in-out infinite alternate-reverse;
+      color: var(--glitch-2);
+      z-index: -2;
+    }
+
+    @keyframes glitch-1 {
+      0% { transform: translateX(0); opacity: 0; }
+      10% { transform: translateX(-2px); opacity: 1; }
+      20% { transform: translateX(2px); opacity: 0; }
+      30% { transform: translateX(-1px); opacity: 1; }
+      40% { transform: translateX(1px); opacity: 0; }
+      50% { transform: translateX(0); opacity: 1; }
+      100% { transform: translateX(0); opacity: 0; }
+    }
+
+    @keyframes glitch-2 {
+      0% { transform: translateX(0); opacity: 0; }
+      15% { transform: translateX(1px); opacity: 1; }
+      25% { transform: translateX(-1px); opacity: 0; }
+      35% { transform: translateX(2px); opacity: 1; }
+      45% { transform: translateX(-2px); opacity: 0; }
+      55% { transform: translateX(0); opacity: 1; }
+      100% { transform: translateX(0); opacity: 0; }
+    }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(10, 5, 5, 0.9);
+      -webkit-backdrop-filter: blur(20px);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--glass-light);
+      padding: 1rem 2rem;
+    }
+
+    .nav {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0 var(--space-md);
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
-    .nav-logo {
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .av-logo {
       height: 32px;
       width: auto;
+      filter: brightness(1.1);
+      transition: all 0.3s ease;
+    }
+
+    .av-logo:hover {
+      filter: brightness(1.3) drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+      transform: scale(1.05);
+    }
+
+    .logo {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent-primary);
+      text-decoration: none;
+      letter-spacing: 3px;
+      text-shadow: 0 0 20px var(--accent-glow);
+      transition: all 0.3s ease;
+    }
+
+    .logo:hover {
+      text-shadow: 0 0 30px var(--accent-glow-intense);
+      transform: scale(1.05);
     }
 
     .nav-links {
       display: flex;
-      gap: var(--space-xl);
+      gap: 2rem;
+      list-style: none;
     }
 
     .nav-links a {
-      color: var(--text-gray);
+      font-family: 'Lexend', sans-serif;
+      font-weight: 300;
+      color: var(--text-secondary);
       text-decoration: none;
-      font-weight: var(--font-weight-medium);
+      font-size: 0.95rem;
       transition: all 0.3s ease;
       position: relative;
+      letter-spacing: 0.5px;
     }
 
     .nav-links a:hover {
-      color: var(--pure-white);
-    }
-
-    .nav-links a.active {
-      color: var(--pure-white);
+      color: var(--accent-primary);
+      text-shadow: 0 0 10px var(--accent-glow);
     }
 
     .nav-links a::after {
       content: '';
       position: absolute;
-      bottom: -8px;
+      bottom: -5px;
       left: 0;
       width: 0;
-      height: 1px;
-      background: var(--pure-white);
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
       transition: width 0.3s ease;
     }
 
-    .nav-links a:hover::after,
-    .nav-links a.active::after {
+    .nav-links a:hover::after {
       width: 100%;
     }
 
-    /* Main Container */
-    .main-container {
-      padding-top: 80px;
-      min-height: 100vh;
-    }
-
     /* Hero Section */
-    .hero-section {
+    .hero {
       min-height: 100vh;
-      display: flex;
+      display: grid;
+      grid-template-columns: 60% 40%;
       align-items: center;
-      justify-content: center;
-      text-align: center;
       position: relative;
-      padding: var(--space-xxl) var(--space-md);
       overflow: hidden;
+      background: linear-gradient(135deg, rgba(10, 5, 5, 0.9), rgba(15, 8, 8, 0.9));
+      padding: 0 4rem;
     }
 
     .hero-content {
-      max-width: 1200px;
       position: relative;
       z-index: 10;
+      text-align: left;
+      max-width: 600px;
+      padding: 2rem 0;
     }
 
-    .hero-badge {
-      display: inline-block;
-      background: rgba(0, 255, 136, 0.1);
-      border: 1px solid rgba(0, 255, 136, 0.3);
-      color: var(--accent-green);
-      padding: var(--space-xs) var(--space-md);
-      border-radius: calc(var(--border-radius) * 3);
-      font-size: 0.85rem;
-      font-weight: var(--font-weight-medium);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: var(--space-lg);
-      animation: badgePulse 3s ease-in-out infinite;
-    }
-
-    .hero-title {
-      font-size: clamp(3rem, 8vw, 7rem);
-      font-weight: var(--font-weight-ultra);
-      line-height: var(--line-height-tight);
-      margin-bottom: var(--space-lg);
-      background: linear-gradient(135deg, var(--pure-white) 0%, rgba(255, 255, 255, 0.7) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    /* Constitutional Intelligence Story */
-    .hero-story {
-      margin: var(--space-xxl) 0;
-      max-width: 1000px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .story-layer {
-      margin-bottom: var(--space-xxl);
-      opacity: 0;
-      transform: translateY(50px);
-      transition: all 0.8s ease;
+    .hero-visual {
       position: relative;
-    }
-
-    .story-layer.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .layer-foundation {
-      background: linear-gradient(135deg, 
-        rgba(0, 82, 255, 0.1) 0%, 
-        rgba(0, 255, 136, 0.05) 100%);
-      border: 1px solid rgba(0, 82, 255, 0.2);
-      border-radius: var(--border-radius);
-      padding: var(--space-xl);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .layer-foundation::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--accent-blue), var(--accent-green));
-      animation: layerGlow 3s ease-in-out infinite;
-    }
-
-    .layer-arc {
-      background: linear-gradient(135deg, 
-        rgba(255, 170, 0, 0.1) 0%, 
-        rgba(0, 82, 255, 0.05) 100%);
-      border: 1px solid rgba(255, 170, 0, 0.2);
-      border-radius: var(--border-radius);
-      padding: var(--space-xl);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .layer-arc::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--accent-amber), var(--accent-blue));
-      animation: layerGlow 3s ease-in-out infinite 0.5s;
-    }
-
-    .layer-adam {
-      background: linear-gradient(135deg, 
-        rgba(0, 255, 136, 0.1) 0%, 
-        rgba(255, 170, 0, 0.05) 100%);
-      border: 1px solid rgba(0, 255, 136, 0.2);
-      border-radius: var(--border-radius);
-      padding: var(--space-xl);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .layer-adam::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--accent-green), var(--accent-amber));
-      animation: layerGlow 3s ease-in-out infinite 1s;
-    }
-
-    .layer-fuel {
-      background: linear-gradient(135deg, 
-        rgba(255, 255, 255, 0.05) 0%, 
-        rgba(0, 255, 136, 0.05) 100%);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: var(--border-radius);
-      padding: var(--space-xl);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .layer-fuel::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, 
-        var(--accent-green), 
-        var(--accent-blue), 
-        var(--accent-amber), 
-        var(--pure-white));
-      animation: layerGlow 3s ease-in-out infinite 1.5s;
-    }
-
-    @keyframes layerGlow {
-      0%, 100% { opacity: 0.5; }
-      50% { opacity: 1; }
-    }
-
-    .layer-icon {
-      display: inline-flex;
+      height: 100vh;
+      display: flex;
       align-items: center;
       justify-content: center;
-      width: 60px;
-      height: 60px;
-      margin-bottom: var(--space-md);
+    }
+
+    .interactive-token {
+      width: 250px;
+      height: 250px;
       position: relative;
+      cursor: pointer;
+      transition: none;
+      transform-style: preserve-3d;
     }
 
-    .icon-ci {
-      background: linear-gradient(135deg, var(--accent-blue), var(--accent-green));
-      box-shadow: 0 0 30px rgba(0, 82, 255, 0.3);
-    }
-
-    .icon-arc {
-      background: linear-gradient(135deg, var(--accent-amber), var(--accent-blue));
-      box-shadow: 0 0 30px rgba(255, 170, 0, 0.3);
-    }
-
-    .icon-adam {
-      background: linear-gradient(135deg, var(--accent-green), var(--accent-amber));
-      box-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
-    }
-
-    .icon-fuel {
-      background: linear-gradient(135deg, 
-        var(--pure-white), 
-        var(--accent-green), 
-        var(--accent-blue));
-      box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
-    }
-
-    .layer-title {
-      font-size: 2rem;
-      font-weight: var(--font-weight-ultra);
-      margin-bottom: var(--space-md);
-      background: linear-gradient(135deg, var(--pure-white) 0%, rgba(255, 255, 255, 0.8) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .layer-subtitle {
-      font-size: 1rem;
-      color: var(--text-gray);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: var(--space-md);
-      font-weight: var(--font-weight-medium);
-    }
-
-    .layer-description {
-      font-size: 1.1rem;
-      color: rgba(255, 255, 255, 0.9);
-      line-height: var(--line-height-relaxed);
-      text-align: left;
-    }
-
-    /* Connection Lines */
-    .layer-connection {
+    .token-core {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      background: radial-gradient(circle at 30% 30%, rgba(255, 69, 0, 0.3), rgba(255, 20, 0, 0.1), transparent 60%);
+      border-radius: 50%;
       display: flex;
+      align-items: center;
       justify-content: center;
-      margin: var(--space-lg) 0;
-      position: relative;
+      border: 1px solid rgba(255, 69, 0, 0.4);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
 
-    .connection-line {
-      width: 1px;
-      height: 32px;
-      background: linear-gradient(180deg, 
-        rgba(255, 255, 255, 0.1) 0%, 
-        rgba(255, 255, 255, 0.3) 50%, 
-        rgba(255, 255, 255, 0.1) 100%);
+    .token-logo {
+      width: 150px;
+      height: 150px;
+      object-fit: contain;
+      filter: brightness(1.2) contrast(1.1);
+      transition: none;
       position: relative;
-      opacity: 0.6;
+      z-index: 5;
     }
 
-    .connection-line::before {
-      content: '';
+    .orbital-rings {
       position: absolute;
       top: 50%;
       left: 50%;
-      width: 4px;
-      height: 4px;
-      background: rgba(255, 255, 255, 0.4);
-      border-radius: 50%;
       transform: translate(-50%, -50%);
+      pointer-events: none;
     }
 
-    .connection-line::after {
-      content: '';
+    .orbital-ring {
+      position: absolute;
+      border: 1px solid rgba(255, 69, 0, 0.2);
+      border-radius: 50%;
+      transition: none;
+    }
+
+    .orbital-ring:nth-child(1) {
+      width: 300px;
+      height: 300px;
+      top: -25px;
+      left: -25px;
+    }
+
+    .orbital-ring:nth-child(2) {
+      width: 400px;
+      height: 400px;
+      top: -75px;
+      left: -75px;
+      border-style: dashed;
+      opacity: 0.5;
+    }
+
+    .floating-particles {
       position: absolute;
       top: 0;
-      left: -8px;
-      right: -8px;
-      height: 1px;
-      background: linear-gradient(90deg, 
-        transparent 0%, 
-        rgba(255, 255, 255, 0.1) 50%, 
-        transparent 100%);
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
     }
 
-    .hero-actions {
-      display: flex;
-      gap: var(--space-md);
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: var(--space-xxl);
+    .particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: var(--accent-primary);
+      border-radius: 50%;
+      opacity: 0.6;
+      transition: none;
+    }
+
+    .particle:nth-child(1) { top: 15%; left: 10%; }
+    .particle:nth-child(2) { top: 70%; left: 15%; }
+    .particle:nth-child(3) { top: 25%; right: 20%; }
+    .particle:nth-child(4) { bottom: 30%; left: 25%; }
+    .particle:nth-child(5) { bottom: 60%; right: 15%; }
+    .particle:nth-child(6) { top: 50%; left: 5%; }
+
+    .data-streams {
+      position: absolute;
+      top: 0;
+      right: -10%;
+      width: 200px;
+      height: 100%;
+      opacity: 0.1;
+      pointer-events: none;
+    }
+
+    .stream-line {
+      position: absolute;
+      background: linear-gradient(to bottom, transparent, var(--accent-primary), transparent);
+      width: 1px;
+      height: 60%;
+      transition: none;
+    }
+
+    .stream-line:nth-child(1) { left: 20%; top: 10%; }
+    .stream-line:nth-child(2) { left: 50%; top: 20%; }
+    .stream-line:nth-child(3) { left: 80%; top: 15%; }
+
+    .hero-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 100;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary), var(--accent-tertiary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: 4px;
+      line-height: 1.1;
       position: relative;
-      z-index: 20;
+    }
+
+    .hero-subtitle {
+      font-family: 'Lexend', sans-serif;
+      font-size: clamp(1rem, 2.5vw, 1.5rem);
+      font-weight: 200;
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+      opacity: 0.9;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .hero-description {
+      font-family: 'Lexend', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+      max-width: 500px;
+      line-height: 1.7;
+      letter-spacing: 0.3px;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .stat-value {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 300;
+      color: var(--accent-primary);
+    }
+
+    .stat-label {
+      font-family: 'Lexend', sans-serif;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
     }
 
     .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: var(--space-xs);
-      padding: var(--space-md) var(--space-xl);
+      padding: 1rem 2rem;
       border: none;
-      border-radius: var(--border-radius);
-      font-weight: var(--font-weight-medium);
+      border-radius: 0; /* Sharp corners for Artifact theme */
+      font-family: 'Lexend', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
       text-decoration: none;
-      transition: all 0.3s ease;
       cursor: pointer;
-      font-size: 1rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      display: inline-block;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+      color: white;
+      box-shadow: var(--shadow-intense);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 60px var(--accent-glow);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--accent-primary);
+      border: 2px solid var(--accent-primary);
+    }
+
+    .btn-secondary:hover {
+      background: var(--accent-primary);
+      color: white;
+      transform: translateY(-3px);
+    }
+
+    /* Trade Section */
+    .trade-section {
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 2rem;
+      background: linear-gradient(135deg, rgba(15, 8, 8, 0.95), rgba(20, 10, 10, 0.95));
+      border-top: 1px solid var(--glass-light);
+    }
+
+    .trade-container {
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .trade-description {
+      font-family: 'Lexend', sans-serif;
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+      font-weight: 300;
+      letter-spacing: 0.5px;
+    }
+
+    .widget-container {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--glass-light);
+      border-radius: 0; /* Sharp corners for Artifact theme */
+      padding: 1rem;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
       position: relative;
       overflow: hidden;
     }
 
-    .btn-primary {
-      background: linear-gradient(135deg, var(--accent-blue) 0%, #0040cc 100%);
-      color: var(--pure-white);
-      box-shadow: 0 4px 15px rgba(0, 82, 255, 0.3);
+    .widget-placeholder {
+      min-height: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 1rem;
+      transition: opacity 0.3s ease;
     }
 
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(0, 82, 255, 0.4);
+    .placeholder-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
     }
 
-    .btn-secondary {
-      background: rgba(255, 255, 255, 0.05);
-      color: var(--pure-white);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-top: 3px solid var(--accent-primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
     }
 
-    .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: rgba(255, 255, 255, 0.2);
-      transform: translateY(-2px);
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 
-    /* Stats Section */
+    /* Token Stats */
     .stats-section {
-      padding: var(--space-xxl) var(--space-md);
-      background: rgba(255, 255, 255, 0.01);
+      padding: 4rem 2rem;
+      background: var(--glass-dark);
+      -webkit-backdrop-filter: blur(10px);
       backdrop-filter: blur(10px);
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      border-top: 1px solid var(--glass-light);
+      border-bottom: 1px solid var(--glass-light);
     }
 
     .stats-container {
@@ -540,814 +659,731 @@
       margin: 0 auto;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: var(--space-xl);
+      gap: 2rem;
     }
 
     .stat-card {
+      background: rgba(255, 255, 255, 0.03);
+      padding: 2rem;
+      border-radius: 0; /* Sharp corners for Artifact theme */
       text-align: center;
-      padding: var(--space-lg);
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: var(--border-radius);
+      border: 1px solid var(--glass-light);
       transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .stat-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--accent-blue), var(--accent-green), var(--accent-amber));
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .stat-card:hover::before {
-      opacity: 1;
     }
 
     .stat-card:hover {
-      transform: translateY(-5px);
-      background: rgba(255, 255, 255, 0.04);
-      border-color: rgba(255, 255, 255, 0.1);
-    }
-
-    /* Cracked Glass Effect for Audit Card */
-    .stat-card.audit-card {
-      position: relative;
-      overflow: visible;
-      background: linear-gradient(135deg, 
-        rgba(0, 255, 136, 0.1) 0%, 
-        rgba(255, 255, 255, 0.02) 50%, 
-        rgba(0, 255, 136, 0.05) 100%);
-      border: 1px solid rgba(0, 255, 136, 0.3);
-      box-shadow: 
-        0 0 20px rgba(0, 255, 136, 0.2),
-        inset 0 0 20px rgba(0, 255, 136, 0.1);
-    }
-
-    .stat-card.audit-card::before {
-      background: linear-gradient(90deg, var(--accent-green), var(--accent-green));
-      opacity: 1;
-      height: 3px;
-      box-shadow: 0 0 10px var(--accent-green);
-    }
-
-    .cracked-glass {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      pointer-events: none;
-      z-index: 5;
-    }
-
-    .crack-svg {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      opacity: 0;
-      animation: crackAppear 0.3s ease forwards;
-      top: 0;
-      left: 0;
-    }
-
-    .crack-svg path {
-      stroke: rgba(0, 255, 136, 0.6);
-      stroke-width: 1.5;
-      fill: none;
-      filter: drop-shadow(0 0 2px rgba(0, 255, 136, 0.8));
-    }
-
-    .crack-svg-1 { animation-delay: 0.5s; }
-    .crack-svg-2 { animation-delay: 0.8s; }
-    .crack-svg-3 { animation-delay: 1.1s; }
-
-    @keyframes crackAppear {
-      0% { 
-        opacity: 0;
-      }
-      100% { 
-        opacity: 0.7;
-      }
-    }
-
-    .glass-shards {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      pointer-events: none;
-      z-index: 6;
-    }
-
-    .shard {
-      position: absolute;
-      width: 0;
-      height: 0;
-      border-style: solid;
-      opacity: 0;
-      animation: shardFall 2s ease-out forwards;
-    }
-
-    .shard-1 {
-      top: 30%;
-      left: 40%;
-      border-width: 8px 6px 0 6px;
-      border-color: rgba(0, 255, 136, 0.6) transparent transparent transparent;
-      animation-delay: 1.5s;
-    }
-
-    .shard-2 {
-      top: 50%;
-      left: 60%;
-      border-width: 6px 4px 0 4px;
-      border-color: rgba(255, 255, 255, 0.7) transparent transparent transparent;
-      animation-delay: 1.7s;
-    }
-
-    .shard-3 {
-      top: 70%;
-      left: 30%;
-      border-width: 5px 3px 0 3px;
-      border-color: rgba(0, 255, 136, 0.5) transparent transparent transparent;
-      animation-delay: 1.9s;
-    }
-
-    @keyframes shardFall {
-      0% { 
-        opacity: 0;
-        transform: translateY(-10px) rotate(0deg);
-      }
-      20% {
-        opacity: 1;
-      }
-      100% { 
-        opacity: 0;
-        transform: translateY(100px) rotate(360deg);
-      }
-    }
-
-    .audit-glow {
-      position: absolute;
-      top: -10px;
-      left: -10px;
-      right: -10px;
-      bottom: -10px;
-      background: radial-gradient(circle, 
-        rgba(0, 255, 136, 0.3) 0%, 
-        rgba(0, 255, 136, 0.1) 30%, 
-        transparent 70%);
-      border-radius: calc(var(--border-radius) + 10px);
-      opacity: 0;
-      animation: auditPulse 3s ease-in-out infinite;
-      animation-delay: 2s;
-      z-index: -1;
-    }
-
-    @keyframes auditPulse {
-      0%, 100% { 
-        opacity: 0;
-        transform: scale(1);
-      }
-      50% { 
-        opacity: 0.8;
-        transform: scale(1.1);
-      }
-    }
-
-    .stat-card.audit-card:hover {
-      transform: translateY(-8px) scale(1.02);
-      box-shadow: 
-        0 10px 40px rgba(0, 255, 136, 0.4),
-        inset 0 0 30px rgba(0, 255, 136, 0.15);
-    }
-
-    .stat-card.audit-card:hover .crack-svg {
-      animation: crackGlow 1s ease-in-out infinite;
-    }
-
-    @keyframes crackGlow {
-      0%, 100% { 
-        filter: brightness(1) drop-shadow(0 0 2px rgba(0, 255, 136, 0.5));
-      }
-      50% { 
-        filter: brightness(1.5) drop-shadow(0 0 8px rgba(0, 255, 136, 0.8));
-      }
+      transform: translateY(-2px);
+      background: rgba(255, 69, 0, 0.05);
+      border-color: var(--accent-primary);
     }
 
     .stat-number {
+      font-family: 'Montserrat', sans-serif;
       font-size: 2.5rem;
-      font-weight: var(--font-weight-ultra);
-      color: var(--pure-white);
-      margin-bottom: var(--space-xs);
-      font-family: var(--font-mono);
-      position: relative;
-      z-index: 8;
-    }
-
-    .stat-card.audit-card .stat-number {
-      color: var(--accent-green);
-      text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
-      animation: auditGlow 2s ease-in-out infinite;
-    }
-
-    @keyframes auditGlow {
-      0%, 100% { 
-        text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
-      }
-      50% { 
-        text-shadow: 0 0 30px rgba(0, 255, 136, 0.8), 0 0 40px rgba(0, 255, 136, 0.3);
-      }
+      font-weight: 300;
+      color: var(--accent-primary);
+      margin-bottom: 0.5rem;
     }
 
     .stat-label {
+      font-family: 'Lexend', sans-serif;
       font-size: 0.9rem;
-      color: var(--text-gray);
+      color: var(--text-secondary);
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      font-weight: var(--font-weight-medium);
-      position: relative;
-      z-index: 8;
+      letter-spacing: 1px;
+      font-weight: 300;
     }
 
-    .stat-card.audit-card .stat-label {
-      color: var(--accent-green);
-    }
-
-    /* Roadmap Section */
-    .roadmap-section {
-      padding: var(--space-xxl) var(--space-md);
-      position: relative;
-    }
-
-    .section-header {
-      text-align: center;
-      margin-bottom: var(--space-xxl);
+    /* Features Section */
+    .features-section {
+      padding: 6rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
     .section-title {
-      font-size: 3rem;
-      font-weight: var(--font-weight-ultra);
-      margin-bottom: var(--space-md);
-      background: linear-gradient(135deg, var(--pure-white) 0%, rgba(255, 255, 255, 0.6) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 200;
+      text-align: center;
+      margin-bottom: 3rem;
+      color: var(--text-primary);
+      letter-spacing: 2px;
     }
 
-    .section-subtitle {
-      font-size: 1.2rem;
-      color: var(--text-gray);
-      max-width: 600px;
-      margin: 0 auto;
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
     }
 
-    .roadmap-timeline {
-      max-width: 1000px;
-      margin: 0 auto;
-      position: relative;
-    }
-
-    .timeline-line {
-      position: absolute;
-      left: 50%;
-      top: 0;
-      bottom: 0;
-      width: 2px;
-      background: linear-gradient(180deg, 
-        var(--accent-green) 0%, 
-        var(--accent-blue) 50%, 
-        var(--accent-amber) 100%);
-      transform: translateX(-50%);
-      z-index: 1;
-    }
-
-    .roadmap-item {
-      display: flex;
-      margin-bottom: var(--space-xxl);
-      position: relative;
-      z-index: 2;
-    }
-
-    .roadmap-item:nth-child(even) {
-      flex-direction: row-reverse;
-    }
-
-    .roadmap-content {
-      width: 45%;
-      padding: var(--space-lg);
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: var(--border-radius);
-      position: relative;
+    .feature-card {
+      background: rgba(255, 255, 255, 0.03);
+      padding: 2rem;
+      border-radius: 0; /* Sharp corners for Artifact theme */
+      border: 1px solid var(--glass-light);
       transition: all 0.3s ease;
     }
 
-    .roadmap-content:hover {
-      transform: translateY(-5px);
-      background: rgba(255, 255, 255, 0.04);
-      border-color: rgba(255, 255, 255, 0.1);
+    .feature-card:hover {
+      border-color: var(--accent-primary);
+      transform: translateY(-2px);
+      background: rgba(255, 69, 0, 0.05);
     }
 
-    .roadmap-status {
-      position: absolute;
-      top: var(--space-md);
-      right: var(--space-md);
-      padding: 0.3em 0.8em;
-      border-radius: calc(var(--border-radius) * 2);
-      font-size: 0.7rem;
-      font-weight: var(--font-weight-bold);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 1.5rem;
+      stroke: var(--accent-primary);
+      fill: none;
+      stroke-width: 2;
     }
 
-    .status-complete {
-      background: var(--accent-green);
-      color: var(--soft-black);
+    .feature-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 300;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+      letter-spacing: 1px;
     }
 
-    .status-active {
-      background: var(--accent-amber);
-      color: var(--soft-black);
+    .feature-description {
+      font-family: 'Lexend', sans-serif;
+      font-weight: 300;
+      color: var(--text-muted);
+      line-height: 1.7;
+      letter-spacing: 0.3px;
     }
 
-    .status-upcoming {
-      background: rgba(255, 255, 255, 0.1);
-      color: var(--text-gray);
-    }
-
-    .roadmap-phase {
-      font-size: 0.8rem;
-      color: var(--text-gray);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: var(--space-xs);
-    }
-
-    .roadmap-title {
-      font-size: 1.5rem;
-      font-weight: var(--font-weight-bold);
-      margin-bottom: var(--space-sm);
-      color: var(--pure-white);
-    }
-
-    .roadmap-description {
-      color: var(--text-gray);
-      line-height: var(--line-height-relaxed);
-    }
-
-    .roadmap-icon {
-      position: absolute;
-      left: 50%;
-      top: var(--space-lg);
-      transform: translateX(-50%);
-      width: 40px;
-      height: 40px;
-      background: var(--ghost-black);
-      border: 3px solid var(--roadmap-color, var(--accent-blue));
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 3;
-    }
-
-    .roadmap-item:nth-child(1) { --roadmap-color: var(--accent-green); }
-    .roadmap-item:nth-child(2) { --roadmap-color: var(--accent-green); }
-    .roadmap-item:nth-child(3) { --roadmap-color: var(--accent-amber); }
-    .roadmap-item:nth-child(4) { --roadmap-color: var(--accent-blue); }
-
-    /* CTA Section */
-    .cta-section {
-      padding: var(--space-xxl) var(--space-md);
+    /* Footer */
+    .footer {
+      background: var(--bg-tertiary);
+      padding: 3rem 2rem 2rem;
       text-align: center;
-      background: linear-gradient(135deg, 
-        rgba(0, 82, 255, 0.05) 0%, 
-        rgba(0, 255, 136, 0.03) 50%, 
-        rgba(255, 170, 0, 0.02) 100%);
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      border-top: 1px solid var(--glass-light);
     }
 
-    .cta-content {
-      max-width: 800px;
+    .footer-content {
+      max-width: 1200px;
       margin: 0 auto;
     }
 
-    .cta-title {
-      font-size: 2.5rem;
-      font-weight: var(--font-weight-ultra);
-      margin-bottom: var(--space-md);
-      background: linear-gradient(135deg, var(--pure-white) 0%, rgba(255, 255, 255, 0.7) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
     }
 
-    .cta-description {
-      font-size: 1.1rem;
-      color: var(--text-gray);
-      margin-bottom: var(--space-xl);
-      line-height: var(--line-height-relaxed);
+    .footer-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-primary);
+    }
+
+    .footer-text {
+      color: var(--text-muted);
+      font-size: 0.9rem;
     }
 
     /* Responsive Design */
-    @media (max-width: 768px) {
-      .nav-links {
-        gap: var(--space-md);
-      }
-
-      .hero-title {
-        font-size: 3rem;
-      }
-
-      .stats-container {
+    @media (max-width: 1200px) {
+      .hero {
         grid-template-columns: 1fr;
-        gap: var(--space-md);
+        text-align: center;
+        padding: 2rem;
       }
-
-      .timeline-line {
-        left: 20px;
+      
+      .hero-visual {
+        height: 50vh;
+        order: -1;
       }
-
-      .roadmap-item {
-        flex-direction: column !important;
-        padding-left: 60px;
+      
+      .interactive-token {
+        width: 200px;
+        height: 200px;
       }
-
-      .roadmap-content {
-        width: 100%;
+      
+      .hero-content {
+        max-width: 100%;
+        padding: 1rem 0;
       }
-
-      .roadmap-icon {
-        left: 20px;
+      
+      .hero-stats {
+        justify-content: center;
       }
+    }
 
-      .hero-actions {
+    @media (max-width: 768px) {
+      .header {
+        padding: 1rem;
+      }
+      
+      .nav {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      .nav-links {
+        gap: 1rem;
+      }
+      
+      .hero {
+        padding: 1rem;
+      }
+      
+      .interactive-token {
+        width: 150px;
+        height: 150px;
+      }
+      
+      .token-logo {
+        width: 100px;
+        height: 100px;
+      }
+      
+      .orbital-ring:nth-child(1) {
+        width: 200px;
+        height: 200px;
+        top: -25px;
+        left: -25px;
+      }
+      
+      .orbital-ring:nth-child(2) {
+        width: 250px;
+        height: 250px;
+        top: -50px;
+        left: -50px;
+      }
+      
+      .hero-stats {
+        gap: 1rem;
+        justify-content: center;
+      }
+      
+      .cta-buttons {
         flex-direction: column;
         align-items: center;
       }
-
+      
       .btn {
         width: 100%;
         max-width: 300px;
+      }
+      
+      .stats-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .footer-links {
+        flex-direction: column;
+        gap: 1rem;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Immersive 3D Background -->
-  <div class="immersive-canvas">
-    <div class="layer-1"></div>
-    <div class="layer-2"></div>
-    <div class="floating-elements">
-      <div class="float-item"></div>
-      <div class="float-item"></div>
-      <div class="float-item"></div>
-      <div class="float-item"></div>
-      <div class="float-item"></div>
-      <div class="float-item"></div>
-      <div class="float-item"></div>
-      <div class="float-item"></div>
-      <div class="float-item"></div>
-    </div>
-  </div>
-
-  <!-- Navigation -->
-  <nav class="main-nav">
-    <div class="nav-container">
+  <div class="bg-particles"></div>
+  
+  <header class="header">
+    <nav class="nav">
       <div class="nav-brand">
-        <img src="css/arcx-logo.png" alt="ARCx" class="nav-logo"/>
+        <img src="logo/av-white-logo-removebg-preview.png" alt="Artifact Virtual" class="av-logo">
+        <a href="#" class="logo">ARCx</a>
       </div>
-      <div class="nav-links">
-        <a href="https://www.artifactvirtual.com" target="_blank" rel="noopener">Home</a>
-        <a href="index.html" class="active">ARCx</a>
-        <a href="transparency.html">Transparency</a>
-        <a href="bridge.html">Bridge</a>
-        <a href="documentation.html">Documentation</a>
-      </div>
-    </div>
-  </nav>
+      <ul class="nav-links">
+        <li><a href="#trade">Trade</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#stats">Stats</a></li>
+        <li><a href="https://basescan.org/token/0xA4093669DAFbD123E37d52e0939b3aB3C2272f44" target="_blank" rel="noopener">Contract</a></li>
+        <li><a href="documentation.html">Docs</a></li>
+      </ul>
+    </nav>
+  </header>
 
-  <!-- Main Container -->
-  <div class="main-container">
-    <!-- Hero Section -->
-    <section class="hero-section">
+  <main>
+    <section class="hero">
       <div class="hero-content">
-        <div class="hero-badge">Genesis • Base • Fair Distribution</div>
-        <h1 class="hero-title">ARCx</h1>
+        <h1 class="hero-title glitch" data-text="ARCx Token">ARCx Token</h1>
+        <p class="hero-subtitle">Live on Base Network</p>
+        <p class="hero-description">
+          Decentralized governance meets constitutional intelligence. ARCx powers transparent, 
+          community-driven decision making with full onchain execution.
+        </p>
         
-        <!-- ARCx Funding Story -->
-        <div class="hero-story">
-          <!-- Foundation Layer: Genesis Funding -->
-          <div class="story-layer layer-foundation">
-            <div class="layer-icon icon-ci">
-              <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-              </svg>
-            </div>
-            <div class="layer-subtitle">The Genesis</div>
-            <h2 class="layer-title">ARCx Funding Token</h2>
-            <p class="layer-description">
-              ARCx is the genesis funding mechanism for constitutional intelligence infrastructure. Unlike speculative tokens, ARCx has direct utility: every token purchase funds R&D, protocol development, and network bootstrapping for the future of autonomous governance systems.
-            </p>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <div class="stat-value">1M</div>
+            <div class="stat-label">Supply</div>
           </div>
-
-          <div class="layer-connection">
-            <div class="connection-line"></div>
+          <div class="stat-item">
+            <div class="stat-value">Base</div>
+            <div class="stat-label">Network</div>
           </div>
-
-          <!-- Utility Layer: Value Accrual -->
-          <div class="story-layer layer-arc">
-            <div class="layer-icon icon-arc">
-              <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-              </svg>
-            </div>
-            <div class="layer-subtitle">The Utility</div>
-            <h2 class="layer-title">Direct Value Accrual</h2>
-            <p class="layer-description">
-              ARCx holders benefit from fee discounts, governance voting, validator staking rewards, and premium access to constitutional intelligence tools. Every token represents both funding contribution and future network utility rights.
-            </p>
-          </div>
-
-          <div class="layer-connection">
-            <div class="connection-line"></div>
-          </div>
-
-          <!-- Bridge Layer: FUEL Migration -->
-          <div class="story-layer layer-adam">
-            <div class="layer-icon icon-adam">
-              <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3.5 6L12 10.5 8.5 8 12 5.5 15.5 8zM8.5 16L12 13.5 15.5 16 12 18.5 8.5 16z"/>
-              </svg>
-            </div>
-            <div class="layer-subtitle">The Bridge</div>
-            <h2 class="layer-title">FUEL Migration Ready</h2>
-            <p class="layer-description">
-              ARCx features built-in bridge functionality for seamless one-way migration to FUEL tokens when the constitutional intelligence network launches. Early ARCx holders receive preferential conversion rates and guaranteed value preservation.
-            </p>
-          </div>
-
-          <div class="layer-connection">
-            <div class="connection-line"></div>
-          </div>
-
-          <!-- Distribution Layer: Fair Launch -->
-          <div class="story-layer layer-fuel">
-            <div class="layer-icon icon-fuel">
-              <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/>
-              </svg>
-            </div>
-            <div class="layer-subtitle">The Distribution</div>
-            <h2 class="layer-title">Fair Price Discovery</h2>
-            <p class="layer-description">
-              150,000 ARCx tokens are distributed through a transparent Dutch auction and merit-based airdrop system. No presale, no insider allocations - just fair market price discovery and community-driven distribution for everyone.
-            </p>
+          <div class="stat-item">
+            <div class="stat-value">Live</div>
+            <div class="stat-label">Status</div>
           </div>
         </div>
-
-        <div class="hero-actions">
-          <a href="auction_interface.html" class="btn btn-primary">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
-            </svg>
-            Dutch Auction
+        
+        <div class="cta-buttons">
+          <a href="#trade" class="btn btn-primary">
+            Trade Now
           </a>
           <a href="airdrop_interface.html" class="btn btn-secondary">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-            </svg>
-            Smart Airdrop
+            Claim Airdrop
           </a>
+          <a href="https://basescan.org/token/0xA4093669DAFbD123E37d52e0939b3aB3C2272f44" class="btn btn-secondary" target="_blank" rel="noopener">
+            View Contract
+          </a>
+        </div>
+      </div>
+      
+      <div class="hero-visual">
+        <div class="interactive-token" id="interactiveToken">
+          <div class="orbital-rings">
+            <div class="orbital-ring"></div>
+            <div class="orbital-ring"></div>
+          </div>
+          <div class="token-core">
+            <img src="logo/arcx_logo1-modified.png" alt="ARCx Token" class="token-logo">
+          </div>
+        </div>
+        
+        <div class="floating-particles">
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+        </div>
+        
+        <div class="data-streams">
+          <div class="stream-line"></div>
+          <div class="stream-line"></div>
+          <div class="stream-line"></div>
         </div>
       </div>
     </section>
 
-    <!-- Stats Section -->
-    <section class="stats-section">
+    <section class="trade-section" id="trade">
+      <div class="trade-container">
+        <h2 class="section-title">Trade ARCx</h2>
+        <p class="trade-description">Swap tokens directly on Base network using Uniswap</p>
+        <div class="widget-container">
+          <div id="uniswap-widget">
+            <!-- Uniswap widget will be loaded here -->
+            <div class="widget-placeholder">
+              <div class="placeholder-content">
+                <div class="loading-spinner"></div>
+                <p>Loading Uniswap Widget...</p>
+                <a href="https://app.uniswap.org/#/swap?outputCurrency=0xA4093669DAFbD123E37d52e0939b3aB3C2272f44&chain=base" 
+                   class="btn btn-primary" target="_blank" rel="noopener">
+                  Trade on Uniswap
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats-section" id="stats">
       <div class="stats-container">
         <div class="stat-card">
-          <div class="stat-number">1M</div>
+          <div class="stat-number">1,000,000</div>
           <div class="stat-label">Total Supply</div>
         </div>
         <div class="stat-card">
-          <div class="stat-number">150K</div>
-          <div class="stat-label">Fair Distribution</div>
+          <div class="stat-number">850,000</div>
+          <div class="stat-label">Circulating</div>
         </div>
         <div class="stat-card">
-          <div class="stat-number">72h</div>
-          <div class="stat-label">Dutch Auction</div>
+          <div class="stat-number">150,000</div>
+          <div class="stat-label">Community</div>
         </div>
-        <div class="stat-card audit-card">
-          <div class="audit-glow"></div>
-          <div class="cracked-glass">
-            <svg class="crack-svg crack-svg-1" viewBox="0 0 100 100">
-              <path d="M20 30 Q35 25 50 35 Q65 45 80 40" />
-              <path d="M25 32 L40 28" />
-            </svg>
-            <svg class="crack-svg crack-svg-2" viewBox="0 0 100 100">
-              <path d="M60 20 Q55 35 50 50 Q45 65 55 75" />
-              <path d="M58 25 L52 40" />
-            </svg>
-            <svg class="crack-svg crack-svg-3" viewBox="0 0 100 100">
-              <path d="M25 60 Q35 70 45 75 L55 80" />
-              <path d="M70 65 Q75 60 80 70" />
-              <path d="M30 72 L42 78" />
-            </svg>
-          </div>
-          <div class="glass-shards">
-            <div class="shard shard-1"></div>
-            <div class="shard shard-2"></div>
-            <div class="shard shard-3"></div>
-          </div>
-          <div class="stat-number">A+</div>
-          <div class="stat-label">Audit Rating</div>
+        <div class="stat-card">
+          <div class="stat-number">Base</div>
+          <div class="stat-label">Network</div>
         </div>
       </div>
     </section>
 
-    <!-- Roadmap Section -->
-    <section class="roadmap-section">
-      <div class="section-header">
-        <h2 class="section-title">Genesis Roadmap</h2>
-        <p class="section-subtitle">
-          Constitutional intelligence infrastructure built through transparent, 
-          community-driven development phases.
-        </p>
-      </div>
-
-      <div class="roadmap-timeline">
-        <div class="timeline-line"></div>
-
-        <div class="roadmap-item">
-          <div class="roadmap-content">
-            <div class="roadmap-status status-complete">Complete</div>
-            <div class="roadmap-phase">Phase 1</div>
-            <h3 class="roadmap-title">Genesis Deployment</h3>
-            <p class="roadmap-description">
-              ARCx token deployed on Base Mainnet with zero vulnerabilities. 
-              Enterprise-grade security with role-based access control and emergency functions.
-            </p>
-          </div>
-          <div class="roadmap-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-            </svg>
-          </div>
+    <section class="features-section" id="features">
+      <h2 class="section-title">Constitutional Intelligence</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <svg class="feature-icon" viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+            <circle cx="12" cy="8" r="2"/>
+            <path d="M12 14c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+          </svg>
+          <h3 class="feature-title">Intelligent Governance</h3>
+          <p class="feature-description">
+            Advanced constitutional frameworks that evolve with community needs, powered by transparent onchain logic.
+          </p>
         </div>
-
-        <div class="roadmap-item">
-          <div class="roadmap-content">
-            <div class="roadmap-status status-complete">Complete</div>
-            <div class="roadmap-phase">Phase 2</div>
-            <h3 class="roadmap-title">Vesting Infrastructure</h3>
-            <p class="roadmap-description">
-              Master vesting contract with category-based allocation tracking. 
-              Transparent schedules for all stakeholder groups with emergency controls.
-            </p>
-          </div>
-          <div class="roadmap-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4"/>
-            </svg>
-          </div>
+        <div class="feature-card">
+          <svg class="feature-icon" viewBox="0 0 24 24">
+            <path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/>
+            <polygon points="13,2 3,14 12,14 11,22 21,10 12,10"/>
+          </svg>
+          <h3 class="feature-title">Base Native</h3>
+          <p class="feature-description">
+            Built on Coinbase's Base network for fast, low-cost transactions with enterprise-grade security.
+          </p>
         </div>
-
-        <div class="roadmap-item">
-          <div class="roadmap-content">
-            <div class="roadmap-status status-complete">Complete</div>
-            <div class="roadmap-phase">Phase 3</div>
-            <h3 class="roadmap-title">Fair Distribution System</h3>
-            <p class="roadmap-description">
-              Dutch auction with price discovery and merit-based airdrop for community contributors. 
-              Active distribution phase with transparent token allocation.
-            </p>
-          </div>
-          <div class="roadmap-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
-            </svg>
-          </div>
+        <div class="feature-card">
+          <svg class="feature-icon" viewBox="0 0 24 24">
+            <path d="M18,8h-1V6c0-2.76-2.24-5-5-5S7,3.24,7,6v2H6c-1.1,0-2,0.9-2,2v10c0,1.1,0.9,2,2,2h12c1.1,0,2-0.9,2-2V10 C20,8.9,19.1,8,18,8z M12,17c-1.1,0-2-0.9-2-2s0.9-2,2-2s2,0.9,2,2S13.1,17,12,17z M15.1,8H8.9V6c0-1.71,1.39-3.1,3.1-3.1 s3.1,1.39,3.1,3.1V8z"/>
+          </svg>
+          <h3 class="feature-title">Fully Audited</h3>
+          <p class="feature-description">
+            Comprehensive security audits ensure your tokens are safe and the smart contracts are bulletproof.
+          </p>
         </div>
-
-        <div class="roadmap-item">
-          <div class="roadmap-content">
-            <div class="roadmap-status status-complete">Complete</div>
-            <div class="roadmap-phase">Phase 4</div>
-            <h3 class="roadmap-title">Liquidity Deployment</h3>
-            <p class="roadmap-description">
-              Uniswap V4 liquidity pool on Base L2 with optimized capital efficiency. 
-              ARCx/ETH position created (Uniswap V4) — position #134827 with 149,999.999999999966937219 ARCx and 0.004501280905066311 ETH at creation.
-            </p>
-          </div>
-          <div class="roadmap-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
-            </svg>
-          </div>
-        </div>
-
-        <div class="roadmap-item">
-          <div class="roadmap-content">
-            <div class="roadmap-status status-upcoming">Upcoming</div>
-            <div class="roadmap-phase">Phase 5</div>
-            <h3 class="roadmap-title">FUEL Migration</h3>
-            <p class="roadmap-description">
-              Constitutional bridge deployment for ARCx to FUEL migration. 
-              One-way burn mechanism with cryptographic proof and transparent conversion.
-            </p>
-          </div>
-          <div class="roadmap-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/>
-            </svg>
-          </div>
+        <div class="feature-card">
+          <svg class="feature-icon" viewBox="0 0 24 24">
+            <path d="M16.5,3C19.54,3 22,5.46 22,8.5C22,12.27 16.5,21 16.5,21S11,12.27 11,8.5C11,5.46 13.46,3 16.5,3M16.5,9.5A1,1 0 0,0 17.5,8.5A1,1 0 0,0 16.5,7.5A1,1 0 0,0 15.5,8.5A1,1 0 0,0 16.5,9.5Z"/>
+            <circle cx="5.5" cy="11.5" r="4.5"/>
+            <path d="M12,2l3.09,6.26L22,9.27l-5,4.87L18.18,21L12,17.77L5.82,21L7,14.14L2,9.27l6.91-1.01L12,2z"/>
+          </svg>
+          <h3 class="feature-title">Community Driven</h3>
+          <p class="feature-description">
+            Fair distribution through merit-based airdrops and transparent community governance mechanisms.
+          </p>
         </div>
       </div>
     </section>
+  </main>
 
-    <!-- CTA Section -->
-    <section class="cta-section">
-      <div class="cta-content">
-        <h2 class="cta-title">Ready to Fund the Future?</h2>
-        <p class="cta-description">
-          ARCx tokens directly fund constitutional intelligence infrastructure development. 
-          Every purchase contributes to R&D, network bootstrapping, and the future of autonomous governance.
-          Join the genesis funding round with transparent price discovery and fair distribution.
-        </p>
-        <div class="hero-actions">
-          <a href="auction_interface.html" class="btn btn-primary">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
-            </svg>
-            Join Dutch Auction
-          </a>
-          <a href="transparency.html" class="btn btn-secondary">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-              <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-            </svg>
-            View Fund Allocation
-          </a>
-        </div>
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-links">
+        <a href="https://basescan.org/token/0xA4093669DAFbD123E37d52e0939b3aB3C2272f44" target="_blank" rel="noopener">Contract</a>
+        <a href="documentation.html">Documentation</a>
+        <a href="transparency.html">Transparency</a>
+        <a href="whitepaper.html">Whitepaper</a>
       </div>
-    </section>
-  </div>
+      <p class="footer-text">
+        ARCx © 2024. Constitutional Intelligence Infrastructure.
+      </p>
+    </div>
+  </footer>
 
   <script>
-    // Parallax effect for floating elements
-    window.addEventListener('scroll', () => {
-      const scrolled = window.pageYOffset;
-      const rate = scrolled * -0.5;
+    // Interactive Token - Mouse-Only Animations
+    document.addEventListener('DOMContentLoaded', function() {
+      const hero = document.querySelector('.hero');
+      const interactiveToken = document.getElementById('interactiveToken');
+      const glitchTitle = document.querySelector('.glitch');
+      const particles = document.querySelectorAll('.particle');
+      const orbitalRings = document.querySelectorAll('.orbital-ring');
+      const streamLines = document.querySelectorAll('.stream-line');
       
-      document.querySelector('.layer-1').style.transform = `translateY(${rate}px)`;
-      document.querySelector('.layer-2').style.transform = `translateY(${rate * 0.3}px) rotate(${scrolled * 0.05}deg)`;
-    });
-
-    // Story layers animation
-    const storyObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
+      let isMouseOver = false;
+      let mouseX = 0;
+      let mouseY = 0;
+      
+      // Mouse movement handler - ONLY activates on mouse move
+      hero.addEventListener('mousemove', function(e) {
+        if (!interactiveToken || !isMouseOver) return;
+        
+        const rect = hero.getBoundingClientRect();
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        // Normalize mouse position (-1 to 1)
+        mouseX = (e.clientX - rect.left - centerX) / centerX;
+        mouseY = (e.clientY - rect.top - centerY) / centerY;
+        
+        // Apply subtle 3D rotation to token
+        const rotateX = mouseY * -10;
+        const rotateY = mouseX * 10;
+        interactiveToken.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        
+        // Move particles based on mouse
+        particles.forEach((particle, index) => {
+          const moveX = mouseX * (15 + index * 5);
+          const moveY = mouseY * (10 + index * 3);
+          particle.style.transform = `translate(${moveX}px, ${moveY}px)`;
+        });
+        
+        // Rotate orbital rings
+        orbitalRings.forEach((ring, index) => {
+          const rotation = mouseX * (20 + index * 10);
+          ring.style.transform = `rotate(${rotation}deg)`;
+        });
+        
+        // Move stream lines
+        streamLines.forEach((line, index) => {
+          const moveY = mouseY * (30 + index * 10);
+          line.style.transform = `translateY(${moveY}px)`;
+          line.style.opacity = 0.3 + Math.abs(mouseX) * 0.4;
+        });
+        
+        // Occasional glitch on movement
+        if (Math.random() < 0.01) {
+          triggerGlitch();
         }
       });
-    }, {
-      threshold: 0.3,
-      rootMargin: '0px 0px -50px 0px'
-    });
-
-    document.querySelectorAll('.story-layer').forEach(layer => {
-      storyObserver.observe(layer);
-    });
-
-    // Intersection Observer for roadmap animations
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -100px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
+      
+      // Mouse enter - prepare for interactions
+      hero.addEventListener('mouseenter', function() {
+        isMouseOver = true;
+        if (interactiveToken) {
+          interactiveToken.style.transition = 'transform 0.1s ease-out';
         }
+        particles.forEach(particle => {
+          particle.style.transition = 'transform 0.2s ease-out';
+        });
+        orbitalRings.forEach(ring => {
+          ring.style.transition = 'transform 0.3s ease-out';
+        });
+        streamLines.forEach(line => {
+          line.style.transition = 'transform 0.2s ease-out, opacity 0.2s ease-out';
+        });
       });
-    }, observerOptions);
-
-    document.querySelectorAll('.roadmap-item').forEach(item => {
-      item.style.opacity = '0';
-      item.style.transform = 'translateY(50px)';
-      item.style.transition = 'all 0.6s ease';
-      observer.observe(item);
+      
+      // Mouse leave - reset all elements
+      hero.addEventListener('mouseleave', function() {
+        isMouseOver = false;
+        
+        // Reset token position
+        if (interactiveToken) {
+          interactiveToken.style.transition = 'transform 0.8s ease-out';
+          interactiveToken.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+        }
+        
+        // Reset particles
+        particles.forEach(particle => {
+          particle.style.transition = 'transform 0.6s ease-out';
+          particle.style.transform = 'translate(0px, 0px)';
+        });
+        
+        // Reset orbital rings
+        orbitalRings.forEach(ring => {
+          ring.style.transition = 'transform 0.8s ease-out';
+          ring.style.transform = 'rotate(0deg)';
+        });
+        
+        // Reset stream lines
+        streamLines.forEach(line => {
+          line.style.transition = 'transform 0.6s ease-out, opacity 0.6s ease-out';
+          line.style.transform = 'translateY(0px)';
+          line.style.opacity = 0.1;
+        });
+      });
+      
+      // Glitch effect - only triggered by mouse interaction
+      function triggerGlitch() {
+        if (!glitchTitle) return;
+        
+        glitchTitle.classList.add('glitch-active');
+        setTimeout(() => {
+          glitchTitle.classList.remove('glitch-active');
+        }, 200);
+      }
+      
+      // NO auto-animations - everything is mouse-driven
+      
+      // Enhanced glitch CSS
+      const style = document.createElement('style');
+      style.textContent = `
+        .glitch-active::before {
+          opacity: 0.8;
+          animation: glitch-1 0.15s ease-in-out;
+        }
+        
+        .glitch-active::after {
+          opacity: 0.6;
+          animation: glitch-2 0.15s ease-in-out;
+        }
+      `;
+      document.head.appendChild(style);
+      
+      // Uniswap Widget Implementation using official embeddable widget
+      function initUniswapWidget() {
+        const widgetContainer = document.getElementById('uniswap-widget');
+        const placeholder = widgetContainer.querySelector('.widget-placeholder');
+        
+        // Load Uniswap Widget Library
+        const script = document.createElement('script');
+        script.src = 'https://unpkg.com/@uniswap/widgets@2.51.0/dist/widgets.js';
+        script.onload = () => {
+          // Create the widget container
+          const widgetDiv = document.createElement('div');
+          widgetDiv.id = 'uniswap-widget-container';
+          widgetDiv.style.width = '100%';
+          widgetDiv.style.height = '500px';
+          widgetDiv.style.borderRadius = '0';
+          widgetDiv.style.overflow = 'hidden';
+          widgetDiv.style.border = '1px solid rgba(255, 69, 0, 0.3)';
+          
+          // Initialize the Uniswap Widget
+          try {
+            if (window.Uniswap && window.Uniswap.createWidget) {
+              const widget = window.Uniswap.createWidget({
+                jsonRpcEndpoint: 'https://mainnet.base.org',
+                tokenList: 'https://gateway.ipfs.io/ipns/tokens.uniswap.org',
+                theme: {
+                  primary: '#FF4500',
+                  secondary: '#FF6B35',
+                  background: '#1A1A1A',
+                  container: '#2A2A2A',
+                  module: '#333333',
+                  accent: '#FF4500',
+                  outline: '#444444',
+                  dialog: '#2A2A2A',
+                  fontFamily: 'Lexend, sans-serif',
+                  borderRadius: 0
+                },
+                width: '100%',
+                height: 500,
+                defaultInputTokenAddress: 'NATIVE',
+                defaultOutputTokenAddress: '0xA4093669DAFbD123E37d52e0939b3aB3C2272f44',
+                defaultInputAmount: '0.1',
+                hideConnectionUI: false,
+                chainId: 8453, // Base network
+                provider: window.ethereum
+              });
+              
+              widget.load(widgetDiv);
+              
+              // Hide placeholder and show widget
+              placeholder.style.opacity = '0';
+              setTimeout(() => {
+                placeholder.style.display = 'none';
+                widgetContainer.appendChild(widgetDiv);
+                widgetDiv.style.opacity = '0';
+                widgetDiv.style.transition = 'opacity 0.5s ease';
+                setTimeout(() => {
+                  widgetDiv.style.opacity = '1';
+                }, 100);
+              }, 300);
+            } else {
+              throw new Error('Uniswap Widget not available');
+            }
+          } catch (error) {
+            console.log('Primary widget failed, trying alternative method');
+            loadAlternativeWidget();
+          }
+        };
+        
+        script.onerror = () => {
+          console.log('Widget script failed to load, showing alternative');
+          loadAlternativeWidget();
+        };
+        
+        document.head.appendChild(script);
+        
+        function loadAlternativeWidget() {
+          // Use direct iframe to widget URL as fallback
+          const widgetWrapper = document.createElement('div');
+          widgetWrapper.style.width = '100%';
+          widgetWrapper.style.height = '500px';
+          widgetWrapper.style.borderRadius = '0';
+          widgetWrapper.style.overflow = 'hidden';
+          widgetWrapper.style.border = '1px solid rgba(255, 69, 0, 0.3)';
+          
+          const iframe = document.createElement('iframe');
+          iframe.src = 'https://widget.uniswap.org/#/swap?theme=dark&exactField=input&exactAmount=0.1&inputCurrency=ETH&outputCurrency=0xA4093669DAFbD123E37d52e0939b3aB3C2272f44&chain=base';
+          iframe.width = '100%';
+          iframe.height = '100%';
+          iframe.style.border = 'none';
+          iframe.title = 'Uniswap Trading Interface';
+          iframe.allow = 'web3, clipboard-write, autoplay, camera, microphone, payment, usb, geolocation, publickey-credentials-get';
+          iframe.referrerPolicy = 'origin';
+          
+          widgetWrapper.appendChild(iframe);
+          
+          iframe.onload = () => {
+            placeholder.style.opacity = '0';
+            setTimeout(() => {
+              placeholder.style.display = 'none';
+              widgetContainer.appendChild(widgetWrapper);
+              widgetWrapper.style.opacity = '0';
+              widgetWrapper.style.transition = 'opacity 0.5s ease';
+              setTimeout(() => {
+                widgetWrapper.style.opacity = '1';
+              }, 100);
+            }, 300);
+          };
+          
+          // Fallback to enhanced placeholder after timeout
+          setTimeout(() => {
+            if (placeholder.style.display !== 'none') {
+              showEnhancedFallback();
+            }
+          }, 8000);
+        }
+        
+        function showEnhancedFallback() {
+          const fallbackContent = `
+            <div style="text-align: center; padding: 3rem; background: linear-gradient(135deg, rgba(255, 69, 0, 0.1), rgba(255, 20, 0, 0.05)); border-radius: 0; border: 1px solid rgba(255, 69, 0, 0.3); position: relative; overflow: hidden;">
+              <div style="position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255, 69, 0, 0.05) 0%, transparent 70%); animation: pulse 4s ease-in-out infinite;"></div>
+              <div style="position: relative; z-index: 2;">
+                <div style="font-size: 4rem; margin-bottom: 1.5rem; filter: drop-shadow(0 0 10px rgba(255, 69, 0, 0.5));">🔄</div>
+                <h3 style="color: var(--text-primary); margin-bottom: 1rem; font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 1.8rem;">Trade ARCx Token</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 2.5rem; font-family: 'Lexend', sans-serif; max-width: 450px; margin-left: auto; margin-right: auto; line-height: 1.7; font-size: 1.1rem;">
+                  Access the full Uniswap trading interface with optimal liquidity, real-time pricing, and secure Base network integration.
+                </p>
+                <a href="${widgetUrl.toString()}" 
+                   class="btn btn-primary" target="_blank" rel="noopener"
+                   style="display: inline-block; padding: 1.3rem 3rem; background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary)); color: white; text-decoration: none; border-radius: 0; font-weight: 600; box-shadow: 0 8px 30px rgba(255, 69, 0, 0.4); transition: all 0.3s ease; font-family: 'Lexend', sans-serif; font-size: 1.1rem; position: relative; overflow: hidden;">
+                  <span style="position: relative; z-index: 2;">🚀 Launch Trading Interface</span>
+                  <div style="position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent); transition: left 0.5s ease;"></div>
+                </a>
+                <div style="margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid rgba(255, 69, 0, 0.2);">
+                  <p style="font-size: 1rem; color: var(--text-muted); font-family: 'Lexend', sans-serif; margin-bottom: 0.8rem; font-weight: 300;">
+                    ARCx Token Contract Address
+                  </p>
+                  <div style="display: flex; align-items: center; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                    <code style="font-size: 0.9rem; color: var(--accent-primary); background: rgba(255, 69, 0, 0.1); padding: 0.8rem 1.2rem; border-radius: 0; font-family: 'Courier New', monospace; border: 1px solid rgba(255, 69, 0, 0.2);">
+                      0xA4093669DAFbD123E37d52e0939b3aB3C2272f44
+                    </code>
+                    <button onclick="navigator.clipboard.writeText('0xA4093669DAFbD123E37d52e0939b3aB3C2272f44')" 
+                            style="background: rgba(255, 69, 0, 0.2); border: 1px solid rgba(255, 69, 0, 0.3); color: var(--accent-primary); padding: 0.5rem 1rem; border-radius: 0; cursor: pointer; font-family: 'Lexend', sans-serif; transition: all 0.2s ease;">
+                      📋 Copy
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <style>
+              @keyframes pulse {
+                0%, 100% { transform: scale(1); opacity: 0.5; }
+                50% { transform: scale(1.1); opacity: 0.8; }
+              }
+            </style>
+          `;
+          placeholder.innerHTML = fallbackContent;
+          placeholder.style.display = 'block';
+          placeholder.style.opacity = '1';
+        }
+        
+        widgetWrapper.appendChild(iframe);
+        
+        // Start loading the widget
+        setTimeout(() => {
+          // Small delay to show loading state
+        }, 500);
+      }
+      
+      // Initialize widget after DOM is ready
+      setTimeout(initUniswapWidget, 1000);
     });
   </script>
 </body>

@@ -6,7 +6,9 @@ const CONFIG = {
     CHAIN_ID: 8453, // Base L2
     RPC_URL: 'https://mainnet.base.org',
     AIRDROP_CONTRACT: '0x123...abc', // Placeholder - will be updated when deployed
-    ARCX_TOKEN: '0xA4093669DAFbD123E37d52e0939b3aB3C2272f44'
+    ARCX_TOKEN: '0xA4093669DAFbD123E37d52e0939b3aB3C2272f44',
+    // Set airdrop start time (7 days from now as example)
+    AIRDROP_START_TIME: new Date(Date.now() + (7 * 24 * 60 * 60 * 1000)).getTime()
 };
 
 let provider = null;
@@ -25,6 +27,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize wallet connection
     initializeWalletConnection();
+    
+    // Start countdown timer
+    initializeCountdownTimer();
     
     // Show coming soon message by default
     document.getElementById('comingSoonMessage').style.display = 'block';
@@ -150,4 +155,45 @@ function addDebugInfo(message) {
     const debugDiv = document.getElementById('debugInfo');
     const timestamp = new Date().toLocaleTimeString();
     debugDiv.innerHTML += `<br>[${timestamp}] ${message}`;
+}
+
+// Countdown Timer Functions
+function initializeCountdownTimer() {
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+}
+
+function updateCountdown() {
+    const now = new Date().getTime();
+    const distance = CONFIG.AIRDROP_START_TIME - now;
+    
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+    // Update display
+    document.getElementById('days').textContent = String(days).padStart(2, '0');
+    document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+    document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+    document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+    
+    const timerMessage = document.getElementById('timerMessage');
+    const countdownDisplay = document.getElementById('countdownTimer');
+    
+    if (distance < 0) {
+        // Airdrop has started
+        countdownDisplay.classList.add('expired');
+        timerMessage.textContent = 'Airdrop claiming is now live!';
+        updateSystemStatus('LIVE', 'Airdrop claiming is now available');
+        
+        // Hide coming soon message and show claim interface
+        document.getElementById('comingSoonMessage').style.display = 'none';
+        
+        addDebugInfo('Airdrop countdown expired - claiming is now live');
+    } else {
+        // Still counting down
+        timerMessage.textContent = 'Until airdrop claiming begins';
+        updateSystemStatus('COUNTDOWN ACTIVE', `Airdrop starts in ${days}d ${hours}h ${minutes}m`);
+    }
 }

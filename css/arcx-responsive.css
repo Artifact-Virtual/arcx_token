@@ -1063,3 +1063,62 @@ body {
     font-size: 10px;
   }
 }
+
+/* Countdown Timer Styles */
+.timer-card {
+  background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 82, 255, 0.1));
+  border: 1px solid rgba(0, 255, 136, 0.3);
+  text-align: center;
+}
+
+.countdown-display {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-lg);
+  margin: var(--space-lg) 0;
+  flex-wrap: wrap;
+}
+
+.countdown-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 60px;
+}
+
+.countdown-number {
+  font-family: var(--font-mono);
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: var(--font-weight-bold);
+  color: var(--accent-green);
+  text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+  line-height: 1;
+  margin-bottom: var(--space-xs);
+}
+
+.countdown-label {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: var(--font-weight-medium);
+}
+
+.countdown-display.expired .countdown-number {
+  color: var(--accent-amber);
+  text-shadow: 0 0 20px rgba(255, 170, 0, 0.5);
+}
+
+@media (max-width: 600px) {
+  .countdown-display {
+    gap: var(--space-md);
+  }
+  
+  .countdown-unit {
+    min-width: 45px;
+  }
+  
+  .countdown-number {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+  }
+}
