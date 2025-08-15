@@ -1,3 +1,0 @@
-# Project Summary
-
-**ARCx Token** is an ERC20-compliant smart contract designed to fund and provision the genesis phase of The Arc Protocol, a sovereign blockchain for constitutional intelligence. ARCx is a fixed-supply, non-inflationary token with a contract-enforced migration path to the FUEL protocol. The project emphasizes robust access control, immutability, and operational security. All code is written in Solidity 0.8.21, leveraging OpenZeppelin libraries, and is accompanied by comprehensive documentation and a full test suite. The development environment is fully modernized and free of known dependency vulnerabilities.
