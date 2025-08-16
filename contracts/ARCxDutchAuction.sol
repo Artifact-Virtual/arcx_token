@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
-import "@openzeppelin/contracts/utils/math/SafeMath.sol";
+
 
 /**
  * @title ARCx Dutch Auction
@@ -13,7 +13,6 @@ import "@openzeppelin/contracts/utils/math/SafeMath.sol";
  * Constitutional Intelligence: Price discovery through democratic market mechanisms
  */
 contract ARCxDutchAuction is AccessControl, ReentrancyGuard, Pausable {
-    using SafeMath for uint256;
 
     // Roles
     bytes32 public constant AUCTION_ADMIN = keccak256("AUCTION_ADMIN");
@@ -62,6 +61,7 @@ contract ARCxDutchAuction is AccessControl, ReentrancyGuard, Pausable {
     event AuctionFinalized(uint256 tokensSold, uint256 totalRaised);
     event EarlySupporter(address indexed supporter, uint256 bonusPercent);
     event ContributionScored(address indexed user, uint256 score);
+    event EmergencyWithdrawal(address indexed token, address indexed to, uint256 amount);
 
     constructor(
         address _arcxToken,
@@ -80,19 +80,19 @@ contract ARCxDutchAuction is AccessControl, ReentrancyGuard, Pausable {
         require(_startPrice > _reservePrice, "Start price must be > reserve");
         require(_treasury != address(0), "Invalid treasury address");
 
-        arcxToken = IERC20(_arcxToken);
-        totalTokens = _totalTokens;
-        startTime = _startTime;
-        auctionDuration = _auctionDuration;
-        endTime = _startTime.add(_auctionDuration);
-        startPrice = _startPrice;
-        reservePrice = _reservePrice;
-        treasury = _treasury;
-        maxPurchasePerAddress = _maxPurchasePerAddress;
+    arcxToken = IERC20(_arcxToken);
+    totalTokens = _totalTokens;
+    startTime = _startTime;
+    auctionDuration = _auctionDuration;
+    endTime = _startTime + _auctionDuration;
+    startPrice = _startPrice;
+    reservePrice = _reservePrice;
+    treasury = _treasury;
+    maxPurchasePerAddress = _maxPurchasePerAddress;
 
-        // Tier limits for fair distribution
-        tierOneLimit = _maxPurchasePerAddress.div(10);  // 10% max for small buyers
-        tierTwoLimit = _maxPurchasePerAddress.div(4);   // 25% max for medium buyers
+    // Tier limits for fair distribution
+    tierOneLimit = _maxPurchasePerAddress / 10;  // 10% max for small buyers
+    tierTwoLimit = _maxPurchasePerAddress / 4;   // 25% max for medium buyers
 
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
         _grantRole(AUCTION_ADMIN, msg.sender);
@@ -113,20 +113,20 @@ contract ARCxDutchAuction is AccessControl, ReentrancyGuard, Pausable {
         }
 
         // Time-based price decline
-        uint256 timeElapsed = block.timestamp.sub(startTime);
-        uint256 priceDecline = startPrice.sub(reservePrice);
-        uint256 timeBasedPrice = startPrice.sub(
-            priceDecline.mul(timeElapsed).div(auctionDuration)
+    uint256 timeElapsed = block.timestamp - startTime;
+    uint256 priceDecline = startPrice - reservePrice;
+        uint256 timeBasedPrice = startPrice - (
+            (priceDecline * timeElapsed) / auctionDuration
         );
 
         // Demand-based adjustment
-        uint256 soldPercentage = tokensSold.mul(100).div(totalTokens);
+    uint256 soldPercentage = (tokensSold * 100) / totalTokens;
         if (soldPercentage > 80) {
             // High demand - slow price decline
-            timeBasedPrice = timeBasedPrice.add(timeBasedPrice.div(10));
+            timeBasedPrice = timeBasedPrice + (timeBasedPrice / 10);
         } else if (soldPercentage < 20) {
             // Low demand - accelerate price decline  
-            timeBasedPrice = timeBasedPrice.sub(timeBasedPrice.div(20));
+            timeBasedPrice = timeBasedPrice - (timeBasedPrice / 20);
         }
 
         return timeBasedPrice < reservePrice ? reservePrice : timeBasedPrice;
@@ -140,10 +140,10 @@ contract ARCxDutchAuction is AccessControl, ReentrancyGuard, Pausable {
         uint8 tier;
         uint256 bonusPercent = 0;
 
-        if (totalPurchased.add(amount) <= tierOneLimit) {
+    if ((totalPurchased + amount) <= tierOneLimit) {
             tier = 1;
             bonusPercent = 15; // 15% discount for small buyers
-        } else if (totalPurchased.add(amount) <= tierTwoLimit) {
+    } else if ((totalPurchased + amount) <= tierTwoLimit) {
             tier = 2;
             bonusPercent = 10; // 10% discount for medium buyers
         } else {
@@ -153,13 +153,13 @@ contract ARCxDutchAuction is AccessControl, ReentrancyGuard, Pausable {
 
         // Early supporter bonus
         if (earlySupporter[buyer]) {
-            bonusPercent = bonusPercent.add(5);
+            bonusPercent = bonusPercent + 5;
         }
 
         // Contribution score bonus (max 10%)
-        uint256 contributionBonus = contributionScore[buyer].div(10);
+    uint256 contributionBonus = contributionScore[buyer] / 10;
         if (contributionBonus > 10) contributionBonus = 10;
-        bonusPercent = bonusPercent.add(contributionBonus);
+    bonusPercent = bonusPercent + contributionBonus;
 
         return (tier, bonusPercent);
     }
@@ -179,21 +179,21 @@ contract ARCxDutchAuction is AccessControl, ReentrancyGuard, Pausable {
         // Apply tier bonus to price
         uint256 effectivePrice = currentPrice;
         if (bonusPercent > 0) {
-            effectivePrice = currentPrice.sub(currentPrice.mul(bonusPercent).div(100));
+            effectivePrice = currentPrice - ((currentPrice * bonusPercent) / 100);
         }
 
-        uint256 tokensToReceive = msg.value.mul(1e18).div(effectivePrice);
+    uint256 tokensToReceive = (msg.value * 1e18) / effectivePrice;
         
-        require(tokensSold.add(tokensToReceive) <= totalTokens, "Not enough tokens available");
+    require(tokensSold + tokensToReceive <= totalTokens, "Not enough tokens available");
         require(
-            userPurchases[msg.sender].add(tokensToReceive) <= maxPurchasePerAddress,
+            userPurchases[msg.sender] + tokensToReceive <= maxPurchasePerAddress,
             "Exceeds max purchase limit"
         );
 
         // Update state
-        tokensSold = tokensSold.add(tokensToReceive);
-        totalRaised = totalRaised.add(msg.value);
-        userPurchases[msg.sender] = userPurchases[msg.sender].add(tokensToReceive);
+    tokensSold = tokensSold + tokensToReceive;
+    totalRaised = totalRaised + msg.value;
+    userPurchases[msg.sender] = userPurchases[msg.sender] + tokensToReceive;
 
         // Record purchase history
         userPurchaseHistory[msg.sender].push(Purchase({
@@ -255,7 +255,7 @@ contract ARCxDutchAuction is AccessControl, ReentrancyGuard, Pausable {
         finalized = true;
 
         // Transfer remaining tokens back to treasury
-        uint256 remainingTokens = totalTokens.sub(tokensSold);
+    uint256 remainingTokens = totalTokens - tokensSold;
         if (remainingTokens > 0) {
             require(
                 arcxToken.transfer(treasury, remainingTokens),
@@ -284,6 +284,46 @@ contract ARCxDutchAuction is AccessControl, ReentrancyGuard, Pausable {
     }
 
     /**
+     * @dev Emergency admin withdrawal of tokens
+     * @param token Address of the token to withdraw (use arcxToken for ARCx)
+     * @param to Address to send tokens to (deployer or treasury)
+     * @param amount Amount of tokens to withdraw
+     */
+    function emergencyWithdraw(
+        address token,
+        address to,
+        uint256 amount
+    ) external onlyRole(DEFAULT_ADMIN_ROLE) {
+        require(token != address(0), "Invalid token address");
+        require(to != address(0), "Invalid recipient address");
+        require(amount > 0, "Amount must be greater than 0");
+        
+        IERC20(token).transfer(to, amount);
+        
+        emit EmergencyWithdrawal(token, to, amount);
+    }
+
+    /**
+     * @dev Emergency admin withdrawal of all tokens of a specific type
+     * @param token Address of the token to withdraw
+     * @param to Address to send tokens to
+     */
+    function emergencyWithdrawAll(
+        address token,
+        address to
+    ) external onlyRole(DEFAULT_ADMIN_ROLE) {
+        require(token != address(0), "Invalid token address");
+        require(to != address(0), "Invalid recipient address");
+        
+        uint256 balance = IERC20(token).balanceOf(address(this));
+        require(balance > 0, "No tokens to withdraw");
+        
+        IERC20(token).transfer(to, balance);
+        
+        emit EmergencyWithdrawal(token, to, balance);
+    }
+
+    /**
      * @dev Get user purchase history
      */
     function getUserPurchases(address user) external view returns (Purchase[] memory) {
@@ -303,9 +343,9 @@ contract ARCxDutchAuction is AccessControl, ReentrancyGuard, Pausable {
     ) {
         _currentPrice = getCurrentPrice();
         _tokensSold = tokensSold;
-        _tokensRemaining = totalTokens.sub(tokensSold);
+    _tokensRemaining = totalTokens - tokensSold;
         _totalRaised = totalRaised;
-        _timeRemaining = block.timestamp >= endTime ? 0 : endTime.sub(block.timestamp);
+    _timeRemaining = block.timestamp >= endTime ? 0 : endTime - block.timestamp;
         _isActive = block.timestamp >= startTime && block.timestamp < endTime && !finalized;
     }
 
@@ -316,15 +356,15 @@ contract ARCxDutchAuction is AccessControl, ReentrancyGuard, Pausable {
         if (tokensSold == 0) return 100;
         
         // Base fairness: How distributed the sales are
-        uint256 averagePurchase = tokensSold.div(totalTokens.div(maxPurchasePerAddress));
+    uint256 averagePurchase = tokensSold / (totalTokens / maxPurchasePerAddress);
         
         // Tier distribution fairness
         uint256 tierOneSales = 0;
         // This would require tracking tier sales in practice
         
         // Time distribution fairness  
-        uint256 timeFairness = (endTime.sub(startTime)).div(3600); // Hours of equal access
+    uint256 timeFairness = (endTime - startTime) / 3600; // Hours of equal access
         
-        return (averagePurchase.add(timeFairness)).mul(100).div(200);
+    return ((averagePurchase + timeFairness) * 100) / 200;
     }
 }
